@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A股每日复盘看板</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>A股每日复盘看板</h1>
+        <p id="updated">加载中...</p>
+      </div>
+      <nav class="nav">
+        <a href="#themes">板块催化</a>
+        <a href="#ladder">连板天梯</a>
+        <a href="#leaders">龙头股</a>
+        <a href="#stocks">个股明细</a>
+        <a href="#archive">历史报告</a>
+      </nav>
+    </header>
+
+    <main id="app">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">收盘后自动更新</p>
+          <h2 id="report-title">今日涨停复盘</h2>
+          <p id="report-summary"></p>
+          <div class="actions">
+            <a id="pdf-link" class="primary-link" href="#" target="_blank" rel="noreferrer">查看PDF</a>
+            <a class="secondary-link" href="#stocks">查看明细</a>
+          </div>
+        </div>
+        <div class="metrics" aria-label="核心指标">
+          <div>
+            <span id="metric-date">--</span>
+            <strong>数据日期</strong>
+          </div>
+          <div>
+            <span id="metric-count">--</span>
+            <strong>涨停家数</strong>
+          </div>
+          <div>
+            <span id="metric-high">--</span>
+            <strong>最高连板</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="overview">
+        <div class="section-head">
+          <h2>核心结论</h2>
+          <p id="scope"></p>
+        </div>
+        <div id="summary-list" class="summary-grid"></div>
+      </section>
+
+      <section class="section" id="themes">
+        <div class="section-head">
+          <h2>板块催化</h2>
+          <p>按今日涨停主因归纳，优先展示板块级驱动和辨识度个股。</p>
+        </div>
+        <div id="theme-grid" class="theme-grid"></div>
+      </section>
+
+      <section class="section two-col">
+        <div id="ladder">
+          <div class="section-head compact">
+            <h2>连板天梯</h2>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>高度</th>
+                  <th>股票</th>
+                  <th>题材</th>
+                  <th>说明</th>
+                </tr>
+              </thead>
+              <tbody id="ladder-body"></tbody>
+            </table>
+          </div>
+        </div>
+        <div id="leaders">
+          <div class="section-head compact">
+            <h2>强势龙头</h2>
+          </div>
+          <div id="leader-list" class="leader-list"></div>
+        </div>
+      </section>
+
+      <section class="section" id="specials">
+        <div class="section-head">
+          <h2>专题观察</h2>
+          <p>临时盘面问题会沉淀在这里，便于和日报一起回看。</p>
+        </div>
+        <div id="special-list" class="special-list"></div>
+      </section>
+
+      <section class="section" id="stats">
+        <div class="section-head">
+          <h2>分类统计</h2>
+          <p>按主要涨停原因归类，一股多题材时只取最核心驱动。</p>
+        </div>
+        <div id="stat-bars" class="stat-bars"></div>
+      </section>
+
+      <section class="section" id="stocks">
+        <div class="section-head">
+          <h2>个股明细</h2>
+          <div class="tools">
+            <input id="search" type="search" placeholder="搜索代码、名称、题材或原因" />
+            <select id="category-filter" aria-label="按分类筛选">
+              <option value="">全部分类</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>代码</th>
+                <th>名称</th>
+                <th>主因分类</th>
+                <th>原因摘要</th>
+                <th>地位</th>
+              </tr>
+            </thead>
+            <tbody id="stock-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="archive">
+        <div class="section-head">
+          <h2>历史报告</h2>
+          <p>每日自动任务会继续把新报告追加到这里。</p>
+        </div>
+        <div id="archive-list" class="archive-list"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>本看板仅用于盘后复盘和研究，不构成投资建议。</p>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
