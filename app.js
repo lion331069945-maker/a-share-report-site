@@ -1,6 +1,8 @@
 const state = {
   report: null,
   stocks: [],
+  marketCharts: null,
+  activeChart: 0,
 };
 
 const el = (selector) => document.querySelector(selector);
@@ -17,6 +19,29 @@ const create = (tag, className, content) => {
 };
 
 const maxStat = (stats) => Math.max(...stats.map((item) => item.count), 1);
+
+const svgNS = "http://www.w3.org/2000/svg";
+
+function svg(tag, attrs = {}) {
+  const node = document.createElementNS(svgNS, tag);
+  Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
+  return node;
+}
+
+function formatNumber(value) {
+  return Number(value).toLocaleString("zh-CN", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+function pctClass(value) {
+  return value >= 0 ? "up" : "down";
+}
+
+function pctText(value) {
+  return `${value >= 0 ? "+" : ""}${Number(value).toFixed(2)}%`;
+}
 
 function setHero(report, updatedAt) {
   text("#updated", `最后更新：${updatedAt}`);
@@ -195,9 +220,140 @@ function renderArchive(reports) {
   });
 }
 
+function renderChartTabs(charts) {
+  const root = el("#chart-tabs");
+  root.innerHTML = "";
+  charts.series.forEach((series, index) => {
+    const button = create("button", "chart-tab", series.name);
+    button.type = "button";
+    button.setAttribute("role", "tab");
+    button.setAttribute("aria-selected", index === state.activeChart ? "true" : "false");
+    button.addEventListener("click", () => {
+      state.activeChart = index;
+      renderMarketCharts();
+    });
+    root.append(button);
+  });
+}
+
+function pathFromPoints(points) {
+  return points.map((point, index) => `${index === 0 ? "M" : "L"}${point.x.toFixed(2)},${point.y.toFixed(2)}`).join(" ");
+}
+
+function makeScales(points, width, height, pad) {
+  const values = points.flatMap((point) => [point.close, point.high, point.low]);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const gap = Math.max((max - min) * 0.08, max * 0.002);
+  const yMin = min - gap;
+  const yMax = max + gap;
+  const xStep = points.length > 1 ? (width - pad.left - pad.right) / (points.length - 1) : 0;
+  const yScale = (value) => pad.top + ((yMax - value) / (yMax - yMin)) * (height - pad.top - pad.bottom);
+  const xScale = (index) => pad.left + index * xStep;
+  return { yMin, yMax, xScale, yScale };
+}
+
+function nearestPoint(event, svgNode, points) {
+  const rect = svgNode.getBoundingClientRect();
+  const x = ((event.clientX - rect.left) / rect.width) * 920;
+  return points.reduce((best, point, index) => {
+    const distance = Math.abs(point.x - x);
+    return distance < best.distance ? { point, index, distance } : best;
+  }, { point: points[0], index: 0, distance: Infinity });
+}
+
+function showTooltip(event, series, point) {
+  const tooltip = el("#chart-tooltip");
+  const wrap = el(".chart-wrap");
+  const rect = wrap.getBoundingClientRect();
+  tooltip.hidden = false;
+  tooltip.innerHTML = `<strong>${series.name} ${point.date}</strong><div>收盘：${formatNumber(point.close)}</div><div>涨跌幅：${pctText(point.pct)}</div>`;
+  tooltip.style.left = `${event.clientX - rect.left}px`;
+  tooltip.style.top = `${event.clientY - rect.top}px`;
+}
+
+function renderMarketCharts() {
+  const charts = state.marketCharts;
+  if (!charts?.series?.length) return;
+
+  renderChartTabs(charts);
+  text("#market-source", `${charts.source}；更新于 ${charts.updatedAt}`);
+
+  const series = charts.series[state.activeChart];
+  const points = series.points || [];
+  const latest = points[points.length - 1];
+  const svgNode = el("#market-chart");
+  svgNode.innerHTML = "";
+  if (!points.length) return;
+
+  text("#chart-name", `${series.name}（${series.latestDate}）`);
+  text("#chart-close", formatNumber(series.latestClose));
+  const change = el("#chart-change");
+  change.textContent = `${pctText(series.latestPct)} / 区间 ${pctText(series.rangePct)}`;
+  change.className = pctClass(series.latestPct);
+  text("#chart-range", `${points[0].date} 至 ${latest.date}`);
+
+  const width = 920;
+  const height = 300;
+  const pad = { top: 20, right: 64, bottom: 34, left: 54 };
+  const scales = makeScales(points, width, height, pad);
+  const mapped = points.map((point, index) => ({
+    ...point,
+    x: scales.xScale(index),
+    y: scales.yScale(point.close),
+  }));
+
+  [0, 0.25, 0.5, 0.75, 1].forEach((ratio) => {
+    const y = pad.top + ratio * (height - pad.top - pad.bottom);
+    svgNode.append(svg("line", { class: "chart-grid", x1: pad.left, x2: width - pad.right, y1: y, y2: y }));
+    const value = scales.yMax - ratio * (scales.yMax - scales.yMin);
+    const label = svg("text", { class: "chart-label", x: width - pad.right + 8, y: y + 4 });
+    label.textContent = formatNumber(value);
+    svgNode.append(label);
+  });
+
+  svgNode.append(svg("line", { class: "chart-axis", x1: pad.left, x2: width - pad.right, y1: height - pad.bottom, y2: height - pad.bottom }));
+  const area = `${pathFromPoints(mapped)} L${width - pad.right},${height - pad.bottom} L${pad.left},${height - pad.bottom} Z`;
+  svgNode.append(svg("path", { class: "chart-area", d: area, fill: series.color }));
+  svgNode.append(svg("path", { class: "chart-line", d: pathFromPoints(mapped), stroke: series.color }));
+
+  const firstLabel = svg("text", { class: "chart-label", x: pad.left, y: height - 10 });
+  firstLabel.textContent = mapped[0].date.slice(5);
+  svgNode.append(firstLabel);
+  const lastLabel = svg("text", { class: "chart-label", x: width - pad.right - 32, y: height - 10 });
+  lastLabel.textContent = latest.date.slice(5);
+  svgNode.append(lastLabel);
+
+  const crosshair = svg("line", { class: "chart-crosshair", x1: mapped.at(-1).x, x2: mapped.at(-1).x, y1: pad.top, y2: height - pad.bottom });
+  const dot = svg("circle", { class: "chart-point", cx: mapped.at(-1).x, cy: mapped.at(-1).y, r: 5, stroke: series.color });
+  svgNode.append(crosshair, dot);
+
+  const updateHover = (event) => {
+    const nearest = nearestPoint(event, svgNode, mapped).point;
+    crosshair.setAttribute("x1", nearest.x);
+    crosshair.setAttribute("x2", nearest.x);
+    dot.setAttribute("cx", nearest.x);
+    dot.setAttribute("cy", nearest.y);
+    showTooltip(event, series, nearest);
+  };
+
+  svgNode.onpointermove = updateHover;
+  svgNode.onpointerleave = () => {
+    el("#chart-tooltip").hidden = true;
+    crosshair.setAttribute("x1", mapped.at(-1).x);
+    crosshair.setAttribute("x2", mapped.at(-1).x);
+    dot.setAttribute("cx", mapped.at(-1).x);
+    dot.setAttribute("cy", mapped.at(-1).y);
+  };
+}
+
 async function init() {
-  const response = await fetch("./data/reports.json", { cache: "no-store" });
-  const data = await response.json();
+  const [reportResponse, chartResponse] = await Promise.all([
+    fetch("./data/reports.json", { cache: "no-store" }),
+    fetch("./data/market_charts.json", { cache: "no-store" }),
+  ]);
+  const data = await reportResponse.json();
+  state.marketCharts = await chartResponse.json();
   const report = data.reports[0];
   state.report = report;
   state.stocks = report.stocks;
@@ -212,6 +368,7 @@ async function init() {
   setupFilters(report.stocks);
   renderStocks();
   renderArchive(data.reports);
+  renderMarketCharts();
 }
 
 init().catch((error) => {

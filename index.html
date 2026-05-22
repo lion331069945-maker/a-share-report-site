@@ -13,6 +13,7 @@
         <p id="updated">加载中...</p>
       </div>
       <nav class="nav">
+        <a href="#market">市场走势</a>
         <a href="#themes">板块催化</a>
         <a href="#ladder">连板天梯</a>
         <a href="#leaders">龙头股</a>
@@ -22,6 +23,28 @@
     </header>
 
     <main id="app">
+      <section class="section market-section" id="market">
+        <div class="section-head">
+          <div>
+            <h2>市场走势</h2>
+            <p id="market-source">上证指数、创业板指、证券板块走势加载中...</p>
+          </div>
+          <div id="chart-tabs" class="chart-tabs" role="tablist" aria-label="市场走势图"></div>
+        </div>
+        <div class="chart-shell">
+          <div class="chart-summary">
+            <span id="chart-name">--</span>
+            <strong id="chart-close">--</strong>
+            <small id="chart-change">--</small>
+          </div>
+          <div class="chart-wrap">
+            <svg id="market-chart" viewBox="0 0 920 300" role="img" aria-label="市场走势图"></svg>
+            <div id="chart-tooltip" class="chart-tooltip" hidden></div>
+          </div>
+          <div id="chart-range" class="chart-range"></div>
+        </div>
+      </section>
+
       <section class="hero">
         <div class="hero-copy">
           <p class="eyebrow">收盘后自动更新</p>
