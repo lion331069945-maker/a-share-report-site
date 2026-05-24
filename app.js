@@ -1,6 +1,7 @@
 const state = {
   report: null,
   stocks: [],
+  newHighStocks: [],
   marketCharts: null,
   activeChart: 0,
 };
@@ -145,8 +146,15 @@ function uniqueCategories(stocks) {
   );
 }
 
+function uniqueNewHighSectors(stocks) {
+  return [...new Set(stocks.map((stock) => stock.sector || stock.board || "").filter(Boolean))].sort(
+    (a, b) => a.localeCompare(b, "zh-CN"),
+  );
+}
+
 function setupFilters(stocks) {
   const filter = el("#category-filter");
+  filter.innerHTML = '<option value="">全部分类</option>';
   uniqueCategories(stocks).forEach((category) => {
     const option = document.createElement("option");
     option.value = category;
@@ -156,6 +164,23 @@ function setupFilters(stocks) {
 
   el("#search").addEventListener("input", renderStocks);
   filter.addEventListener("change", renderStocks);
+}
+
+function setupNewHighFilters(stocks) {
+  const filter = el("#new-high-filter");
+  const search = el("#new-high-search");
+  if (!filter || !search) return;
+
+  filter.innerHTML = '<option value="">全部分类</option>';
+  uniqueNewHighSectors(stocks).forEach((sector) => {
+    const option = document.createElement("option");
+    option.value = sector;
+    option.textContent = sector;
+    filter.append(option);
+  });
+
+  search.addEventListener("input", renderNewHighs);
+  filter.addEventListener("change", renderNewHighs);
 }
 
 function renderStocks() {
@@ -198,10 +223,13 @@ function renderStocks() {
     });
 }
 
-function renderNewHighs(report) {
+function renderNewHighs() {
   const root = el("#new-high-body");
   const scope = el("#new-high-scope");
-  const rows = report.newHighStocks || report.newHighs || [];
+  const report = state.report || {};
+  const rows = state.newHighStocks || [];
+  const query = (el("#new-high-search")?.value || "").trim().toLowerCase();
+  const sector = el("#new-high-filter")?.value || "";
   root.innerHTML = "";
 
   if (scope && report.newHighScope) {
@@ -218,7 +246,22 @@ function renderNewHighs(report) {
     return;
   }
 
-  rows.forEach((stock) => {
+  rows
+    .filter((stock) => {
+      const stockSector = stock.sector || stock.board || "";
+      const haystack = [
+        stock.code,
+        stock.name,
+        stock.highType || stock.type,
+        stockSector,
+        stock.catalyst || stock.reason,
+        stock.note,
+      ]
+        .join(" ")
+        .toLowerCase();
+      return (!query || haystack.includes(query)) && (!sector || stockSector === sector);
+    })
+    .forEach((stock) => {
     const tr = document.createElement("tr");
     [
       stock.code || "",
@@ -240,6 +283,15 @@ function renderNewHighs(report) {
     });
     root.append(tr);
   });
+
+  if (!root.children.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 6;
+    td.textContent = "没有匹配的创新高股票。";
+    tr.append(td);
+    root.append(tr);
+  }
 }
 
 function renderArchive(reports) {
@@ -401,6 +453,7 @@ async function init() {
   const report = data.reports[0];
   state.report = report;
   state.stocks = report.stocks;
+  state.newHighStocks = report.newHighStocks || report.newHighs || [];
 
   setHero(report, data.updatedAt);
   renderSummary(report);
@@ -409,7 +462,8 @@ async function init() {
   renderLeaders(report);
   renderSpecials(report);
   renderStats(report);
-  renderNewHighs(report);
+  setupNewHighFilters(state.newHighStocks);
+  renderNewHighs();
   setupFilters(report.stocks);
   renderStocks();
   renderArchive(data.reports);
