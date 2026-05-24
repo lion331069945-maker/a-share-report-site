@@ -198,6 +198,50 @@ function renderStocks() {
     });
 }
 
+function renderNewHighs(report) {
+  const root = el("#new-high-body");
+  const scope = el("#new-high-scope");
+  const rows = report.newHighStocks || report.newHighs || [];
+  root.innerHTML = "";
+
+  if (scope && report.newHighScope) {
+    scope.textContent = report.newHighScope;
+  }
+
+  if (!rows.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 6;
+    td.textContent = "暂无创新高数据。收盘自动化更新后，这里会列出当天收盘创新高或盘中创过新高的股票。";
+    tr.append(td);
+    root.append(tr);
+    return;
+  }
+
+  rows.forEach((stock) => {
+    const tr = document.createElement("tr");
+    [
+      stock.code || "",
+      stock.name || "",
+      stock.highType || stock.type || "",
+      stock.sector || stock.board || "",
+      stock.catalyst || stock.reason || "",
+      stock.note || "",
+    ].forEach((value, index) => {
+      const td = document.createElement("td");
+      if (index === 1) {
+        td.append(create("span", "stock-name", value));
+      } else if (index === 2 && value) {
+        td.append(create("span", "status", value));
+      } else {
+        td.textContent = value;
+      }
+      tr.append(td);
+    });
+    root.append(tr);
+  });
+}
+
 function renderArchive(reports) {
   const root = el("#archive-list");
   root.innerHTML = "";
@@ -365,6 +409,7 @@ async function init() {
   renderLeaders(report);
   renderSpecials(report);
   renderStats(report);
+  renderNewHighs(report);
   setupFilters(report.stocks);
   renderStocks();
   renderArchive(data.reports);
