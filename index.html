@@ -18,6 +18,7 @@
         <a href="#ladder">连板天梯</a>
         <a href="#leaders">龙头股</a>
         <a href="#new-highs">创新高</a>
+        <a href="#tech-pullback">科技补涨</a>
         <a href="#stocks">个股明细</a>
         <a href="#archive">历史报告</a>
       </nav>
@@ -157,6 +158,41 @@
               </tr>
             </thead>
             <tbody id="new-high-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="tech-pullback">
+        <div class="section-head">
+          <div>
+            <h2>科技补涨观察</h2>
+            <p id="tech-pullback-scope">
+              收盘后筛选科技方向中近10个交易日横盘、当日涨幅超过5%、成交量大于前一日的股票。
+            </p>
+          </div>
+          <div class="tools">
+            <input id="tech-pullback-search" type="search" placeholder="搜索代码、名称、方向或催化" />
+            <select id="tech-pullback-filter" aria-label="按科技补涨分类筛选">
+              <option value="">全部分类</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="wide-table">
+            <thead>
+              <tr>
+                <th>代码</th>
+                <th>名称</th>
+                <th>科技方向</th>
+                <th>所属行业</th>
+                <th>当日涨幅</th>
+                <th>10日振幅</th>
+                <th>量比</th>
+                <th>成交额</th>
+                <th>补涨逻辑/催化</th>
+              </tr>
+            </thead>
+            <tbody id="tech-pullback-body"></tbody>
           </table>
         </div>
       </section>

@@ -473,6 +473,10 @@ table {
   min-width: 760px;
 }
 
+.wide-table {
+  min-width: 1160px;
+}
+
 th,
 td {
   padding: 11px 12px;
@@ -608,6 +612,11 @@ select {
   color: var(--red);
   font-size: 12px;
   font-weight: 700;
+}
+
+.pct-up {
+  color: var(--red);
+  font-weight: 800;
 }
 
 .footer {

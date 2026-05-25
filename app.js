@@ -2,6 +2,7 @@ const state = {
   report: null,
   stocks: [],
   newHighStocks: [],
+  techPullbackStocks: [],
   marketCharts: null,
   activeChart: 0,
 };
@@ -152,6 +153,12 @@ function uniqueNewHighSectors(stocks) {
   );
 }
 
+function uniqueTechPullbackCategories(stocks) {
+  return [...new Set(stocks.map((stock) => stock.category || stock.sector || "").filter(Boolean))].sort((a, b) =>
+    a.localeCompare(b, "zh-CN"),
+  );
+}
+
 function setupFilters(stocks) {
   const filter = el("#category-filter");
   filter.innerHTML = '<option value="">全部分类</option>';
@@ -181,6 +188,23 @@ function setupNewHighFilters(stocks) {
 
   search.addEventListener("input", renderNewHighs);
   filter.addEventListener("change", renderNewHighs);
+}
+
+function setupTechPullbackFilters(stocks) {
+  const filter = el("#tech-pullback-filter");
+  const search = el("#tech-pullback-search");
+  if (!filter || !search) return;
+
+  filter.innerHTML = '<option value="">全部分类</option>';
+  uniqueTechPullbackCategories(stocks).forEach((category) => {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    filter.append(option);
+  });
+
+  search.addEventListener("input", renderTechPullbacks);
+  filter.addEventListener("change", renderTechPullbacks);
 }
 
 function renderStocks() {
@@ -289,6 +313,84 @@ function renderNewHighs() {
     const td = document.createElement("td");
     td.colSpan = 6;
     td.textContent = "没有匹配的创新高股票。";
+    tr.append(td);
+    root.append(tr);
+  }
+}
+
+function renderTechPullbacks() {
+  const root = el("#tech-pullback-body");
+  const scope = el("#tech-pullback-scope");
+  const report = state.report || {};
+  const rows = state.techPullbackStocks || [];
+  const query = (el("#tech-pullback-search")?.value || "").trim().toLowerCase();
+  const category = el("#tech-pullback-filter")?.value || "";
+  root.innerHTML = "";
+
+  if (scope && report.techPullbackScope) {
+    scope.textContent = report.techPullbackScope;
+  }
+
+  if (!rows.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 9;
+    td.textContent =
+      "暂无符合条件的科技补涨股票。收盘自动化更新后，这里会按10日横盘、当日涨超5%、成交量大于前一日的口径筛选。";
+    tr.append(td);
+    root.append(tr);
+    return;
+  }
+
+  rows
+    .filter((stock) => {
+      const stockCategory = stock.category || stock.sector || "";
+      const haystack = [
+        stock.code,
+        stock.name,
+        stockCategory,
+        stock.sector,
+        stock.catalyst,
+        stock.note,
+        stock.amount,
+      ]
+        .join(" ")
+        .toLowerCase();
+      return (!query || haystack.includes(query)) && (!category || stockCategory === category);
+    })
+    .forEach((stock) => {
+      const tr = document.createElement("tr");
+      [
+        stock.code || "",
+        stock.name || "",
+        stock.category || "",
+        stock.sector || "",
+        stock.pct === undefined ? "" : `${Number(stock.pct).toFixed(2)}%`,
+        stock.rangePct === undefined ? "" : `${Number(stock.rangePct).toFixed(2)}%`,
+        stock.volumeRatio === undefined ? "" : `${Number(stock.volumeRatio).toFixed(2)}倍`,
+        stock.amount || "",
+        stock.catalyst || stock.reason || stock.note || "",
+      ].forEach((value, index) => {
+        const td = document.createElement("td");
+        if (index === 1) {
+          td.append(create("span", "stock-name", value));
+        } else if (index === 2 && value) {
+          td.append(create("span", "status", value));
+        } else if (index === 4 && value) {
+          td.append(create("span", "pct-up", value));
+        } else {
+          td.textContent = value;
+        }
+        tr.append(td);
+      });
+      root.append(tr);
+    });
+
+  if (!root.children.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 9;
+    td.textContent = "没有匹配的科技补涨股票。";
     tr.append(td);
     root.append(tr);
   }
@@ -454,6 +556,7 @@ async function init() {
   state.report = report;
   state.stocks = report.stocks;
   state.newHighStocks = report.newHighStocks || report.newHighs || [];
+  state.techPullbackStocks = report.techPullbackStocks || [];
 
   setHero(report, data.updatedAt);
   renderSummary(report);
@@ -464,6 +567,8 @@ async function init() {
   renderStats(report);
   setupNewHighFilters(state.newHighStocks);
   renderNewHighs();
+  setupTechPullbackFilters(state.techPullbackStocks);
+  renderTechPullbacks();
   setupFilters(report.stocks);
   renderStocks();
   renderArchive(data.reports);
