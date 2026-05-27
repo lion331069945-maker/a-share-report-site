@@ -14,6 +14,7 @@
       </div>
       <nav class="nav">
         <a href="#market">市场走势</a>
+        <a href="#strategy">盘面策略</a>
         <a href="#themes">板块催化</a>
         <a href="#ladder">连板天梯</a>
         <a href="#leaders">龙头股</a>
@@ -45,6 +46,53 @@
           </div>
           <div id="chart-range" class="chart-range"></div>
         </div>
+      </section>
+
+      <section class="section strategy-section" id="strategy">
+        <div class="section-head">
+          <div>
+            <h2>盘面策略解读</h2>
+            <p id="strategy-date">基于指数、板块、涨停情绪和技术指标生成</p>
+          </div>
+        </div>
+        <div id="strategy-snapshot" class="strategy-snapshot"></div>
+        <div class="strategy-grid">
+          <article class="strategy-panel">
+            <h3>今日盘面</h3>
+            <div id="strategy-market" class="strategy-list"></div>
+          </article>
+          <article class="strategy-panel">
+            <h3>技术结构</h3>
+            <div id="strategy-technical" class="strategy-list"></div>
+          </article>
+          <article class="strategy-panel">
+            <h3>情绪周期</h3>
+            <div id="strategy-sentiment" class="strategy-list"></div>
+          </article>
+        </div>
+        <div class="section-head compact strategy-subhead">
+          <h3>指数技术指标</h3>
+        </div>
+        <div class="table-wrap">
+          <table class="strategy-table">
+            <thead>
+              <tr>
+                <th>指数/板块</th>
+                <th>趋势</th>
+                <th>均线位置</th>
+                <th>MACD</th>
+                <th>RSI</th>
+                <th>布林带</th>
+                <th>支撑/压力</th>
+              </tr>
+            </thead>
+            <tbody id="strategy-indicators"></tbody>
+          </table>
+        </div>
+        <div class="section-head compact strategy-subhead">
+          <h3>次日应对</h3>
+        </div>
+        <div id="strategy-scenarios" class="scenario-grid"></div>
       </section>
 
       <section class="hero">

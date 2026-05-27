@@ -545,6 +545,277 @@ function renderMarketCharts() {
   };
 }
 
+function mean(values) {
+  if (!values.length) return 0;
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
+}
+
+function movingAverage(points, size) {
+  if (points.length < size) return null;
+  return mean(points.slice(-size).map((point) => Number(point.close)));
+}
+
+function ema(values, size) {
+  if (!values.length) return [];
+  const multiplier = 2 / (size + 1);
+  const result = [values[0]];
+  for (let index = 1; index < values.length; index += 1) {
+    result.push(values[index] * multiplier + result[index - 1] * (1 - multiplier));
+  }
+  return result;
+}
+
+function calcMacd(points) {
+  const closes = points.map((point) => Number(point.close));
+  if (closes.length < 35) return null;
+  const ema12 = ema(closes, 12);
+  const ema26 = ema(closes, 26);
+  const dif = ema12.map((value, index) => value - ema26[index]);
+  const dea = ema(dif, 9);
+  const latestDif = dif.at(-1);
+  const latestDea = dea.at(-1);
+  const previousDif = dif.at(-2);
+  const previousDea = dea.at(-2);
+  return {
+    dif: latestDif,
+    dea: latestDea,
+    hist: (latestDif - latestDea) * 2,
+    crossUp: previousDif <= previousDea && latestDif > latestDea,
+    crossDown: previousDif >= previousDea && latestDif < latestDea,
+  };
+}
+
+function calcRsi(points, size = 14) {
+  if (points.length <= size) return null;
+  const changes = points.slice(1).map((point, index) => Number(point.close) - Number(points[index].close));
+  const recent = changes.slice(-size);
+  const gains = recent.map((change) => Math.max(change, 0));
+  const losses = recent.map((change) => Math.abs(Math.min(change, 0)));
+  const avgGain = mean(gains);
+  const avgLoss = mean(losses);
+  if (!avgLoss) return 100;
+  return 100 - 100 / (1 + avgGain / avgLoss);
+}
+
+function calcBoll(points, size = 20) {
+  if (points.length < size) return null;
+  const closes = points.slice(-size).map((point) => Number(point.close));
+  const mid = mean(closes);
+  const variance = mean(closes.map((value) => (value - mid) ** 2));
+  const deviation = Math.sqrt(variance);
+  return {
+    upper: mid + deviation * 2,
+    mid,
+    lower: mid - deviation * 2,
+  };
+}
+
+function formatCompact(value) {
+  if (value === null || value === undefined || Number.isNaN(Number(value))) return "--";
+  return Number(value).toLocaleString("zh-CN", { maximumFractionDigits: 2 });
+}
+
+function getIndicator(series) {
+  const points = series.points || [];
+  const latest = points.at(-1);
+  if (!latest) return null;
+
+  const ma5 = movingAverage(points, 5);
+  const ma10 = movingAverage(points, 10);
+  const ma20 = movingAverage(points, 20);
+  const ma60 = movingAverage(points, 60);
+  const macd = calcMacd(points);
+  const rsi = calcRsi(points);
+  const boll = calcBoll(points);
+  const close = Number(latest.close);
+  const recent = points.slice(-20);
+  const support = Math.min(...recent.map((point) => Number(point.low)));
+  const resistance = Math.max(...recent.map((point) => Number(point.high)));
+  const maStack = [ma5, ma10, ma20].every(Boolean) && ma5 > ma10 && ma10 > ma20;
+  const belowShort = ma5 && close < ma5;
+  const aboveMid = ma20 && close >= ma20;
+
+  let trend = "震荡";
+  if (maStack && close >= ma5) trend = "多头延续";
+  else if (belowShort && aboveMid) trend = "强势回踩";
+  else if (ma20 && close < ma20) trend = "短线转弱";
+  else if (ma5 && close >= ma5) trend = "修复中";
+
+  let macdText = "--";
+  if (macd) {
+    if (macd.crossUp) macdText = "金叉";
+    else if (macd.crossDown) macdText = "死叉";
+    else macdText = macd.hist >= 0 ? "红柱" : "绿柱";
+  }
+
+  let rsiText = "--";
+  if (rsi !== null) {
+    if (rsi >= 75) rsiText = `${rsi.toFixed(1)} 超买`;
+    else if (rsi <= 30) rsiText = `${rsi.toFixed(1)} 超卖`;
+    else rsiText = `${rsi.toFixed(1)} 中性`;
+  }
+
+  let bollText = "--";
+  if (boll) {
+    if (close > boll.upper) bollText = "上轨外";
+    else if (close < boll.lower) bollText = "下轨外";
+    else if (close >= boll.mid) bollText = "中轨上方";
+    else bollText = "中轨下方";
+  }
+
+  return {
+    series,
+    latest,
+    close,
+    ma5,
+    ma10,
+    ma20,
+    ma60,
+    macd,
+    macdText,
+    rsi,
+    rsiText,
+    boll,
+    bollText,
+    support,
+    resistance,
+    trend,
+    score:
+      (close >= (ma5 || close) ? 1 : 0) +
+      (ma5 && ma10 && ma5 >= ma10 ? 1 : 0) +
+      (ma20 && close >= ma20 ? 1 : 0) +
+      (macd && macd.hist >= 0 ? 1 : 0) +
+      (rsi !== null && rsi >= 45 && rsi <= 72 ? 1 : 0),
+  };
+}
+
+function addInfoItem(root, label, value, tone = "") {
+  const item = create("div", `strategy-item ${tone}`.trim());
+  item.append(create("span", "", label));
+  item.append(create("strong", "", value));
+  root.append(item);
+}
+
+function addSnapshot(label, value, tone = "") {
+  const card = create("article", `snapshot-card ${tone}`.trim());
+  card.append(create("span", "", label));
+  card.append(create("strong", "", value));
+  return card;
+}
+
+function renderStrategy() {
+  const report = state.report;
+  const charts = state.marketCharts;
+  if (!report || !charts?.series?.length) return;
+
+  const indicators = charts.series.map(getIndicator).filter(Boolean);
+  const shanghai = indicators.find((item) => item.series.id === "shanghai") || indicators[0];
+  const techIndicators = indicators.filter((item) =>
+    ["semiconductor", "optical_module", "fiber_optic", "chinext"].includes(item.series.id),
+  );
+  const avgTechScore = techIndicators.length ? mean(techIndicators.map((item) => item.score)) : shanghai.score;
+  const limitUpCount = Number(report.market?.limitUpCount || state.stocks.length || 0);
+  const ladderHeight = Number.parseInt(report.ladder?.[0]?.height, 10) || 0;
+  const strongThemes = (report.themes || []).slice(0, 3).map((theme) => theme.name).join("、") || "暂无明确主线";
+  const newHighCount = state.newHighStocks.length;
+  const techPullbackCount = state.techPullbackStocks.length;
+
+  let marketState = "震荡分歧";
+  if (shanghai.series.latestPct > 0.5 && limitUpCount >= 60) marketState = "强修复";
+  else if (shanghai.series.latestPct > 0 && limitUpCount >= 45) marketState = "温和修复";
+  else if (shanghai.series.latestPct < -1 && limitUpCount < 50) marketState = "分歧加大";
+
+  let sentiment = "中性";
+  if (limitUpCount >= 70 || ladderHeight >= 5) sentiment = "偏强";
+  else if (limitUpCount <= 35 && ladderHeight <= 2) sentiment = "偏弱";
+  else if (ladderHeight >= 3) sentiment = "结构性活跃";
+
+  let nextAction = "控制节奏，围绕前排和低位补涨做观察";
+  if (marketState === "强修复") nextAction = "可跟随主线前排，低吸强趋势回踩";
+  else if (marketState === "分歧加大") nextAction = "防高位补跌，等修复确认后再加仓";
+  else if (avgTechScore >= 3.6) nextAction = "科技线仍可观察低位补涨和放量突破";
+
+  text("#strategy-date", `${report.date} 盘后生成；指数数据更新于 ${charts.updatedAt}`);
+
+  const snapshot = el("#strategy-snapshot");
+  snapshot.innerHTML = "";
+  snapshot.append(addSnapshot("市场状态", marketState, marketState.includes("分歧") ? "warn" : "good"));
+  snapshot.append(addSnapshot("主线方向", strongThemes));
+  snapshot.append(addSnapshot("技术评分", `${avgTechScore.toFixed(1)} / 5`, avgTechScore >= 3.5 ? "good" : "warn"));
+  snapshot.append(addSnapshot("情绪温度", sentiment, sentiment.includes("弱") ? "warn" : "good"));
+  snapshot.append(addSnapshot("次日策略", nextAction));
+
+  const marketRoot = el("#strategy-market");
+  marketRoot.innerHTML = "";
+  addInfoItem(marketRoot, "指数表现", `${shanghai.series.name} ${pctText(shanghai.series.latestPct)}，收于 ${formatCompact(shanghai.close)}`, pctClass(shanghai.series.latestPct));
+  addInfoItem(marketRoot, "强势板块", strongThemes);
+  addInfoItem(marketRoot, "创新高样本", `${newHighCount} 只，观察资金是否继续抱团趋势股`);
+  addInfoItem(marketRoot, "科技补涨", `${techPullbackCount} 只符合横盘后放量启动口径`);
+
+  const technicalRoot = el("#strategy-technical");
+  technicalRoot.innerHTML = "";
+  addInfoItem(technicalRoot, "上证结构", `${shanghai.trend}，${shanghai.bollText}`);
+  addInfoItem(technicalRoot, "均线状态", `MA5 ${formatCompact(shanghai.ma5)} / MA20 ${formatCompact(shanghai.ma20)}`);
+  addInfoItem(technicalRoot, "动能指标", `MACD ${shanghai.macdText}，RSI ${shanghai.rsiText}`);
+  addInfoItem(technicalRoot, "关键区间", `${formatCompact(shanghai.support)} - ${formatCompact(shanghai.resistance)}`);
+
+  const sentimentRoot = el("#strategy-sentiment");
+  sentimentRoot.innerHTML = "";
+  addInfoItem(sentimentRoot, "涨停家数", `${limitUpCount} 只`);
+  addInfoItem(sentimentRoot, "连板高度", ladderHeight ? `${ladderHeight} 板` : "--");
+  addInfoItem(sentimentRoot, "龙头反馈", (report.leaders || []).slice(0, 2).map((item) => item.stocks).join("；") || "等待确认");
+  addInfoItem(sentimentRoot, "情绪判断", sentiment);
+
+  const indicatorRoot = el("#strategy-indicators");
+  indicatorRoot.innerHTML = "";
+  indicators.forEach((item) => {
+    const tr = document.createElement("tr");
+    [
+      item.series.name,
+      item.trend,
+      `MA5 ${formatCompact(item.ma5)} / MA20 ${formatCompact(item.ma20)}`,
+      item.macdText,
+      item.rsiText,
+      item.bollText,
+      `${formatCompact(item.support)} / ${formatCompact(item.resistance)}`,
+    ].forEach((value, index) => {
+      const td = document.createElement("td");
+      if (index === 0) td.append(create("span", "stock-name", value));
+      else if (index === 1) td.append(create("span", `strategy-badge ${item.score >= 4 ? "good" : item.score <= 2 ? "warn" : ""}`.trim(), value));
+      else td.textContent = value;
+      tr.append(td);
+    });
+    indicatorRoot.append(tr);
+  });
+
+  const scenarios = [
+    {
+      title: "强修复",
+      trigger: "指数重新站回短均线，科技主线龙头止跌反包，涨停家数继续扩张。",
+      action: "关注主线核心和低位补涨，优先选择放量突破且回落承接强的标的。",
+    },
+    {
+      title: "弱修复",
+      trigger: "指数冲高回落或缩量反弹，板块内部继续分化，连板高度没有打开。",
+      action: "降低追高欲望，只看前排辨识度和已通过筛选的低位科技补涨。",
+    },
+    {
+      title: "继续分歧",
+      trigger: "指数跌破关键均线，高位趋势股补跌，炸板和跌停反馈明显增加。",
+      action: "以防守为主，等待情绪冰点或新主线确认后再提高仓位。",
+    },
+  ];
+  const scenarioRoot = el("#strategy-scenarios");
+  scenarioRoot.innerHTML = "";
+  scenarios.forEach((scenario) => {
+    const card = create("article", "scenario-card");
+    card.append(create("strong", "", scenario.title));
+    card.append(create("p", "", `触发：${scenario.trigger}`));
+    card.append(create("p", "", `应对：${scenario.action}`));
+    scenarioRoot.append(card);
+  });
+}
+
 async function init() {
   const [reportResponse, chartResponse] = await Promise.all([
     fetch("./data/reports.json", { cache: "no-store" }),
@@ -573,6 +844,7 @@ async function init() {
   renderStocks();
   renderArchive(data.reports);
   renderMarketCharts();
+  renderStrategy();
 }
 
 init().catch((error) => {
