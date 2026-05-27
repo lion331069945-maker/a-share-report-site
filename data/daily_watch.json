@@ -1,7 +1,7 @@
 {
   "date": "2026-05-27",
   "session": "竞价观察",
-  "updatedAt": "2026-05-27 23:36:24 +08:00",
+  "updatedAt": "2026-05-27 23:40:48 +08:00",
   "source": "东方财富涨停池 getTopicZTPool(date=20260527)，筛选首次封板时间 fbt<=09:30 且未开板 zbc=0 的竞价/开盘一字板；fund 为封单金额，封单量按 fund/涨停价估算。",
   "limitUpCount": 1,
   "totalSealFund": 605613595.0,
