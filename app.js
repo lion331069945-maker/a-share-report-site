@@ -703,6 +703,85 @@ function addSnapshot(label, value, tone = "") {
   return card;
 }
 
+function splitNames(value) {
+  if (Array.isArray(value)) return value.flatMap(splitNames);
+  return String(value || "")
+    .split(/[、，,；;\/\s]+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function stockScore(stock) {
+  const consecutive = Number(stock.consecutive || 0);
+  const reopen = Number(stock.reopenCount || 0);
+  const firstTime = stock.firstLimitTime || "15:00:00";
+  const earlyScore = firstTime <= "09:35:00" ? 8 : firstTime <= "10:30:00" ? 5 : firstTime <= "13:30:00" ? 2 : 0;
+  return consecutive * 12 + earlyScore - reopen * 2;
+}
+
+function uniqueStocks(stocks) {
+  const seen = new Set();
+  return stocks.filter((stock) => {
+    const key = stock?.code || stock?.name;
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function rankStocks(stocks) {
+  return uniqueStocks(stocks.filter(Boolean)).sort((a, b) => stockScore(b) - stockScore(a));
+}
+
+function resolveStocks(names, stocks) {
+  return splitNames(names)
+    .map((name) => stocks.find((stock) => stock.name === name) || stocks.find((stock) => name.includes(stock.name)))
+    .filter(Boolean);
+}
+
+function formatStockList(stocks, limit = 4) {
+  const list = stocks.slice(0, limit).map((stock) => `${stock.name}${stock.code ? `(${stock.code})` : ""}`);
+  return list.length ? list.join("、") : "等待盘中确认";
+}
+
+function pickScenarioCandidates(report) {
+  const stocks = report.stocks || [];
+  const themes = report.themes || [];
+  const leaders = report.leaders || [];
+  const techKeywords = ["AI", "科技", "电子", "半导体", "光模块", "光纤", "光芯片", "PCB", "算力", "芯片", "CPO", "存储"];
+  const defenseKeywords = ["电力", "能源", "智能电网", "资源", "材料", "公用"];
+
+  const leaderStocks = resolveStocks(leaders.slice(0, 3).map((item) => item.stocks), stocks);
+  const topThemeStocks = resolveStocks(themes.slice(0, 4).flatMap((theme) => theme.leaders || []), stocks);
+  const techThemeStocks = resolveStocks(
+    themes
+      .filter((theme) => techKeywords.some((keyword) => [theme.name, theme.catalyst, ...(theme.leaders || [])].join(" ").includes(keyword)))
+      .flatMap((theme) => theme.leaders || []),
+    stocks,
+  );
+  const techStocks = stocks.filter((stock) =>
+    techKeywords.some((keyword) => [stock.name, stock.theme, stock.industry, stock.category, stock.reason, stock.status].join(" ").includes(keyword)),
+  );
+  const defenseStocks = stocks.filter((stock) =>
+    defenseKeywords.some((keyword) => [stock.name, stock.theme, stock.industry, stock.category, stock.reason, stock.status].join(" ").includes(keyword)),
+  );
+  const lowPositionTech = techStocks.filter((stock) => Number(stock.consecutive || 0) <= 1);
+
+  return {
+    core: rankStocks([...leaderStocks, ...topThemeStocks]).slice(0, 5),
+    techCore: rankStocks([...techThemeStocks, ...techStocks]).slice(0, 5),
+    lowTech: rankStocks([...state.techPullbackStocks, ...lowPositionTech]).slice(0, 5),
+    defense: rankStocks(defenseStocks).slice(0, 4),
+  };
+}
+
+function addScenarioLine(card, label, value, className = "") {
+  const line = create("p", className);
+  line.append(create("span", "scenario-label", `${label}：`));
+  line.append(document.createTextNode(value));
+  card.append(line);
+}
+
 function renderStrategy() {
   const report = state.report;
   const charts = state.marketCharts;
@@ -719,6 +798,11 @@ function renderStrategy() {
   const strongThemes = (report.themes || []).slice(0, 3).map((theme) => theme.name).join("、") || "暂无明确主线";
   const newHighCount = state.newHighStocks.length;
   const techPullbackCount = state.techPullbackStocks.length;
+  const candidates = pickScenarioCandidates(report);
+  const supportLine = shanghai.ma20 ? Math.min(shanghai.support, shanghai.ma20) : shanghai.support;
+  const stopLine = supportLine * 0.995;
+  const repairLine = shanghai.ma5 || shanghai.close;
+  const pressureLine = Math.min(shanghai.resistance, repairLine * 1.015);
 
   let marketState = "震荡分歧";
   if (shanghai.series.latestPct > 0.5 && limitUpCount >= 60) marketState = "强修复";
@@ -805,13 +889,42 @@ function renderStrategy() {
       action: "以防守为主，等待情绪冰点或新主线确认后再提高仓位。",
     },
   ];
+  const detailedScenarios = [
+    {
+      title: "强修复",
+      trigger: `上证重新站回 ${formatCompact(repairLine)} 附近的短线位，且科技主线前排止跌反包，涨停家数较今日 ${limitUpCount} 只继续扩张。`,
+      focus: `优先看前排核心：${formatStockList(candidates.techCore.length ? candidates.techCore : candidates.core)}；低位补涨再看：${formatStockList(candidates.lowTech, 3)}。`,
+      confirm: "候选标的次日高开后不快速回落，10:30 前维持分时均线上方，放量突破或回封强度优于后排，才算修复有效。",
+      invalid: `若指数冲到 ${formatCompact(pressureLine)} 附近缩量回落，或核心标的高开低走、炸板不回封，强修复情景降级。`,
+      action: "只做主动走强的前排和低位首板/趋势突破，避免追后排跟风。",
+    },
+    {
+      title: "弱修复",
+      trigger: `指数在 ${formatCompact(supportLine)} - ${formatCompact(repairLine)} 区间内震荡，涨停家数没有明显扩张，板块内部继续轮动。`,
+      focus: `不追高，只观察承接更强的低位方向：${formatStockList(candidates.lowTech.length ? candidates.lowTech : candidates.core, 4)}。`,
+      confirm: "候选股低开不破前日实体中位，或平开后放量站上分时均线；板块内至少有 2-3 只同方向个股同步走强。",
+      invalid: `若上证跌破 ${formatCompact(supportLine)} 后无法快速收回，弱修复也按防守处理。`,
+      action: "仓位放轻，优先等回踩承接，不在缩量冲高时追买。",
+    },
+    {
+      title: "继续分歧",
+      trigger: `指数有效跌破 ${formatCompact(supportLine)}，尤其盘中砸到 ${formatCompact(stopLine)} 下方还拉不回，同时高位趋势股补跌。`,
+      focus: `这个情景少做进攻，防守观察：${formatStockList(candidates.defense.length ? candidates.defense : candidates.core, 4)}。`,
+      confirm: "如果高标继续负反馈、炸板率上升、昨日强势股低开低走，说明退潮没有结束。",
+      invalid: `若跌破后快速收回 ${formatCompact(supportLine)}，且核心标的重新回封，分歧情景才有修复机会。`,
+      action: "砸穿关键位先降风险，等待情绪冰点或新主线确认后再提高仓位。",
+    },
+  ];
   const scenarioRoot = el("#strategy-scenarios");
   scenarioRoot.innerHTML = "";
-  scenarios.forEach((scenario) => {
+  detailedScenarios.forEach((scenario) => {
     const card = create("article", "scenario-card");
     card.append(create("strong", "", scenario.title));
-    card.append(create("p", "", `触发：${scenario.trigger}`));
-    card.append(create("p", "", `应对：${scenario.action}`));
+    addScenarioLine(card, "触发", scenario.trigger);
+    addScenarioLine(card, "优先观察", scenario.focus);
+    addScenarioLine(card, "上车确认", scenario.confirm);
+    addScenarioLine(card, "失败信号", scenario.invalid, "scenario-risk");
+    addScenarioLine(card, "应对", scenario.action);
     scenarioRoot.append(card);
   });
 }

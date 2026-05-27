@@ -484,9 +484,19 @@ main {
 }
 
 .scenario-card p {
-  margin: 8px 0 0;
+  margin: 9px 0 0;
   color: var(--muted);
   font-size: 13px;
+  line-height: 1.6;
+}
+
+.scenario-card .scenario-label {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.scenario-card .scenario-risk {
+  color: #7f1d1d;
 }
 
 .section-head {
