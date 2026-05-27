@@ -26,6 +26,8 @@ jobs:
           python-version: "3.12"
 
       - name: Update daily watch
+        env:
+          WATCH_SAMPLE_SECONDS: ${{ github.event_name == 'schedule' && '360' || '0' }}
         run: python scripts/update_daily_watch.py
 
       - name: Commit and push

@@ -1,33 +1,54 @@
 {
   "date": "2026-05-27",
   "session": "竞价观察",
-  "updatedAt": "2026-05-27 23:36:24 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20260527)，筛选首次封板时间 fbt<=09:30 且未开板 zbc=0 的竞价/开盘一字板；fund 为封单金额，封单量按 fund/涨停价估算。",
-  "limitUpCount": 1,
-  "totalSealFund": 605613595.0,
-  "maxLadder": 1,
+  "updatedAt": "2026-05-28 00:13:15 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20260527)；口径为 09:25-09:30 期间最终封住涨停的竞价封板票，后续炸板仍保留并标注状态；fund 为封单金额，封单量按 fund/涨停价估算。",
+  "limitUpCount": 3,
+  "totalSealFund": 812698874.0,
+  "maxLadder": 2,
   "hotSectors": [
     {
       "name": "元件",
+      "count": 2,
+      "sealFund": 765600433.0
+    },
+    {
+      "name": "数字媒体",
       "count": 1,
-      "sealFund": 605613595.0
+      "sealFund": 47098441.0
     }
   ],
   "forecast": [
     {
-      "title": "竞价偏谨慎",
-      "text": "竞价一字板只有1只，盘前情绪不算强。若指数不能快速放量，早盘更适合等分歧后的承接。"
+      "title": "结构性活跃",
+      "text": "竞价封板3只，更多是结构性机会。重点看元件(2)、数字媒体(1)能否带动同方向后排，而不是简单追一字板本身。"
     },
     {
       "title": "主线观察",
-      "text": "板块上优先看元件(1)。如果开盘 15 分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+      "text": "板块上优先看元件(2)、数字媒体(1)。如果开盘 15 分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
     },
     {
       "title": "风险信号",
-      "text": "短线高度暂不明显 若一字板封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
+      "text": "短线高度暂不明显 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
     }
   ],
   "stocks": [
+    {
+      "code": "002579.SZ",
+      "name": "中京电子",
+      "sector": "元件",
+      "ladder": 2,
+      "price": 16.54,
+      "sealFund": 159986838.0,
+      "sealVolume": 9672723.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "13:39:48",
+      "reopenCount": 4,
+      "status": "竞价封住，后续开板4次",
+      "pct": 9.97,
+      "capturedAt": "00:13:15",
+      "note": "元件方向竞价封板，观察同板块是否扩散。"
+    },
     {
       "code": "002484.SZ",
       "name": "江海股份",
@@ -37,8 +58,28 @@
       "sealFund": 605613595.0,
       "sealVolume": 8958781.0,
       "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:25:00",
+      "reopenCount": 0,
+      "status": "竞价封住",
       "pct": 10.01,
+      "capturedAt": "00:13:15",
       "note": "封单金额靠前，代表元件方向开盘资金态度较强。"
+    },
+    {
+      "code": "603533.SH",
+      "name": "掌阅科技",
+      "sector": "数字媒体",
+      "ladder": 1,
+      "price": 25.85,
+      "sealFund": 47098441.0,
+      "sealVolume": 1821990.0,
+      "firstLimitTime": "09:25:03",
+      "lastLimitTime": "13:01:42",
+      "reopenCount": 3,
+      "status": "竞价封住，后续开板3次",
+      "pct": 10.0,
+      "capturedAt": "00:13:15",
+      "note": "数字媒体方向竞价封板，观察同板块是否扩散。"
     }
   ]
 }

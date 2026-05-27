@@ -576,7 +576,7 @@ function renderDailyWatch() {
     cards.append(addSnapshot("数据状态", "尚未生成", "warn"));
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-    td.colSpan = 8;
+    td.colSpan = 9;
     td.textContent = "每日 9:30 前后云端任务会自动更新竞价一字板观察。";
     tr.append(td);
     body.append(tr);
@@ -600,7 +600,7 @@ function renderDailyWatch() {
   if (!rows.length) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-    td.colSpan = 8;
+    td.colSpan = 9;
     td.textContent = "今日暂未捕捉到竞价一字板，或数据源尚未更新。";
     tr.append(td);
     body.append(tr);
@@ -617,6 +617,7 @@ function renderDailyWatch() {
       moneyText(stock.sealFund),
       volumeText(stock.sealVolume),
       stock.firstLimitTime || "--",
+      stock.status || "竞价封板",
       stock.note || "",
     ].forEach((value, index) => {
       const td = document.createElement("td");
