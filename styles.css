@@ -354,6 +354,48 @@ main {
   margin-top: 18px;
 }
 
+.daily-watch-section {
+  margin-top: 18px;
+}
+
+.daily-watch-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.daily-watch-forecast {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.daily-forecast-card {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.daily-forecast-card strong {
+  display: block;
+  color: var(--accent-strong);
+  font-size: 15px;
+}
+
+.daily-forecast-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.daily-watch-table {
+  min-width: 1000px;
+}
+
 .strategy-snapshot {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -807,7 +849,9 @@ select {
   .summary-grid,
   .theme-grid,
   .strategy-grid,
-  .scenario-grid {
+  .scenario-grid,
+  .daily-watch-cards,
+  .daily-watch-forecast {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -848,7 +892,9 @@ select {
   .theme-grid,
   .strategy-grid,
   .scenario-grid,
-  .strategy-snapshot {
+  .strategy-snapshot,
+  .daily-watch-cards,
+  .daily-watch-forecast {
     grid-template-columns: 1fr;
   }
 

@@ -1,0 +1,35 @@
+name: Daily Watch
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub Actions uses UTC. These runs target 09:24, 09:27, 09:31 and 09:36 Asia/Shanghai.
+    - cron: "24,27,31,36 1 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-watch
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Update daily watch
+        run: python scripts/update_daily_watch.py
+
+      - name: Commit and push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update daily watch"
+          file_pattern: "data/daily_watch.json"

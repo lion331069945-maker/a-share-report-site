@@ -14,6 +14,7 @@
       </div>
       <nav class="nav">
         <a href="#market">市场走势</a>
+        <a href="#daily-watch">每日观察</a>
         <a href="#strategy">盘面策略</a>
         <a href="#themes">板块催化</a>
         <a href="#ladder">连板天梯</a>
@@ -45,6 +46,34 @@
             <div id="chart-tooltip" class="chart-tooltip" hidden></div>
           </div>
           <div id="chart-range" class="chart-range"></div>
+        </div>
+      </section>
+
+      <section class="section daily-watch-section" id="daily-watch">
+        <div class="section-head">
+          <div>
+            <h2>每日观察</h2>
+            <p id="daily-watch-source">每日 9:30 前后云端自动更新竞价一字板和盘前判断</p>
+          </div>
+        </div>
+        <div id="daily-watch-cards" class="daily-watch-cards"></div>
+        <div id="daily-watch-forecast" class="daily-watch-forecast"></div>
+        <div class="table-wrap">
+          <table class="daily-watch-table">
+            <thead>
+              <tr>
+                <th>代码</th>
+                <th>名称</th>
+                <th>板块</th>
+                <th>连板</th>
+                <th>封单金额</th>
+                <th>封单量估算</th>
+                <th>首次封板</th>
+                <th>观察意义</th>
+              </tr>
+            </thead>
+            <tbody id="daily-watch-body"></tbody>
+          </table>
         </div>
       </section>
 

@@ -4,6 +4,7 @@ const state = {
   newHighStocks: [],
   techPullbackStocks: [],
   marketCharts: null,
+  dailyWatch: null,
   activeChart: 0,
 };
 
@@ -545,6 +546,89 @@ function renderMarketCharts() {
   };
 }
 
+function moneyText(value) {
+  const number = Number(value || 0);
+  if (number >= 100000000) return `${(number / 100000000).toFixed(2)}亿`;
+  if (number >= 10000) return `${(number / 10000).toFixed(0)}万`;
+  return `${number.toFixed(0)}`;
+}
+
+function volumeText(value) {
+  const number = Number(value || 0);
+  if (number >= 100000000) return `${(number / 100000000).toFixed(2)}亿股`;
+  if (number >= 10000) return `${(number / 10000).toFixed(2)}万股`;
+  return `${number.toFixed(0)}股`;
+}
+
+function renderDailyWatch() {
+  const watch = state.dailyWatch;
+  const cards = el("#daily-watch-cards");
+  const forecast = el("#daily-watch-forecast");
+  const body = el("#daily-watch-body");
+  if (!cards || !forecast || !body) return;
+
+  cards.innerHTML = "";
+  forecast.innerHTML = "";
+  body.innerHTML = "";
+
+  if (!watch || !watch.date) {
+    text("#daily-watch-source", "等待云端早盘任务生成每日观察数据");
+    cards.append(addSnapshot("数据状态", "尚未生成", "warn"));
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 8;
+    td.textContent = "每日 9:30 前后云端任务会自动更新竞价一字板观察。";
+    tr.append(td);
+    body.append(tr);
+    return;
+  }
+
+  text("#daily-watch-source", `${watch.date} ${watch.session || "竞价观察"}；${watch.source || ""}；更新于 ${watch.updatedAt || "--"}`);
+  cards.append(addSnapshot("竞价一字板", `${watch.limitUpCount || 0} 只`, watch.limitUpCount >= 6 ? "good" : "warn"));
+  cards.append(addSnapshot("封单总额", moneyText(watch.totalSealFund), watch.totalSealFund >= 1000000000 ? "good" : ""));
+  cards.append(addSnapshot("最强方向", (watch.hotSectors || []).slice(0, 3).map((item) => `${item.name} ${item.count}`).join(" / ") || "待确认"));
+  cards.append(addSnapshot("连板高度", watch.maxLadder ? `${watch.maxLadder} 板` : "--"));
+
+  (watch.forecast || []).forEach((item) => {
+    const card = create("article", "daily-forecast-card");
+    card.append(create("strong", "", item.title || "盘前判断"));
+    card.append(create("p", "", item.text || item));
+    forecast.append(card);
+  });
+
+  const rows = watch.stocks || [];
+  if (!rows.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 8;
+    td.textContent = "今日暂未捕捉到竞价一字板，或数据源尚未更新。";
+    tr.append(td);
+    body.append(tr);
+    return;
+  }
+
+  rows.forEach((stock) => {
+    const tr = document.createElement("tr");
+    [
+      stock.code,
+      stock.name,
+      stock.sector,
+      stock.ladder ? `${stock.ladder}板` : "--",
+      moneyText(stock.sealFund),
+      volumeText(stock.sealVolume),
+      stock.firstLimitTime || "--",
+      stock.note || "",
+    ].forEach((value, index) => {
+      const td = document.createElement("td");
+      if (index === 1) td.append(create("span", "stock-name", value));
+      else if (index === 2 && value) td.append(create("span", "status", value));
+      else td.textContent = value;
+      tr.append(td);
+    });
+    body.append(tr);
+  });
+}
+
 function mean(values) {
   if (!values.length) return 0;
   return values.reduce((sum, value) => sum + value, 0) / values.length;
@@ -930,12 +1014,16 @@ function renderStrategy() {
 }
 
 async function init() {
-  const [reportResponse, chartResponse] = await Promise.all([
+  const [reportResponse, chartResponse, dailyWatchResponse] = await Promise.all([
     fetch("./data/reports.json", { cache: "no-store" }),
     fetch("./data/market_charts.json", { cache: "no-store" }),
+    fetch("./data/daily_watch.json", { cache: "no-store" }).catch(() => null),
   ]);
   const data = await reportResponse.json();
   state.marketCharts = await chartResponse.json();
+  if (dailyWatchResponse?.ok) {
+    state.dailyWatch = await dailyWatchResponse.json();
+  }
   const report = data.reports[0];
   state.report = report;
   state.stocks = report.stocks;
@@ -957,6 +1045,7 @@ async function init() {
   renderStocks();
   renderArchive(data.reports);
   renderMarketCharts();
+  renderDailyWatch();
   renderStrategy();
 }
 
