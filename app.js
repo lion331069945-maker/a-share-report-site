@@ -3,6 +3,7 @@ const state = {
   stocks: [],
   newHighStocks: [],
   techPullbackStocks: [],
+  maConvergenceStocks: [],
   marketCharts: null,
   dailyWatch: null,
   activeChart: 0,
@@ -160,6 +161,18 @@ function uniqueTechPullbackCategories(stocks) {
   );
 }
 
+function uniqueMaConvergenceTypes(stocks) {
+  const values = [];
+  stocks.forEach((stock) => {
+    String(stock.type || "")
+      .split("/")
+      .map((item) => item.trim())
+      .filter(Boolean)
+      .forEach((item) => values.push(item));
+  });
+  return [...new Set(values)].sort((a, b) => a.localeCompare(b, "zh-CN"));
+}
+
 function setupFilters(stocks) {
   const filter = el("#category-filter");
   filter.innerHTML = '<option value="">全部分类</option>';
@@ -206,6 +219,23 @@ function setupTechPullbackFilters(stocks) {
 
   search.addEventListener("input", renderTechPullbacks);
   filter.addEventListener("change", renderTechPullbacks);
+}
+
+function setupMaConvergenceFilters(stocks) {
+  const filter = el("#ma-convergence-filter");
+  const search = el("#ma-convergence-search");
+  if (!filter || !search) return;
+
+  filter.innerHTML = '<option value="">全部类型</option>';
+  uniqueMaConvergenceTypes(stocks).forEach((type) => {
+    const option = document.createElement("option");
+    option.value = type;
+    option.textContent = type;
+    filter.append(option);
+  });
+
+  search.addEventListener("input", renderMaConvergence);
+  filter.addEventListener("change", renderMaConvergence);
 }
 
 function renderStocks() {
@@ -392,6 +422,84 @@ function renderTechPullbacks() {
     const td = document.createElement("td");
     td.colSpan = 9;
     td.textContent = "没有匹配的科技补涨股票。";
+    tr.append(td);
+    root.append(tr);
+  }
+}
+
+function renderMaConvergence() {
+  const root = el("#ma-convergence-body");
+  const scope = el("#ma-convergence-scope");
+  const report = state.report || {};
+  const rows = state.maConvergenceStocks || [];
+  const query = (el("#ma-convergence-search")?.value || "").trim().toLowerCase();
+  const type = el("#ma-convergence-filter")?.value || "";
+  root.innerHTML = "";
+
+  if (scope && report.maConvergenceScope) {
+    scope.textContent = report.maConvergenceScope;
+  }
+
+  if (!rows.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 10;
+    td.textContent =
+      "暂无符合条件的均线黏合股票。收盘自动化更新后，这里会按5/10/15/25/30日均线筛选放量突破和多头发散形态。";
+    tr.append(td);
+    root.append(tr);
+    return;
+  }
+
+  rows
+    .filter((stock) => {
+      const stockType = stock.type || "";
+      const haystack = [
+        stock.code,
+        stock.name,
+        stockType,
+        stock.sector,
+        stock.note,
+        stock.amount,
+      ]
+        .join(" ")
+        .toLowerCase();
+      return (!query || haystack.includes(query)) && (!type || stockType.includes(type));
+    })
+    .forEach((stock) => {
+      const tr = document.createElement("tr");
+      [
+        stock.code || "",
+        stock.name || "",
+        stock.type || "",
+        stock.sector || "",
+        stock.pct === undefined ? "" : `${Number(stock.pct).toFixed(2)}%`,
+        stock.recentGainPct === undefined ? "" : `${Number(stock.recentGainPct).toFixed(2)}%`,
+        stock.maSpreadPct === undefined ? "" : `${Number(stock.maSpreadPct).toFixed(2)}%`,
+        stock.volumeRatio === undefined ? "" : `${Number(stock.volumeRatio).toFixed(2)}倍`,
+        stock.amount || "",
+        stock.note || "",
+      ].forEach((value, index) => {
+        const td = document.createElement("td");
+        if (index === 1) {
+          td.append(create("span", "stock-name", value));
+        } else if (index === 2 && value) {
+          td.append(create("span", "status", value));
+        } else if ((index === 4 || index === 5) && value) {
+          td.append(create("span", Number.parseFloat(value) >= 0 ? "pct-up" : "pct-down", value));
+        } else {
+          td.textContent = value;
+        }
+        tr.append(td);
+      });
+      root.append(tr);
+    });
+
+  if (!root.children.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 10;
+    td.textContent = "没有匹配的均线黏合股票。";
     tr.append(td);
     root.append(tr);
   }
@@ -1030,6 +1138,7 @@ async function init() {
   state.stocks = report.stocks;
   state.newHighStocks = report.newHighStocks || report.newHighs || [];
   state.techPullbackStocks = report.techPullbackStocks || [];
+  state.maConvergenceStocks = report.maConvergenceStocks || [];
 
   setHero(report, data.updatedAt);
   renderSummary(report);
@@ -1042,6 +1151,8 @@ async function init() {
   renderNewHighs();
   setupTechPullbackFilters(state.techPullbackStocks);
   renderTechPullbacks();
+  setupMaConvergenceFilters(state.maConvergenceStocks);
+  renderMaConvergence();
   setupFilters(report.stocks);
   renderStocks();
   renderArchive(data.reports);

@@ -21,6 +21,7 @@
         <a href="#leaders">龙头股</a>
         <a href="#new-highs">创新高</a>
         <a href="#tech-pullback">科技补涨</a>
+        <a href="#ma-convergence">均线黏合</a>
         <a href="#stocks">个股明细</a>
         <a href="#archive">历史报告</a>
       </nav>
@@ -271,6 +272,42 @@
               </tr>
             </thead>
             <tbody id="tech-pullback-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="ma-convergence">
+        <div class="section-head">
+          <div>
+            <h2>均线黏合观察</h2>
+            <p id="ma-convergence-scope">
+              收盘后筛选5日、10日、15日、25日、30日均线黏合后的放量突破和多头发散股票。
+            </p>
+          </div>
+          <div class="tools">
+            <input id="ma-convergence-search" type="search" placeholder="搜索代码、名称、板块或类型" />
+            <select id="ma-convergence-filter" aria-label="按均线黏合类型筛选">
+              <option value="">全部类型</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="wide-table">
+            <thead>
+              <tr>
+                <th>代码</th>
+                <th>名称</th>
+                <th>黏合类型</th>
+                <th>所属板块</th>
+                <th>当日涨幅</th>
+                <th>近10日涨幅</th>
+                <th>均线乖离</th>
+                <th>量比</th>
+                <th>成交额</th>
+                <th>触发说明</th>
+              </tr>
+            </thead>
+            <tbody id="ma-convergence-body"></tbody>
           </table>
         </div>
       </section>
