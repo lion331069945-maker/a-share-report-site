@@ -1,85 +1,153 @@
 {
-  "date": "2026-05-27",
+  "date": "2026-05-28",
   "session": "竞价观察",
-  "updatedAt": "2026-05-28 00:13:15 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20260527)；口径为 09:25-09:30 期间最终封住涨停的竞价封板票，后续炸板仍保留并标注状态；fund 为封单金额，封单量按 fund/涨停价估算。",
-  "limitUpCount": 3,
-  "totalSealFund": 812698874.0,
-  "maxLadder": 2,
+  "updatedAt": "2026-05-28 13:36:55 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20260528)；口径为 09:25-09:30 期间最终封住涨停的竞价封板票，后续炸板仍保留并标注状态；fund 为封单金额，封单量按 fund/涨停价估算。",
+  "limitUpCount": 6,
+  "totalSealFund": 1789289563.0,
+  "maxLadder": 4,
   "hotSectors": [
     {
-      "name": "元件",
-      "count": 2,
-      "sealFund": 765600433.0
+      "name": "光学光电",
+      "count": 1,
+      "sealFund": 361655138.0
     },
     {
-      "name": "数字媒体",
+      "name": "电力",
       "count": 1,
-      "sealFund": 47098441.0
+      "sealFund": 268129459.0
+    },
+    {
+      "name": "IT服务Ⅱ",
+      "count": 1,
+      "sealFund": 713814906.0
+    },
+    {
+      "name": "化学纤维",
+      "count": 1,
+      "sealFund": 323670972.0
+    },
+    {
+      "name": "广告营销",
+      "count": 1,
+      "sealFund": 68685073.0
+    },
+    {
+      "name": "动物保健",
+      "count": 1,
+      "sealFund": 53334015.0
     }
   ],
   "forecast": [
     {
       "title": "结构性活跃",
-      "text": "竞价封板3只，更多是结构性机会。重点看元件(2)、数字媒体(1)能否带动同方向后排，而不是简单追一字板本身。"
+      "text": "竞价封板6只，更多是结构性机会。重点看光学光电(1)、电力(1)、IT服务Ⅱ(1)能否带动同方向后排，而不是简单追一字板本身。"
     },
     {
       "title": "主线观察",
-      "text": "板块上优先看元件(2)、数字媒体(1)。如果开盘 15 分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+      "text": "板块上优先看光学光电(1)、电力(1)、IT服务Ⅱ(1)。如果开盘 15 分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
     },
     {
       "title": "风险信号",
-      "text": "短线高度暂不明显 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
+      "text": "最高4连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
     }
   ],
   "stocks": [
     {
-      "code": "002579.SZ",
-      "name": "中京电子",
-      "sector": "元件",
-      "ladder": 2,
-      "price": 16.54,
-      "sealFund": 159986838.0,
-      "sealVolume": 9672723.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "13:39:48",
-      "reopenCount": 4,
-      "status": "竞价封住，后续开板4次",
-      "pct": 9.97,
-      "capturedAt": "00:13:15",
-      "note": "元件方向竞价封板，观察同板块是否扩散。"
-    },
-    {
-      "code": "002484.SZ",
-      "name": "江海股份",
-      "sector": "元件",
-      "ladder": 1,
-      "price": 67.6,
-      "sealFund": 605613595.0,
-      "sealVolume": 8958781.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "09:25:00",
+      "code": "000509.SZ",
+      "name": "华塑控股",
+      "sector": "光学光电",
+      "ladder": 4,
+      "price": 5.73,
+      "sealFund": 361655138.0,
+      "sealVolume": 63116080.0,
+      "firstLimitTime": "09:30:00",
+      "lastLimitTime": "09:30:00",
       "reopenCount": 0,
       "status": "竞价封住",
-      "pct": 10.01,
-      "capturedAt": "00:13:15",
-      "note": "封单金额靠前，代表元件方向开盘资金态度较强。"
+      "pct": 9.98,
+      "capturedAt": "13:36:55",
+      "note": "4连板竞价封住，是短线高度和情绪强弱的核心观察点。"
     },
     {
-      "code": "603533.SH",
-      "name": "掌阅科技",
-      "sector": "数字媒体",
+      "code": "600726.SH",
+      "name": "华电能源",
+      "sector": "电力",
+      "ladder": 4,
+      "price": 9.21,
+      "sealFund": 268129459.0,
+      "sealVolume": 29112862.0,
+      "firstLimitTime": "09:25:01",
+      "lastLimitTime": "09:51:40",
+      "reopenCount": 5,
+      "status": "竞价封住，后续开板5次",
+      "pct": 10.04,
+      "capturedAt": "13:36:55",
+      "note": "4连板竞价封住，是短线高度和情绪强弱的核心观察点。"
+    },
+    {
+      "code": "600589.SH",
+      "name": "大位科技",
+      "sector": "IT服务Ⅱ",
       "ladder": 1,
-      "price": 25.85,
-      "sealFund": 47098441.0,
-      "sealVolume": 1821990.0,
+      "price": 11.95,
+      "sealFund": 713814906.0,
+      "sealVolume": 59733465.0,
       "firstLimitTime": "09:25:03",
-      "lastLimitTime": "13:01:42",
-      "reopenCount": 3,
-      "status": "竞价封住，后续开板3次",
-      "pct": 10.0,
-      "capturedAt": "00:13:15",
-      "note": "数字媒体方向竞价封板，观察同板块是否扩散。"
+      "lastLimitTime": "09:25:03",
+      "reopenCount": 0,
+      "status": "竞价封住",
+      "pct": 10.04,
+      "capturedAt": "13:36:55",
+      "note": "封单金额靠前，代表IT服务Ⅱ方向开盘资金态度较强。"
+    },
+    {
+      "code": "600063.SH",
+      "name": "皖维高新",
+      "sector": "化学纤维",
+      "ladder": 1,
+      "price": 6.95,
+      "sealFund": 323670972.0,
+      "sealVolume": 46571363.0,
+      "firstLimitTime": "09:30:00",
+      "lastLimitTime": "09:30:00",
+      "reopenCount": 0,
+      "status": "竞价封住",
+      "pct": 9.97,
+      "capturedAt": "13:36:55",
+      "note": "封单金额靠前，代表化学纤维方向开盘资金态度较强。"
+    },
+    {
+      "code": "002995.SZ",
+      "name": "天地在线",
+      "sector": "广告营销",
+      "ladder": 1,
+      "price": 20.75,
+      "sealFund": 68685073.0,
+      "sealVolume": 3310124.0,
+      "firstLimitTime": "09:30:00",
+      "lastLimitTime": "09:30:00",
+      "reopenCount": 0,
+      "status": "竞价封住",
+      "pct": 10.02,
+      "capturedAt": "13:36:55",
+      "note": "广告营销方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "002688.SZ",
+      "name": "金河生物",
+      "sector": "动物保健",
+      "ladder": 1,
+      "price": 5.95,
+      "sealFund": 53334015.0,
+      "sealVolume": 8963700.0,
+      "firstLimitTime": "09:30:00",
+      "lastLimitTime": "13:40:18",
+      "reopenCount": 2,
+      "status": "竞价封住，后续开板2次",
+      "pct": 9.98,
+      "capturedAt": "13:36:55",
+      "note": "动物保健方向竞价封板，观察同板块是否扩散。"
     }
   ]
 }
