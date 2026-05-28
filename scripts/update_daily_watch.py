@@ -18,6 +18,21 @@ def now_cn():
     return datetime.now(CN_TZ)
 
 
+def parse_watch_until(value, current):
+    if not value:
+        return None
+    digits = "".join(ch for ch in str(value) if ch.isdigit())
+    if len(digits) != 6:
+        return None
+    try:
+        hour = int(digits[0:2])
+        minute = int(digits[2:4])
+        second = int(digits[4:6])
+        return current.replace(hour=hour, minute=minute, second=second, microsecond=0)
+    except ValueError:
+        return None
+
+
 def request_json(url):
     req = urllib.request.Request(
         url,
@@ -167,12 +182,14 @@ def main():
     current = now_cn()
     date = os.environ.get("WATCH_DATE") or current.strftime("%Y-%m-%d")
     date_compact = date.replace("-", "")
-    captured_at = current.strftime("%H:%M:%S")
     previous = load_previous(date)
     rows = []
     meta = {}
     sample_seconds = int(os.environ.get("WATCH_SAMPLE_SECONDS", "0"))
     deadline = time.monotonic() + max(sample_seconds, 0)
+    watch_until = parse_watch_until(os.environ.get("WATCH_UNTIL_HHMMSS"), current)
+    if watch_until and current < watch_until:
+        deadline = max(deadline, time.monotonic() + (watch_until - current).total_seconds())
     while True:
         latest_rows, meta = fetch_zt_pool(date_compact)
         if latest_rows:
@@ -183,6 +200,9 @@ def main():
         if time.monotonic() >= deadline:
             break
         time.sleep(15)
+
+    current = now_cn()
+    captured_at = current.strftime("%H:%M:%S")
 
     if meta.get("qdate") and str(meta["qdate"]) != date_compact:
         result = {

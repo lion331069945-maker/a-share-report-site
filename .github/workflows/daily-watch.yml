@@ -3,8 +3,10 @@ name: Daily Watch
 on:
   workflow_dispatch:
   schedule:
-    # GitHub Actions uses UTC. These runs target 09:24, 09:27, 09:31 and 09:36 Asia/Shanghai.
-    - cron: "24,27,31,36 1 * * 1-5"
+    # GitHub Actions uses UTC. The 01:20 run samples across the 09:25-09:30
+    # auction window, and the later runs act as catch-up refreshes if GitHub
+    # starts the scheduled job late.
+    - cron: "20,28,36,45,55 1 * * 1-5"
 
 permissions:
   contents: write
@@ -27,7 +29,8 @@ jobs:
 
       - name: Update daily watch
         env:
-          WATCH_SAMPLE_SECONDS: ${{ github.event_name == 'schedule' && '360' || '0' }}
+          WATCH_UNTIL_HHMMSS: ${{ github.event_name == 'schedule' && '093100' || '' }}
+          WATCH_SAMPLE_SECONDS: ${{ github.event_name == 'schedule' && '120' || '0' }}
         run: python scripts/update_daily_watch.py
 
       - name: Commit and push
