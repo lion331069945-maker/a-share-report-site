@@ -566,6 +566,10 @@ main {
   font-size: 13px;
 }
 
+.section-head p:not(.keep-time) {
+  display: none;
+}
+
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

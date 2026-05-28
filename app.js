@@ -53,7 +53,7 @@ function setHero(report, updatedAt) {
   text("#metric-date", report.date);
   text("#metric-count", report.market.limitUpCount);
   text("#metric-high", report.ladder[0]?.height || "--");
-  text("#scope", `${report.market.dataSource}；${report.market.sampleScope}`);
+  text("#scope", `更新于 ${updatedAt}`);
 
   const pdf = el("#pdf-link");
   pdf.href = report.pdf;
@@ -476,7 +476,7 @@ function renderMarketCharts() {
   if (!charts?.series?.length) return;
 
   renderChartTabs(charts);
-  text("#market-source", `${charts.source}；更新于 ${charts.updatedAt}`);
+  text("#market-source", `更新于 ${charts.updatedAt}`);
 
   const series = charts.series[state.activeChart];
   const points = series.points || [];
@@ -572,7 +572,7 @@ function renderDailyWatch() {
   body.innerHTML = "";
 
   if (!watch || !watch.date) {
-    text("#daily-watch-source", "等待云端早盘任务生成每日观察数据");
+    text("#daily-watch-source", "等待更新");
     cards.append(addSnapshot("数据状态", "尚未生成", "warn"));
     const tr = document.createElement("tr");
     const td = document.createElement("td");
@@ -583,7 +583,7 @@ function renderDailyWatch() {
     return;
   }
 
-  text("#daily-watch-source", `${watch.date} ${watch.session || "竞价观察"}；${watch.source || ""}；更新于 ${watch.updatedAt || "--"}`);
+  text("#daily-watch-source", `更新于 ${watch.updatedAt || "--"}`);
   cards.append(addSnapshot("竞价一字板", `${watch.limitUpCount || 0} 只`, watch.limitUpCount >= 6 ? "good" : "warn"));
   cards.append(addSnapshot("封单总额", moneyText(watch.totalSealFund), watch.totalSealFund >= 1000000000 ? "good" : ""));
   cards.append(addSnapshot("最强方向", (watch.hotSectors || []).slice(0, 3).map((item) => `${item.name} ${item.count}`).join(" / ") || "待确认"));
@@ -904,7 +904,7 @@ function renderStrategy() {
   else if (marketState === "分歧加大") nextAction = "防高位补跌，等修复确认后再加仓";
   else if (avgTechScore >= 3.6) nextAction = "科技线仍可观察低位补涨和放量突破";
 
-  text("#strategy-date", `${report.date} 盘后生成；指数数据更新于 ${charts.updatedAt}`);
+  text("#strategy-date", `更新于 ${charts.updatedAt}`);
 
   const snapshot = el("#strategy-snapshot");
   snapshot.innerHTML = "";
