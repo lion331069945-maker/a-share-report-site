@@ -445,7 +445,7 @@ function renderMaConvergence() {
     const td = document.createElement("td");
     td.colSpan = 10;
     td.textContent =
-      "暂无符合条件的均线黏合股票。收盘自动化更新后，这里会按5/10/15/25/30日均线筛选放量突破和多头发散形态。";
+      "暂无符合条件的均线黏合股票。收盘自动化更新后，这里会按5/10/15/20日均线是否落在10元价格区间内筛选。";
     tr.append(td);
     root.append(tr);
     return;
@@ -475,7 +475,7 @@ function renderMaConvergence() {
         stock.sector || "",
         stock.pct === undefined ? "" : `${Number(stock.pct).toFixed(2)}%`,
         stock.recentGainPct === undefined ? "" : `${Number(stock.recentGainPct).toFixed(2)}%`,
-        stock.maSpreadPct === undefined ? "" : `${Number(stock.maSpreadPct).toFixed(2)}%`,
+        stock.maRangeYuan === undefined ? "" : `${Number(stock.maRangeYuan).toFixed(2)}元`,
         stock.volumeRatio === undefined ? "" : `${Number(stock.volumeRatio).toFixed(2)}倍`,
         stock.amount || "",
         stock.note || "",

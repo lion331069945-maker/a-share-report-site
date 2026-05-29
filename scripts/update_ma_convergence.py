@@ -20,7 +20,8 @@ SITE_DATA = ROOT / "site" / "data" if (ROOT / "site" / "data" / "reports.json").
 REPORTS = SITE_DATA / "reports.json"
 CACHE_DIR = SITE_DATA / "cache"
 EASTMONEY_CLIST_URL = "https://push2.eastmoney.com/api/qt/clist/get"
-MA_PERIODS = (5, 10, 15, 25, 30)
+MA_PERIODS = (5, 10, 15, 20)
+MA_RANGE_LIMIT_YUAN = 10.0
 
 
 def safe_float(value, default=0.0):
@@ -248,15 +249,22 @@ def ma_spread(ma_values):
     return (max(values) / min(values) - 1) * 100
 
 
+def ma_range_yuan(ma_values):
+    values = [ma_values[f"ma{period}"] for period in MA_PERIODS if ma_values.get(f"ma{period}", 0) > 0]
+    if len(values) != len(MA_PERIODS):
+        return 999.0
+    return max(values) - min(values)
+
+
 def is_bullish(ma_values):
     return all(ma_values[f"ma{left}"] > ma_values[f"ma{right}"] for left, right in zip(MA_PERIODS, MA_PERIODS[1:]))
 
 
-def build_note(today, ma_values, spread, volume_ratio, recent_gain):
+def build_note(today, ma_values, spread, range_yuan, volume_ratio, recent_gain):
     ma_text = "、".join(f"MA{period} {ma_values[f'ma{period}']:.2f}" for period in MA_PERIODS)
     return (
         f"收盘{today['close']:.2f}，当日涨幅{today['pct']:.2f}%；"
-        f"均线最大乖离{spread:.2f}%，{ma_text}；"
+        f"均线区间宽度{range_yuan:.2f}元，最大乖离{spread:.2f}%，{ma_text}；"
         f"成交量为5日均量{volume_ratio:.2f}倍，近10日涨幅{recent_gain:.2f}%。"
     )
 
@@ -279,24 +287,30 @@ def evaluate_quote(quote, target_date):
     for offset in range(0, 6):
         packed = ma_pack(points, today_index - offset)
         if packed:
-            recent_ma.append((offset, packed, ma_spread(packed)))
+            recent_ma.append((offset, packed, ma_spread(packed), ma_range_yuan(packed)))
     if not recent_ma:
         return None
 
-    min_recent_spread = min(item[2] for item in recent_ma)
+    min_recent_range = min(item[3] for item in recent_ma)
     prev_spread = ma_spread(prev_ma)
     today_spread = ma_spread(today_ma)
+    prev_range = ma_range_yuan(prev_ma)
+    today_range = ma_range_yuan(today_ma)
     volume_base = sum(point["volume"] for point in points[-6:-1]) / 5
     volume_ratio = today["volume"] / volume_base if volume_base else 0
     recent_gain = (today["close"] / points[-11]["close"] - 1) * 100 if points[-11]["close"] else 0
 
     max_ma = max(today_ma[f"ma{period}"] for period in MA_PERIODS)
-    min_ma = min(today_ma[f"ma{period}"] for period in MA_PERIODS)
     prev_max_ma = max(prev_ma[f"ma{period}"] for period in MA_PERIODS)
     types = []
 
+    in_range_today = today_range <= MA_RANGE_LIMIT_YUAN
+    in_range_recent = min_recent_range <= MA_RANGE_LIMIT_YUAN
+    if not (in_range_today or in_range_recent):
+        return None
+
     breakout = (
-        prev_spread <= 2.5
+        prev_range <= MA_RANGE_LIMIT_YUAN
         and today["close"] >= max_ma * 1.005
         and points[-2]["close"] <= prev_max_ma * 1.012
         and today["pct"] >= 3
@@ -306,15 +320,19 @@ def evaluate_quote(quote, target_date):
         types.append("均线黏合 + 放量突破")
 
     bullish_spread = (
-        min_recent_spread <= 2.5
+        in_range_recent
         and is_bullish(today_ma)
-        and today_spread >= 1.0
-        and today_spread <= 8.0
         and today_ma["ma5"] > ma_pack(points, today_index - 3)["ma5"]
         and today["close"] >= today_ma["ma10"]
     )
     if bullish_spread:
         types.append("黏合后均线多头发散")
+
+    if not types and in_range_today:
+        if today["close"] < max_ma:
+            types.append("均线区间内观察")
+        else:
+            types.append("均线区间内偏强")
 
     if not types:
         return None
@@ -327,15 +345,15 @@ def evaluate_quote(quote, target_date):
         "pct": round(today["pct"], 2),
         "recentGainPct": round(recent_gain, 2),
         "maSpreadPct": round(today_spread, 2),
+        "maRangeYuan": round(today_range, 2),
         "volumeRatio": round(volume_ratio, 2),
         "amount": amount_yi(today["amount"] or quote["amount"]),
         "close": round(today["close"], 3),
         "ma5": round(today_ma["ma5"], 3),
         "ma10": round(today_ma["ma10"], 3),
         "ma15": round(today_ma["ma15"], 3),
-        "ma25": round(today_ma["ma25"], 3),
-        "ma30": round(today_ma["ma30"], 3),
-        "note": build_note(today, today_ma, today_spread, volume_ratio, recent_gain),
+        "ma20": round(today_ma["ma20"], 3),
+        "note": build_note(today, today_ma, today_spread, today_range, volume_ratio, recent_gain),
     }
 
 
@@ -373,9 +391,10 @@ def build_rows(report, report_date, max_workers=24):
     rows.sort(
         key=lambda item: (
             0 if "放量突破" in item["type"] else 1,
+            0 if "多头发散" in item["type"] else 1,
             -item["pct"],
             -item["volumeRatio"],
-            item["maSpreadPct"],
+            item.get("maRangeYuan", item["maSpreadPct"]),
         )
     )
     rows = rows[:180]
@@ -405,9 +424,9 @@ def build_output(report_date=None, max_workers=24):
     else:
         rows, quote_count, quote_source = result
     scope = (
-        f"筛选口径：{quote_source}{quote_count}只，使用前复权日K计算5日、10日、15日、25日、30日均线。"
-        "类型一要求前一交易日均线最大乖离≤2.5%、报告日放量站上均线束且涨幅≥3%；"
-        "类型二要求近6个交易日内出现均线最大乖离≤2.5%，报告日5/10/15/25/30日均线转为多头排列并开始发散。"
+        f"筛选口径：{quote_source}{quote_count}只，使用前复权日K计算5日、10日、15日、20日均线；"
+        "只要四条均线最高值与最低值落在10元价格区间内即可进入筛选，不要求完全黏合。"
+        "类型包含均线区间内观察、均线区间内偏强、均线黏合+放量突破、黏合后均线多头发散，黏合前、黏合中和黏合后均可入表。"
         f"本次命中{len(rows)}只。"
     )
     return target, rows, quote_count, scope
