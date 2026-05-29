@@ -21,7 +21,10 @@ REPORTS = SITE_DATA / "reports.json"
 CACHE_DIR = SITE_DATA / "cache"
 EASTMONEY_CLIST_URL = "https://push2.eastmoney.com/api/qt/clist/get"
 MA_PERIODS = (5, 10, 15, 20)
-MA_RANGE_LIMIT_YUAN = 10.0
+MA_RANGE_LIMIT_YUAN = 5.0
+MAX_DAILY_PCT = 10.0
+MAIN_BOARD_PREFIXES = ("600", "601", "603", "605", "000", "001", "002", "003")
+FILTER_CACHE_VERSION = 3
 
 
 def safe_float(value, default=0.0):
@@ -42,6 +45,11 @@ def infer_market(code):
     if code.startswith(("5", "6", "9")):
         return "1"
     return "0"
+
+
+def is_main_board_code(code):
+    code = normalize_code(code)
+    return code.startswith(MAIN_BOARD_PREFIXES)
 
 
 def amount_yi(value):
@@ -129,6 +137,8 @@ def fetch_all_a_quotes():
             name = str(item.get("f14") or "")
             if not code or not name or "ST" in name.upper() or name.startswith(("N", "C")):
                 continue
+            if not is_main_board_code(code):
+                continue
             rows.append(
                 {
                     "code": code,
@@ -155,6 +165,8 @@ def fallback_quotes_from_report(report):
             code = normalize_code(item.get("code"))
             name = item.get("name") or ""
             if not code or not name or code in seen:
+                continue
+            if not is_main_board_code(code):
                 continue
             seen[code] = {
                 "code": code,
@@ -277,6 +289,8 @@ def evaluate_quote(quote, target_date):
 
     today_index = len(points) - 1
     today = points[today_index]
+    if today["pct"] > MAX_DAILY_PCT:
+        return None
     prev_index = today_index - 1
     today_ma = ma_pack(points, today_index)
     prev_ma = ma_pack(points, prev_index)
@@ -306,7 +320,7 @@ def evaluate_quote(quote, target_date):
 
     in_range_today = today_range <= MA_RANGE_LIMIT_YUAN
     in_range_recent = min_recent_range <= MA_RANGE_LIMIT_YUAN
-    if not (in_range_today or in_range_recent):
+    if not in_range_today:
         return None
 
     breakout = (
@@ -361,7 +375,15 @@ def build_rows(report, report_date, max_workers=24):
     cache_file = CACHE_DIR / f"ma_convergence_{report_date}.json"
     if cache_file.exists():
         cached = json.loads(cache_file.read_text(encoding="utf-8"))
-        return cached.get("rows", []), cached.get("quoteCount", 0)
+        cache_matches = (
+            cached.get("cacheVersion") == FILTER_CACHE_VERSION
+            and cached.get("maPeriods") == list(MA_PERIODS)
+            and cached.get("maRangeLimitYuan") == MA_RANGE_LIMIT_YUAN
+            and cached.get("maxDailyPct") == MAX_DAILY_PCT
+            and cached.get("mainBoardOnly") is True
+        )
+        if cache_matches:
+            return cached.get("rows", []), cached.get("quoteCount", 0), cached.get("quoteSource", "全A股票池")
 
     quote_source = "全A股票池"
     try:
@@ -402,7 +424,17 @@ def build_rows(report, report_date, max_workers=24):
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
         cache_file.write_text(
             json.dumps(
-                {"date": report_date, "quoteCount": len(quotes), "quoteSource": quote_source, "rows": rows},
+                {
+                    "date": report_date,
+                    "quoteCount": len(quotes),
+                    "quoteSource": quote_source,
+                    "cacheVersion": FILTER_CACHE_VERSION,
+                    "maPeriods": list(MA_PERIODS),
+                    "maRangeLimitYuan": MA_RANGE_LIMIT_YUAN,
+                    "maxDailyPct": MAX_DAILY_PCT,
+                    "mainBoardOnly": True,
+                    "rows": rows,
+                },
                 ensure_ascii=False,
                 indent=2,
             ),
@@ -425,7 +457,7 @@ def build_output(report_date=None, max_workers=24):
         rows, quote_count, quote_source = result
     scope = (
         f"筛选口径：{quote_source}{quote_count}只，使用前复权日K计算5日、10日、15日、20日均线；"
-        "只要四条均线最高值与最低值落在10元价格区间内即可进入筛选，不要求完全黏合。"
+        "只要四条均线最高值与最低值落在5元价格区间内即可进入筛选，不要求完全黏合；同时剔除当日涨幅超过10%的股票，仅保留主板观察样本。"
         "类型包含均线区间内观察、均线区间内偏强、均线黏合+放量突破、黏合后均线多头发散，黏合前、黏合中和黏合后均可入表。"
         f"本次命中{len(rows)}只。"
     )

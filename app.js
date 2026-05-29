@@ -445,7 +445,7 @@ function renderMaConvergence() {
     const td = document.createElement("td");
     td.colSpan = 10;
     td.textContent =
-      "暂无符合条件的均线黏合股票。收盘自动化更新后，这里会按5/10/15/20日均线是否落在10元价格区间内筛选。";
+      "暂无符合条件的均线黏合股票。收盘自动化更新后，这里会按5/10/15/20日均线是否落在5元价格区间内筛选。";
     tr.append(td);
     root.append(tr);
     return;
