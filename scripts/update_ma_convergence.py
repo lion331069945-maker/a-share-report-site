@@ -10,6 +10,11 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 try:
+    import requests
+except ImportError:
+    requests = None
+
+try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 except AttributeError:
     pass
@@ -20,11 +25,13 @@ SITE_DATA = ROOT / "site" / "data" if (ROOT / "site" / "data" / "reports.json").
 REPORTS = SITE_DATA / "reports.json"
 CACHE_DIR = SITE_DATA / "cache"
 EASTMONEY_CLIST_URL = "https://push2.eastmoney.com/api/qt/clist/get"
+QUOTE_PAGE_SIZE = 100
+MIN_MAIN_BOARD_QUOTE_COUNT = 1500
 MA_PERIODS = (5, 10, 15, 20)
 MA_RANGE_LIMIT_YUAN = 5.0
 MAX_DAILY_PCT = 10.0
 MAIN_BOARD_PREFIXES = ("600", "601", "603", "605", "000", "001", "002", "003")
-FILTER_CACHE_VERSION = 3
+FILTER_CACHE_VERSION = 4
 
 
 def safe_float(value, default=0.0):
@@ -60,6 +67,24 @@ def amount_yi(value):
 
 
 def fetch_json_requests(url, params=None, referer="https://quote.eastmoney.com/"):
+    if requests is not None:
+        last_error = None
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Referer": referer,
+            "Accept": "application/json,text/plain,*/*",
+            "Connection": "close",
+        }
+        for attempt in range(5):
+            try:
+                resp = requests.get(url, params=params, headers=headers, timeout=35)
+                resp.raise_for_status()
+                return resp.json()
+            except Exception as exc:
+                last_error = exc
+                time.sleep(1.2 * (attempt + 1))
+        raise last_error
+
     full_url = url
     if params:
         full_url = url + "?" + urllib.parse.urlencode(params)
@@ -118,7 +143,7 @@ def fetch_all_a_quotes():
     while True:
         params = {
             "pn": page,
-            "pz": 200,
+            "pz": QUOTE_PAGE_SIZE,
             "po": "1",
             "np": "1",
             "fltt": "2",
@@ -152,9 +177,12 @@ def fetch_all_a_quotes():
                     "industry": item.get("f100") or "未分类",
                 }
             )
-        if len(diff) < 200:
+        total = safe_float((payload.get("data") or {}).get("total"))
+        if len(diff) < QUOTE_PAGE_SIZE or (total and page * QUOTE_PAGE_SIZE >= total):
             break
         page += 1
+    if len(rows) < MIN_MAIN_BOARD_QUOTE_COUNT:
+        raise RuntimeError(f"Full A main-board quote list is incomplete: {len(rows)} rows")
     return rows
 
 
@@ -383,15 +411,15 @@ def build_rows(report, report_date, max_workers=24):
             and cached.get("mainBoardOnly") is True
         )
         if cache_matches:
-            return cached.get("rows", []), cached.get("quoteCount", 0), cached.get("quoteSource", "全A股票池")
+            return cached.get("rows", []), cached.get("quoteCount", 0), cached.get("quoteSource", "全A主板股票池")
 
-    quote_source = "全A股票池"
+    quote_source = "全A主板股票池"
     try:
         quotes = fetch_all_a_quotes()
     except Exception as exc:
         print(f"Full A quote list failed, fallback to report stock pool: {exc}")
         quotes = fallback_quotes_from_report(report)
-        quote_source = "当日报告股票池"
+        quote_source = "当日报告主板样本池"
     rows = []
     checked = 0
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -452,7 +480,7 @@ def build_output(report_date=None, max_workers=24):
     result = build_rows(report, target, max_workers=max_workers)
     if len(result) == 2:
         rows, quote_count = result
-        quote_source = "全A股票池"
+        quote_source = "全A主板股票池"
     else:
         rows, quote_count, quote_source = result
     scope = (
