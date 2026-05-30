@@ -4,6 +4,7 @@ const state = {
   newHighStocks: [],
   techPullbackStocks: [],
   maConvergenceStocks: [],
+  watchPoolStocks: [],
   marketCharts: null,
   dailyWatch: null,
   activeChart: 0,
@@ -588,6 +589,301 @@ function renderRiskWarnings(report) {
     "中军稳住且前排不炸，补涨才有持续性；中军走弱则只看不做。",
     "warn",
   );
+}
+
+function sourceText(stock) {
+  return [
+    stock.name,
+    stock.code,
+    stock.theme,
+    stock.sector,
+    stock.industry,
+    stock.category,
+    stock.type,
+    stock.highType,
+    stock.reason,
+    stock.catalyst,
+    stock.note,
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
+
+function mergeWatchCandidate(map, key, patch) {
+  if (!key) return;
+  const current = map.get(key) || {
+    code: patch.code || "",
+    name: patch.name || "",
+    theme: patch.theme || patch.sector || "",
+    sector: patch.sector || patch.industry || "",
+    tags: [],
+    reasons: [],
+    risks: [],
+    raw: [],
+  };
+  current.code = current.code || patch.code || "";
+  current.name = current.name || patch.name || "";
+  current.theme = current.theme || patch.theme || patch.sector || current.theme;
+  current.sector = current.sector || patch.sector || patch.industry || "";
+  current.position = current.position || patch.position || "";
+  current.amountRaw = Math.max(asNumber(current.amountRaw), asNumber(patch.amountRaw));
+  current.pct = patch.pct !== undefined ? patch.pct : current.pct;
+  current.consecutive = Math.max(asNumber(current.consecutive), asNumber(patch.consecutive));
+  current.reopenCount = Math.max(asNumber(current.reopenCount), asNumber(patch.reopenCount));
+  (patch.tags || []).forEach((tag) => {
+    if (tag && !current.tags.includes(tag)) current.tags.push(tag);
+  });
+  (patch.reasons || []).forEach((reason) => {
+    if (reason && !current.reasons.includes(reason)) current.reasons.push(reason);
+  });
+  (patch.risks || []).forEach((risk) => {
+    if (risk && !current.risks.includes(risk)) current.risks.push(risk);
+  });
+  if (patch.raw) current.raw.push(patch.raw);
+  map.set(key, current);
+}
+
+function bestThemeForStock(stock, themeRows) {
+  const haystack = sourceText(stock);
+  return themeRows.find((row) => haystack.includes(row.theme.name)) || null;
+}
+
+function candidateRole(candidate, themeRows) {
+  const row = themeRows.find((item) => item.theme.name === candidate.theme || item.theme.name === candidate.sector);
+  if (row?.leader && sameStock(candidate, row.leader)) return "龙头";
+  if (row?.middle && sameStock(candidate, row.middle)) return "中军";
+  if (row?.supplement && candidate.name && row.supplement.includes(candidate.name)) return "补涨";
+  if (candidate.consecutive >= 3) return "高标";
+  if (candidate.tags.includes("强主线")) return "主线跟随";
+  return candidate.position || "观察";
+}
+
+function scoreWatchCandidate(candidate, themeRows, sentiment) {
+  const themeRow = themeRows.find((item) => item.theme.name === candidate.theme || item.theme.name === candidate.sector);
+  const role = candidateRole(candidate, themeRows);
+  let score = 36;
+  if (themeRow) score += clamp(themeRow.score / 4, 0, 25);
+  if (role === "龙头") score += 18;
+  else if (role === "中军") score += 14;
+  else if (role === "补涨") score += 12;
+  else if (role === "高标") score += 8;
+  if (candidate.tags.includes("创新高")) score += 8;
+  if (candidate.tags.includes("均线黏合")) score += 8;
+  if (candidate.tags.includes("放量突破")) score += 10;
+  if (candidate.tags.includes("科技补涨")) score += 10;
+  if (candidate.tags.includes("竞价封板")) score += 8;
+  if (asNumber(candidate.amountRaw) >= 1000000000) score += 5;
+  if (asNumber(candidate.reopenCount) >= 2) score -= 12;
+  if (asNumber(candidate.consecutive) >= 4) score -= 8;
+  if (candidate.tags.includes("尾盘封板")) score -= 10;
+  if (sentiment.reopenRate >= 35 && role !== "龙头" && role !== "中军") score -= 6;
+  return clamp(Math.round(score), 0, 100);
+}
+
+function watchLevel(score, candidate) {
+  if (candidate.risks.length >= 2 || (score < 50 && candidate.tags.includes("尾盘封板"))) return "只看不追";
+  if (candidate.risks.length >= 1 && score < 85) return "等确认";
+  if (score >= 78) return "重点观察";
+  if (score >= 62) return "等确认";
+  if (score >= 48) return "只看不追";
+  return "剔除观察";
+}
+
+function buildWatchPool(report) {
+  const map = new Map();
+  const stocks = report.stocks || [];
+  const themeRows = buildThemeStrength(report);
+  const sentiment = buildSentiment(report);
+
+  stocks.forEach((stock) => {
+    const themeRow = bestThemeForStock(stock, themeRows);
+    const tags = [];
+    const risks = [];
+    if (themeRow) tags.push("强主线");
+    if (asNumber(stock.consecutive) >= 2) tags.push(`${asNumber(stock.consecutive)}连板`);
+    if (isEarlyLimit(stock)) tags.push("早盘封板");
+    if (isEarlyLimit(stock, "09:25:30")) tags.push("竞价封板");
+    if (asNumber(stock.reopenCount) >= 2) risks.push("回封次数偏多");
+    if (stock.firstLimitTime && stock.firstLimitTime > "13:30:00") {
+      tags.push("尾盘封板");
+      risks.push("尾盘后排");
+    }
+    mergeWatchCandidate(map, stock.code || stock.name, {
+      ...stock,
+      theme: stock.theme || themeRow?.theme.name || "",
+      position: candidateRole({ ...stock, theme: stock.theme || themeRow?.theme.name || "", tags }, themeRows),
+      tags,
+      reasons: [stock.reason || stock.status],
+      risks,
+      raw: stock,
+    });
+  });
+
+  (report.newHighStocks || report.newHighs || []).forEach((stock) => {
+    const themeRow = bestThemeForStock(stock, themeRows);
+    mergeWatchCandidate(map, stock.code || stock.name, {
+      ...stock,
+      theme: themeRow?.theme.name || stock.sector || "",
+      sector: stock.sector || "",
+      tags: ["创新高"],
+      reasons: [stock.catalyst || stock.note || stock.highType],
+      risks: [],
+      raw: stock,
+    });
+  });
+
+  (report.techPullbackStocks || []).forEach((stock) => {
+    const themeRow = bestThemeForStock(stock, themeRows);
+    mergeWatchCandidate(map, stock.code || stock.name, {
+      ...stock,
+      theme: themeRow?.theme.name || stock.category || stock.sector || "",
+      sector: stock.sector || stock.category || "",
+      tags: ["科技补涨", "放量启动"],
+      reasons: [stock.catalyst || stock.reason || stock.note],
+      risks: [],
+      raw: stock,
+    });
+  });
+
+  (report.maConvergenceStocks || []).forEach((stock) => {
+    const type = stock.type || "";
+    const themeRow = bestThemeForStock(stock, themeRows);
+    const tags = ["均线黏合"];
+    if (type.includes("放量")) tags.push("放量突破");
+    if (type.includes("多头")) tags.push("多头发散");
+    mergeWatchCandidate(map, stock.code || stock.name, {
+      ...stock,
+      theme: themeRow?.theme.name || stock.sector || "",
+      sector: stock.sector || "",
+      tags,
+      reasons: [stock.note || type],
+      risks: [],
+      raw: stock,
+    });
+  });
+
+  themeRows.slice(0, 5).forEach((row) => {
+    [row.leader, row.middle]
+      .filter(Boolean)
+      .forEach((stock) => {
+        mergeWatchCandidate(map, stock.code || stock.name, {
+          ...stock,
+          theme: row.theme.name,
+          tags: ["强主线"],
+          reasons: [`${row.theme.name} 强度 ${row.score} 分`],
+          risks: [],
+          raw: stock,
+        });
+      });
+  });
+
+  return [...map.values()]
+    .map((candidate) => {
+      const score = scoreWatchCandidate(candidate, themeRows, sentiment);
+      const role = candidateRole(candidate, themeRows);
+      const level = watchLevel(score, candidate);
+      return { ...candidate, score, role, level };
+    })
+    .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name, "zh-CN"))
+    .slice(0, 80);
+}
+
+function uniqueWatchLevels(rows) {
+  const order = ["重点观察", "等确认", "只看不追", "剔除观察"];
+  return order.filter((level) => rows.some((row) => row.level === level));
+}
+
+function setupWatchPoolFilters(rows) {
+  const filter = el("#watch-pool-filter");
+  const search = el("#watch-pool-search");
+  if (!filter || !search) return;
+  filter.innerHTML = '<option value="">全部等级</option>';
+  uniqueWatchLevels(rows).forEach((level) => {
+    const option = document.createElement("option");
+    option.value = level;
+    option.textContent = level;
+    filter.append(option);
+  });
+  search.addEventListener("input", renderWatchPool);
+  filter.addEventListener("change", renderWatchPool);
+}
+
+function renderWatchPool() {
+  const rows = state.watchPoolStocks || [];
+  const body = el("#watch-pool-body");
+  const summary = el("#watch-pool-summary");
+  const source = el("#watch-pool-source");
+  if (!body || !summary || !source) return;
+
+  const query = (el("#watch-pool-search")?.value || "").trim().toLowerCase();
+  const level = el("#watch-pool-filter")?.value || "";
+  const counts = rows.reduce((acc, row) => {
+    acc[row.level] = (acc[row.level] || 0) + 1;
+    return acc;
+  }, {});
+  source.textContent = `${state.report?.date || "--"} 收盘数据，合并创新高、科技补涨、均线黏合、主线龙头/中军/补涨和风险锚点`;
+  summary.innerHTML = "";
+  ["重点观察", "等确认", "只看不追", "剔除观察"].forEach((name) => {
+    const card = create("article", `watch-summary-card ${name === "重点观察" ? "good" : name === "只看不追" || name === "剔除观察" ? "warn" : ""}`.trim());
+    card.append(create("span", "", name));
+    card.append(create("strong", "", counts[name] || 0));
+    summary.append(card);
+  });
+
+  body.innerHTML = "";
+  rows
+    .filter((row) => {
+      const haystack = [
+        row.code,
+        row.name,
+        row.theme,
+        row.sector,
+        row.role,
+        row.level,
+        row.tags.join(" "),
+        row.reasons.join(" "),
+        row.risks.join(" "),
+      ]
+        .join(" ")
+        .toLowerCase();
+      return (!query || haystack.includes(query)) && (!level || row.level === level);
+    })
+    .forEach((row) => {
+      const tr = document.createElement("tr");
+      [
+        row.score,
+        row.level,
+        row.code || "",
+        row.name || "",
+        row.theme || row.sector || "",
+        row.role,
+        row.tags.join("、"),
+        row.reasons.slice(0, 2).join("；"),
+        row.risks.length ? row.risks.join("；") : "暂无明显风险",
+      ].forEach((value, index) => {
+        const td = document.createElement("td");
+        if (index === 0) {
+          td.append(create("span", `watch-score ${row.score >= 78 ? "good" : row.score < 50 ? "warn" : ""}`.trim(), value));
+        } else if (index === 1) {
+          td.append(create("span", `watch-level ${row.level === "重点观察" ? "good" : row.level === "只看不追" || row.level === "剔除观察" ? "warn" : ""}`.trim(), value));
+        } else if (index === 3) {
+          td.append(create("span", "stock-name", value));
+        } else {
+          td.textContent = value;
+        }
+        tr.append(td);
+      });
+      body.append(tr);
+    });
+
+  if (!body.children.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 9;
+    td.textContent = "没有匹配的观察标的。";
+    tr.append(td);
+    body.append(tr);
+  }
 }
 
 function uniqueCategories(stocks) {
@@ -1586,12 +1882,15 @@ async function init() {
   state.newHighStocks = report.newHighStocks || report.newHighs || [];
   state.techPullbackStocks = report.techPullbackStocks || [];
   state.maConvergenceStocks = report.maConvergenceStocks || [];
+  state.watchPoolStocks = buildWatchPool(report);
 
   setHero(report, data.updatedAt);
   renderSummary(report);
   renderSentimentDashboard(report);
   renderThemeStrength(report);
   renderRiskWarnings(report);
+  setupWatchPoolFilters(state.watchPoolStocks);
+  renderWatchPool();
   renderThemes(report);
   renderLadder(report);
   renderLeaders(report);
