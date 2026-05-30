@@ -1898,8 +1898,6 @@ async function init() {
   renderStats(report);
   setupNewHighFilters(state.newHighStocks);
   renderNewHighs();
-  setupTechPullbackFilters(state.techPullbackStocks);
-  renderTechPullbacks();
   setupMaConvergenceFilters(state.maConvergenceStocks);
   renderMaConvergence();
   setupFilters(report.stocks);
