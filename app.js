@@ -441,6 +441,155 @@ function renderThemeStrength(report) {
   });
 }
 
+function riskLevel(score) {
+  if (score >= 72) return "高风险";
+  if (score >= 45) return "中风险";
+  return "低风险";
+}
+
+function riskTone(score) {
+  if (score >= 72) return "bad";
+  if (score >= 45) return "warn";
+  return "good";
+}
+
+function riskCard(root, label, value, note, tone = "") {
+  const card = create("article", `risk-card ${tone}`.trim());
+  card.append(create("span", "", label));
+  card.append(create("strong", "", value));
+  card.append(create("p", "", note));
+  root.append(card);
+}
+
+function addRiskRow(root, risk, trigger, avoid, anchor, action, tone = "") {
+  const tr = document.createElement("tr");
+  [risk, trigger, avoid, anchor, action].forEach((value, index) => {
+    const td = document.createElement("td");
+    if (index === 0) td.append(create("span", `risk-badge ${tone}`.trim(), value));
+    else td.textContent = value;
+    tr.append(td);
+  });
+  root.append(tr);
+}
+
+function topThemeConcentration(report) {
+  const total = asNumber(report.market?.limitUpCount, (report.stocks || []).length);
+  const topCount = (report.themes || []).slice(0, 2).reduce((sum, theme) => sum + asNumber(theme.count), 0);
+  return total ? (topCount / total) * 100 : 0;
+}
+
+function renderRiskWarnings(report) {
+  const cards = el("#risk-warning-cards");
+  const body = el("#risk-warning-body");
+  const source = el("#risk-warning-source");
+  if (!cards || !body || !source) return;
+
+  const stocks = report.stocks || [];
+  const sentiment = buildSentiment(report);
+  const themes = buildThemeStrength(report);
+  const topTheme = themes[0];
+  const topLeader = topTheme?.leader;
+  const topMiddle = topTheme?.middle;
+  const highBoardStocks = rankStocks(stocks.filter((stock) => asNumber(stock.consecutive) >= 3));
+  const highReopenStocks = stocks.filter((stock) => asNumber(stock.reopenCount) >= 2);
+  const lateLimitStocks = stocks.filter((stock) => !stock.firstLimitTime || stock.firstLimitTime > "13:30:00");
+  const bigAmountStocks = stocks
+    .filter((stock) => asNumber(stock.amountRaw) > 0)
+    .sort((a, b) => asNumber(b.amountRaw) - asNumber(a.amountRaw));
+  const concentration = topThemeConcentration(report);
+  const reopenRisk = sentiment.reopenRate;
+  const lateRate = sentiment.total ? (lateLimitStocks.length / sentiment.total) * 100 : 0;
+  const highRiskCount = highBoardStocks.length + highReopenStocks.length;
+  const riskScore = Math.round(
+    clamp(reopenRisk * 0.8, 0, 38) +
+      clamp((highRiskCount / 12) * 22, 0, 22) +
+      clamp((lateRate / 35) * 16, 0, 16) +
+      clamp((sentiment.score < 55 ? 55 - sentiment.score : 0) * 0.7, 0, 18) +
+      clamp((concentration > 60 ? concentration - 60 : 0) * 0.4, 0, 8),
+  );
+  const level = riskLevel(riskScore);
+
+  source.textContent = `${report.date} 收盘数据，基于回封压力、高位股、尾盘封板、主线集中度和龙头/中军状态生成`;
+  cards.innerHTML = "";
+  body.innerHTML = "";
+
+  riskCard(cards, "风险温度", `${riskScore}/100`, level, riskTone(riskScore));
+  riskCard(
+    cards,
+    "回封压力",
+    `${sentiment.reopenedStocks}只`,
+    `炸板/回封占比 ${formatPctRaw(reopenRisk)}，合计回封 ${sentiment.reopenPressure} 次`,
+    reopenRisk >= 35 ? "bad" : reopenRisk >= 20 ? "warn" : "good",
+  );
+  riskCard(
+    cards,
+    "高位压力",
+    `${highBoardStocks.length}只`,
+    highBoardStocks.length ? `重点看 ${formatStockList(highBoardStocks, 3)}` : "高位样本不多",
+    highBoardStocks.length >= 5 ? "bad" : highBoardStocks.length >= 2 ? "warn" : "good",
+  );
+  riskCard(
+    cards,
+    "主线集中度",
+    formatPctRaw(concentration),
+    topTheme ? `最强主线：${topTheme.theme.name}` : "暂无明确主线",
+    concentration >= 65 ? "warn" : "good",
+  );
+  riskCard(
+    cards,
+    "尾盘封板",
+    `${lateLimitStocks.length}只`,
+    lateLimitStocks.length ? "后排尾盘拉板，次日容易分化" : "尾盘抢筹压力不高",
+    lateLimitStocks.length >= 6 ? "bad" : lateLimitStocks.length >= 3 ? "warn" : "good",
+  );
+
+  addRiskRow(
+    body,
+    "高位股负反馈",
+    highBoardStocks.length ? `3板以上 ${highBoardStocks.length} 只，最高 ${sentiment.ladderHeight} 板` : "高位高度有限",
+    "高标低开、冲高回落或炸板不回封时，不追同题材后排。",
+    highBoardStocks.length ? formatStockList(highBoardStocks, 4) : "观察最高板是否继续正反馈",
+    "只等核心主动回封或板块中军承接确认；高位断板日降低仓位。",
+    highBoardStocks.length >= 3 ? "bad" : "warn",
+  );
+  addRiskRow(
+    body,
+    "炸板/回封压力",
+    `回封股票 ${sentiment.reopenedStocks} 只，回封次数 ${sentiment.reopenPressure} 次`,
+    "同一题材批量炸板、回封越来越弱时，不追午后跟风板。",
+    highReopenStocks.length ? formatStockList(highReopenStocks, 4) : "观察涨停池回封次数",
+    "优先看首次封板早且未炸板的前排，回封多的后排只观察。",
+    reopenRisk >= 35 ? "bad" : "warn",
+  );
+  addRiskRow(
+    body,
+    "主线高潮后分歧",
+    `前两大主线占涨停 ${formatPctRaw(concentration)}`,
+    "主线连续扩容后，后排一字/秒板开板放量时，不追低辨识度补涨。",
+    topLeader || topMiddle ? [stockLabel(topLeader), stockLabel(topMiddle)].filter(Boolean).join("、") : "观察最强主线龙头和中军",
+    "只做龙头、中军或低位最先转强的补涨；后排等分歧后再看承接。",
+    concentration >= 65 ? "warn" : "",
+  );
+  addRiskRow(
+    body,
+    "尾盘后排抢筹",
+    lateLimitStocks.length ? `13:30 后首次封板 ${lateLimitStocks.length} 只` : "尾盘封板不多",
+    "尾盘被动拉板、成交额不足、无板块联动时，次日不接高开。",
+    lateLimitStocks.length ? formatStockList(rankStocks(lateLimitStocks), 4) : "观察尾盘封板次日竞价",
+    "次日只有高开后不杀、10:30 前站稳分时均线，才考虑低位换手机会。",
+    lateLimitStocks.length >= 6 ? "bad" : "warn",
+  );
+  addRiskRow(
+    body,
+    "中军承接失效",
+    topMiddle ? `最强主线中军：${stockLabel(topMiddle)}，成交 ${formatYiRaw(topMiddle.amountRaw)}` : "中军样本不足",
+    "中军放量滞涨、冲高回落或低开低走时，不追同主线小票加速。",
+    bigAmountStocks.length ? formatStockList(bigAmountStocks, 4) : "观察主线容量票",
+    "中军稳住且前排不炸，补涨才有持续性；中军走弱则只看不做。",
+    "warn",
+  );
+}
+
 function uniqueCategories(stocks) {
   return [...new Set(stocks.map((stock) => stock.category))].sort((a, b) =>
     a.localeCompare(b, "zh-CN"),
@@ -1442,6 +1591,7 @@ async function init() {
   renderSummary(report);
   renderSentimentDashboard(report);
   renderThemeStrength(report);
+  renderRiskWarnings(report);
   renderThemes(report);
   renderLadder(report);
   renderLeaders(report);
