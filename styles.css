@@ -358,6 +358,138 @@ main {
   margin-top: 18px;
 }
 
+.sentiment-section,
+.theme-strength-section {
+  margin-top: 18px;
+}
+
+.sentiment-cards {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.sentiment-card,
+.sentiment-detail-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.sentiment-card {
+  min-height: 132px;
+  padding: 13px;
+}
+
+.sentiment-card.good {
+  border-color: #99d5bf;
+  background: #f1fbf6;
+}
+
+.sentiment-card.warn {
+  border-color: #f1c588;
+  background: #fff8ed;
+}
+
+.sentiment-card.bad {
+  border-color: #f2aaa5;
+  background: #fff5f5;
+}
+
+.sentiment-card-top {
+  display: grid;
+  gap: 8px;
+}
+
+.sentiment-card-top span,
+.sentiment-card p,
+.sentiment-detail-card p {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.sentiment-card-top strong {
+  color: var(--ink);
+  font-size: 28px;
+  line-height: 1;
+}
+
+.sentiment-card-top small {
+  margin-left: 3px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sentiment-card p {
+  min-height: 36px;
+  margin: 9px 0 10px;
+  line-height: 1.5;
+}
+
+.sentiment-meter,
+.theme-score-bar {
+  display: block;
+  height: 8px;
+  border-radius: 999px;
+  background: #e5edf4;
+  overflow: hidden;
+}
+
+.sentiment-meter span,
+.theme-score-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+}
+
+.sentiment-card.warn .sentiment-meter span {
+  background: var(--warn);
+}
+
+.sentiment-card.bad .sentiment-meter span {
+  background: var(--red);
+}
+
+.sentiment-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.sentiment-detail-card {
+  padding: 14px;
+}
+
+.sentiment-detail-card strong {
+  display: block;
+  color: var(--accent-strong);
+  font-size: 15px;
+}
+
+.sentiment-detail-card p {
+  margin: 8px 0 0;
+  line-height: 1.6;
+}
+
+.theme-strength-table {
+  min-width: 1180px;
+}
+
+.theme-score {
+  display: grid;
+  grid-template-columns: 42px minmax(78px, 1fr);
+  gap: 8px;
+  align-items: center;
+}
+
+.theme-score strong {
+  color: var(--accent-strong);
+  font-size: 17px;
+}
+
 .daily-watch-cards {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -859,6 +991,8 @@ select {
   .theme-grid,
   .strategy-grid,
   .scenario-grid,
+  .sentiment-cards,
+  .sentiment-detail-grid,
   .daily-watch-cards,
   .daily-watch-forecast {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -901,6 +1035,8 @@ select {
   .theme-grid,
   .strategy-grid,
   .scenario-grid,
+  .sentiment-cards,
+  .sentiment-detail-grid,
   .strategy-snapshot,
   .daily-watch-cards,
   .daily-watch-forecast {

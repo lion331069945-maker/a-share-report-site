@@ -14,6 +14,8 @@
       </div>
       <nav class="nav">
         <a href="#market">市场走势</a>
+        <a href="#sentiment">市场情绪</a>
+        <a href="#theme-strength">主线强度</a>
         <a href="#daily-watch">竞价观察</a>
         <a href="#strategy">盘面策略</a>
         <a href="#themes">板块催化</a>
@@ -47,6 +49,45 @@
             <div id="chart-tooltip" class="chart-tooltip" hidden></div>
           </div>
           <div id="chart-range" class="chart-range"></div>
+        </div>
+      </section>
+
+      <section class="section sentiment-section" id="sentiment">
+        <div class="section-head">
+          <div>
+            <h2>市场情绪仪表盘</h2>
+            <p id="sentiment-source" class="keep-time">更新中...</p>
+          </div>
+        </div>
+        <div id="sentiment-cards" class="sentiment-cards"></div>
+        <div id="sentiment-detail" class="sentiment-detail-grid"></div>
+      </section>
+
+      <section class="section theme-strength-section" id="theme-strength">
+        <div class="section-head">
+          <div>
+            <h2>主线强度排行</h2>
+            <p id="theme-strength-source" class="keep-time">更新中...</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="theme-strength-table">
+            <thead>
+              <tr>
+                <th>排名</th>
+                <th>主线</th>
+                <th>强度</th>
+                <th>涨停</th>
+                <th>连板</th>
+                <th>最高板</th>
+                <th>龙头</th>
+                <th>中军</th>
+                <th>补涨</th>
+                <th>催化</th>
+              </tr>
+            </thead>
+            <tbody id="theme-strength-body"></tbody>
+          </table>
         </div>
       </section>
 

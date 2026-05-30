@@ -143,6 +143,304 @@ function renderStats(report) {
   });
 }
 
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function asNumber(value, fallback = 0) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function parseBoardHeight(value) {
+  const textValue = String(value || "");
+  if (textValue.includes("首")) return 1;
+  const parsed = Number.parseInt(textValue, 10);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function isEarlyLimit(stock, time = "09:35:00") {
+  return Boolean(stock?.firstLimitTime && stock.firstLimitTime <= time);
+}
+
+function stockLabel(stock) {
+  if (!stock) return "--";
+  return `${stock.name}${stock.code ? `(${stock.code})` : ""}`;
+}
+
+function formatPctRaw(value) {
+  if (!Number.isFinite(value)) return "--";
+  return `${value.toFixed(0)}%`;
+}
+
+function formatYiRaw(value) {
+  const amount = asNumber(value);
+  if (!amount) return "--";
+  return `${(amount / 100000000).toFixed(1)}亿`;
+}
+
+function sentimentLabel(score) {
+  if (score >= 78) return "强修复";
+  if (score >= 62) return "结构性活跃";
+  if (score >= 45) return "中性震荡";
+  return "分歧偏弱";
+}
+
+function sentimentTone(score) {
+  if (score >= 62) return "good";
+  if (score < 45) return "bad";
+  return "warn";
+}
+
+function buildSentiment(report) {
+  const stocks = report.stocks || [];
+  const total = asNumber(report.market?.limitUpCount, stocks.length);
+  const ladderHeight = Math.max(
+    parseBoardHeight(report.ladder?.[0]?.height),
+    ...stocks.map((stock) => asNumber(stock.consecutive)),
+  );
+  const multiBoard = stocks.filter((stock) => asNumber(stock.consecutive) >= 2).length;
+  const firstBoard = stocks.filter((stock) => asNumber(stock.consecutive) <= 1).length;
+  const earlyLimit = stocks.filter((stock) => isEarlyLimit(stock)).length;
+  const auctionLimit = stocks.filter((stock) => isEarlyLimit(stock, "09:25:30")).length;
+  const reopenPressure = stocks.reduce((sum, stock) => sum + asNumber(stock.reopenCount), 0);
+  const reopenedStocks = stocks.filter((stock) => asNumber(stock.reopenCount) > 0).length;
+  const earlyRate = total ? (earlyLimit / total) * 100 : 0;
+  const multiRate = total ? (multiBoard / total) * 100 : 0;
+  const reopenRate = total ? (reopenedStocks / total) * 100 : 0;
+  const score = Math.round(
+    clamp((total / 80) * 28, 0, 28) +
+      clamp((ladderHeight / 6) * 20, 0, 20) +
+      clamp((multiBoard / 16) * 18, 0, 18) +
+      clamp((earlyRate / 45) * 18, 0, 18) +
+      clamp(((100 - reopenRate) / 100) * 16, 0, 16),
+  );
+  return {
+    total,
+    ladderHeight,
+    multiBoard,
+    firstBoard,
+    earlyLimit,
+    auctionLimit,
+    reopenPressure,
+    reopenedStocks,
+    earlyRate,
+    multiRate,
+    reopenRate,
+    score: clamp(score, 0, 100),
+    label: sentimentLabel(score),
+  };
+}
+
+function renderSentimentDashboard(report) {
+  const cards = el("#sentiment-cards");
+  const detail = el("#sentiment-detail");
+  const source = el("#sentiment-source");
+  if (!cards || !detail || !source) return;
+
+  const sentiment = buildSentiment(report);
+  source.textContent = `${report.date} 收盘数据，基于涨停池、连板天梯、首次封板时间和回封次数计算`;
+  cards.innerHTML = "";
+  detail.innerHTML = "";
+
+  const items = [
+    {
+      label: "情绪温度",
+      value: `${sentiment.score}`,
+      unit: "/100",
+      note: sentiment.label,
+      tone: sentimentTone(sentiment.score),
+      meter: sentiment.score,
+    },
+    {
+      label: "涨停家数",
+      value: sentiment.total,
+      unit: "只",
+      note: sentiment.total >= 60 ? "赚钱效应扩张" : sentiment.total >= 40 ? "局部活跃" : "偏弱修复",
+      meter: clamp((sentiment.total / 80) * 100, 0, 100),
+    },
+    {
+      label: "连板高度",
+      value: sentiment.ladderHeight || "--",
+      unit: sentiment.ladderHeight ? "板" : "",
+      note: sentiment.ladderHeight >= 5 ? "高度打开" : sentiment.ladderHeight >= 3 ? "梯队可用" : "高度受限",
+      meter: clamp((sentiment.ladderHeight / 6) * 100, 0, 100),
+    },
+    {
+      label: "连板股",
+      value: sentiment.multiBoard,
+      unit: "只",
+      note: `连板占比 ${formatPctRaw(sentiment.multiRate)}`,
+      meter: clamp((sentiment.multiRate / 35) * 100, 0, 100),
+    },
+    {
+      label: "早盘封板",
+      value: sentiment.earlyLimit,
+      unit: "只",
+      note: `竞价封板 ${sentiment.auctionLimit} 只`,
+      meter: clamp((sentiment.earlyRate / 55) * 100, 0, 100),
+    },
+    {
+      label: "回封压力",
+      value: sentiment.reopenedStocks,
+      unit: "只",
+      note: `合计回封 ${sentiment.reopenPressure} 次`,
+      tone: sentiment.reopenRate > 35 ? "bad" : sentiment.reopenRate > 18 ? "warn" : "good",
+      meter: clamp(100 - sentiment.reopenRate, 0, 100),
+    },
+  ];
+
+  items.forEach((item) => {
+    const card = create("article", `sentiment-card ${item.tone || ""}`.trim());
+    const top = create("div", "sentiment-card-top");
+    top.append(create("span", "", item.label));
+    const value = create("strong");
+    value.append(document.createTextNode(item.value));
+    if (item.unit) value.append(create("small", "", item.unit));
+    top.append(value);
+    card.append(top);
+    card.append(create("p", "", item.note));
+    const meter = create("div", "sentiment-meter");
+    const fill = create("span");
+    fill.style.width = `${clamp(item.meter, 0, 100)}%`;
+    meter.append(fill);
+    card.append(meter);
+    cards.append(card);
+  });
+
+  const structure = create("article", "sentiment-detail-card");
+  structure.append(create("strong", "", "情绪结构"));
+  structure.append(create("p", "", `首板 ${sentiment.firstBoard} 只，连板 ${sentiment.multiBoard} 只，最高 ${sentiment.ladderHeight || "--"} 板。`));
+  structure.append(create("p", "", `早盘 9:35 前封板 ${sentiment.earlyLimit} 只，说明资金进攻节奏${sentiment.earlyRate >= 40 ? "较主动" : "偏谨慎"}。`));
+  detail.append(structure);
+
+  const action = create("article", "sentiment-detail-card");
+  action.append(create("strong", "", "盘面含义"));
+  const riskText =
+    sentiment.reopenRate > 35
+      ? "炸板/回封压力偏大，追后排需要降速。"
+      : sentiment.score >= 62
+        ? "情绪有承接，可以优先看主线前排和低位补涨。"
+        : "情绪没有全面打开，先看辨识度和承接。";
+  action.append(create("p", "", `${sentiment.label}：${riskText}`));
+  action.append(create("p", "", "明日重点观察高标反馈、昨日首板晋级率，以及强主线是否继续扩容。"));
+  detail.append(action);
+}
+
+function themeStocks(theme, stocks) {
+  const leaders = new Set(theme.leaders || []);
+  return stocks.filter((stock) => stock.theme === theme.name || leaders.has(stock.name));
+}
+
+function leaderForTheme(theme, report, stocks) {
+  const explicit = (report.leaders || []).find((leader) => leader.theme === theme.name || leader.type === theme.name);
+  if (explicit?.stock) {
+    const matched = stocks.find((stock) => stock.name === explicit.stock || stock.code === explicit.code);
+    return matched || { name: explicit.stock, code: explicit.code };
+  }
+  return rankStocks(stocks)[0] || null;
+}
+
+function sameStock(left, right) {
+  if (!left || !right) return false;
+  return Boolean((left.code && left.code === right.code) || (left.name && left.name === right.name));
+}
+
+function buildThemeStrength(report) {
+  const stocks = report.stocks || [];
+  return (report.themes || [])
+    .map((theme) => {
+      const rows = themeStocks(theme, stocks);
+      const count = asNumber(theme.count, rows.length);
+      const multiBoard = rows.filter((stock) => asNumber(stock.consecutive) >= 2).length;
+      const maxHeight = Math.max(0, ...rows.map((stock) => asNumber(stock.consecutive)));
+      const earlyLimit = rows.filter((stock) => isEarlyLimit(stock)).length;
+      const reopenPressure = rows.reduce((sum, stock) => sum + asNumber(stock.reopenCount), 0);
+      const amountRaw = rows.reduce((sum, stock) => sum + asNumber(stock.amountRaw), 0);
+      const leader = leaderForTheme(theme, report, rows);
+      const middle = rows
+        .filter((stock) => !sameStock(stock, leader))
+        .sort((a, b) => asNumber(b.amountRaw) - asNumber(a.amountRaw))[0];
+      const supplement = rankStocks(
+        rows.filter(
+          (stock) =>
+            asNumber(stock.consecutive) <= 1 && !sameStock(stock, leader) && !sameStock(stock, middle),
+        ),
+      )
+        .slice(0, 2)
+        .map(stockLabel)
+        .join("、");
+      const score = Math.round(
+        clamp(count * 4.8, 0, 32) +
+          clamp(multiBoard * 7, 0, 22) +
+          clamp(maxHeight * 5, 0, 24) +
+          clamp(earlyLimit * 2.5, 0, 12) +
+          clamp(Math.log10(amountRaw / 100000000 + 1) * 8, 0, 12) -
+          clamp(reopenPressure * 1.2, 0, 12),
+      );
+      return {
+        theme,
+        count,
+        multiBoard,
+        maxHeight,
+        earlyLimit,
+        amountRaw,
+        leader,
+        middle,
+        supplement,
+        score: clamp(score, 0, 100),
+      };
+    })
+    .sort((a, b) => b.score - a.score || b.count - a.count || b.maxHeight - a.maxHeight);
+}
+
+function renderThemeStrength(report) {
+  const body = el("#theme-strength-body");
+  const source = el("#theme-strength-source");
+  if (!body || !source) return;
+
+  const rows = buildThemeStrength(report);
+  source.textContent = `${report.date} 收盘数据，按涨停数量、连板数量、最高板、早盘封板和成交额综合打分`;
+  body.innerHTML = "";
+
+  rows.forEach((row, index) => {
+    const tr = document.createElement("tr");
+    const cells = [
+      `#${index + 1}`,
+      row.theme.name,
+      "",
+      `${row.count}只`,
+      `${row.multiBoard}只`,
+      row.maxHeight ? `${row.maxHeight}板` : "--",
+      stockLabel(row.leader),
+      stockLabel(row.middle),
+      row.supplement || "--",
+      row.theme.catalyst || "",
+    ];
+    cells.forEach((value, cellIndex) => {
+      const td = document.createElement("td");
+      if (cellIndex === 1) {
+        td.append(create("span", "stock-name", value));
+      } else if (cellIndex === 2) {
+        const score = create("div", "theme-score");
+        score.append(create("strong", "", row.score));
+        const bar = create("span", "theme-score-bar");
+        const fill = create("span");
+        fill.style.width = `${row.score}%`;
+        bar.append(fill);
+        score.append(bar);
+        td.append(score);
+      } else if (cellIndex === 6 || cellIndex === 7) {
+        td.append(create("span", "stock-name", value));
+      } else {
+        td.textContent = value;
+      }
+      tr.append(td);
+    });
+    body.append(tr);
+  });
+}
+
 function uniqueCategories(stocks) {
   return [...new Set(stocks.map((stock) => stock.category))].sort((a, b) =>
     a.localeCompare(b, "zh-CN"),
@@ -1142,6 +1440,8 @@ async function init() {
 
   setHero(report, data.updatedAt);
   renderSummary(report);
+  renderSentimentDashboard(report);
+  renderThemeStrength(report);
   renderThemes(report);
   renderLadder(report);
   renderLeaders(report);
