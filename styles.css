@@ -354,6 +354,10 @@ main {
   margin-top: 18px;
 }
 
+.market-news-section {
+  margin-top: 18px;
+}
+
 .daily-watch-section {
   margin-top: 18px;
 }
@@ -362,6 +366,67 @@ main {
 .theme-strength-section,
 .risk-warning-section {
   margin-top: 18px;
+}
+
+.market-news-spotlight {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.market-news-card {
+  min-height: 150px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.market-news-card.tech {
+  border-color: #9ac4df;
+  background: #f1f8fc;
+}
+
+.market-news-card.finance {
+  border-color: #99d5bf;
+  background: #f1fbf6;
+}
+
+.market-news-card.policy {
+  border-color: #f1c588;
+  background: #fff8ed;
+}
+
+.market-news-card span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.07);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.market-news-card strong {
+  display: block;
+  margin-top: 10px;
+  color: var(--accent-strong);
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.market-news-card p {
+  margin: 9px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.market-news-table td:nth-child(2),
+.market-news-table td:nth-child(3) {
+  min-width: 220px;
 }
 
 .sentiment-cards {
@@ -1149,6 +1214,7 @@ select {
   .theme-grid,
   .strategy-grid,
   .scenario-grid,
+  .market-news-spotlight,
   .sentiment-cards,
   .sentiment-detail-grid,
   .risk-warning-cards,
@@ -1195,6 +1261,7 @@ select {
   .theme-grid,
   .strategy-grid,
   .scenario-grid,
+  .market-news-spotlight,
   .sentiment-cards,
   .sentiment-detail-grid,
   .risk-warning-cards,

@@ -144,6 +144,83 @@ function renderStats(report) {
   });
 }
 
+function newsCategoryTone(category) {
+  if (category === "科技") return "tech";
+  if (category === "政治") return "policy";
+  return "finance";
+}
+
+function inferNewsCategory(textValue) {
+  const value = String(textValue || "");
+  if (/(科技|AI|算力|半导体|芯片|机器人|硬件|新能源|光模块)/.test(value)) return "科技";
+  if (/(政策|国务院|央行|监管|政治|外交|改革|规划)/.test(value)) return "政治";
+  return "财经";
+}
+
+function buildFallbackMarketNews(report) {
+  const sourceText = report.market?.dataSource || report.dataSource || "复盘数据源";
+  return (report.themes || []).slice(0, 4).map((theme, index) => ({
+    category: inferNewsCategory(`${theme.name} ${theme.catalyst}`),
+    title: `${theme.name}成为盘面关键线索`,
+    impact: theme.catalyst || "从涨停分布和资金承接情况看，该方向对当日风格切换有明显影响。",
+    relatedThemes: [theme.name],
+    source: index === 0 ? "复盘交叉核验" : "板块催化归档",
+    url: sourceText.match(/https?:\/\/[^；\s]+/)?.[0] || "",
+  }));
+}
+
+function normalizeMarketNews(report) {
+  const rows = Array.isArray(report.marketNews) && report.marketNews.length ? report.marketNews : buildFallbackMarketNews(report);
+  return rows.map((item) => ({
+    category: item.category || inferNewsCategory(`${item.title} ${item.impact} ${item.relatedThemes}`),
+    title: item.title || item.headline || "未命名新闻",
+    impact: item.impact || item.summary || "等待补充盘面影响。",
+    relatedThemes: Array.isArray(item.relatedThemes) ? item.relatedThemes : String(item.relatedThemes || "").split(/[、,，]/).filter(Boolean),
+    source: item.source || "待核验",
+    url: item.url || "",
+  }));
+}
+
+function renderMarketNews(report) {
+  const source = el("#market-news-source");
+  const spotlight = el("#market-news-spotlight");
+  const body = el("#market-news-body");
+  if (!source || !spotlight || !body) return;
+
+  const rows = normalizeMarketNews(report);
+  source.textContent = `${report.date} 新闻归档，按科技、财经、政治三类记录对盘面影响最大的线索`;
+  spotlight.innerHTML = "";
+  body.innerHTML = "";
+
+  rows.slice(0, 3).forEach((item) => {
+    const card = create("article", `market-news-card ${newsCategoryTone(item.category)}`);
+    card.append(create("span", "", item.category));
+    card.append(create("strong", "", item.title));
+    card.append(create("p", "", item.impact));
+    spotlight.append(card);
+  });
+
+  rows.forEach((item) => {
+    const tr = create("tr");
+    tr.append(create("td", "", item.category));
+    tr.append(create("td", "", item.title));
+    tr.append(create("td", "", item.impact));
+    tr.append(create("td", "", item.relatedThemes.join("、") || "--"));
+    const sourceCell = create("td");
+    if (item.url) {
+      const link = create("a", "", item.source);
+      link.href = item.url;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+      sourceCell.append(link);
+    } else {
+      sourceCell.textContent = item.source;
+    }
+    tr.append(sourceCell);
+    body.append(tr);
+  });
+}
+
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
@@ -1906,6 +1983,7 @@ async function init() {
   renderMarketCharts();
   renderDailyWatch();
   renderStrategy();
+  renderMarketNews(report);
 }
 
 init().catch((error) => {
