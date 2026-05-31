@@ -20,6 +20,7 @@
         <a href="#watch-pool">综合观察池</a>
         <a href="#daily-watch">竞价观察</a>
         <a href="#strategy">盘面策略</a>
+        <a href="#agent-desk">智能体研判</a>
         <a href="#themes">板块催化</a>
         <a href="#ladder">连板天梯</a>
         <a href="#leaders">龙头股</a>
@@ -226,6 +227,21 @@
         <div id="strategy-scenarios" class="scenario-grid"></div>
       </section>
 
+      <section class="section agent-desk-section" id="agent-desk">
+        <div class="section-head">
+          <div>
+            <h2>Trading Agents 研判室</h2>
+            <p id="agent-desk-source" class="keep-time">模拟多角色交易团队，对盘面、主线、情绪和风险进行交叉表决</p>
+          </div>
+        </div>
+        <div id="agent-consensus" class="agent-consensus"></div>
+        <div id="agent-debate" class="agent-debate-grid"></div>
+        <div class="section-head compact strategy-subhead">
+          <h3>执行清单</h3>
+        </div>
+        <div id="agent-playbook" class="agent-playbook"></div>
+      </section>
+
       <section class="hero">
         <div class="hero-copy">
           <p class="eyebrow">收盘后自动更新</p>
@@ -417,5 +433,6 @@
     </footer>
 
     <script src="./app.js"></script>
+    <script src="./agent-desk.js"></script>
   </body>
 </html>
