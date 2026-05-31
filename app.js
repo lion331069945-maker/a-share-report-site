@@ -173,8 +173,11 @@ function normalizeMarketNews(report) {
   const rows = Array.isArray(report.marketNews) && report.marketNews.length ? report.marketNews : buildFallbackMarketNews(report);
   return rows.map((item) => ({
     category: item.category || inferNewsCategory(`${item.title} ${item.impact} ${item.relatedThemes}`),
+    heat: item.heat || "市场关注",
     title: item.title || item.headline || "未命名新闻",
     impact: item.impact || item.summary || "等待补充盘面影响。",
+    whyHot: item.whyHot || item.reason || "",
+    watch: item.watch || item.watchPoint || "",
     relatedThemes: Array.isArray(item.relatedThemes) ? item.relatedThemes : String(item.relatedThemes || "").split(/[、,，]/).filter(Boolean),
     source: item.source || "待核验",
     url: item.url || "",
@@ -188,24 +191,30 @@ function renderMarketNews(report) {
   if (!source || !spotlight || !body) return;
 
   const rows = normalizeMarketNews(report);
-  source.textContent = `${report.date} 新闻归档，按科技、财经、政治三类记录对盘面影响最大的线索`;
+  source.textContent = `${report.date} 市场级新闻雷达，只保留全市场热议并能改变主线想象力、风险偏好或资金风格的事件`;
   spotlight.innerHTML = "";
   body.innerHTML = "";
 
   rows.slice(0, 3).forEach((item) => {
     const card = create("article", `market-news-card ${newsCategoryTone(item.category)}`);
-    card.append(create("span", "", item.category));
+    const meta = create("div", "market-news-meta");
+    meta.append(create("span", "", item.category));
+    meta.append(create("span", "", item.heat));
+    card.append(meta);
     card.append(create("strong", "", item.title));
     card.append(create("p", "", item.impact));
+    if (item.whyHot) card.append(create("p", "market-news-reason", `热议原因：${item.whyHot}`));
     spotlight.append(card);
   });
 
   rows.forEach((item) => {
     const tr = create("tr");
     tr.append(create("td", "", item.category));
+    tr.append(create("td", "", item.heat));
     tr.append(create("td", "", item.title));
     tr.append(create("td", "", item.impact));
     tr.append(create("td", "", item.relatedThemes.join("、") || "--"));
+    tr.append(create("td", "", item.watch || "--"));
     const sourceCell = create("td");
     if (item.url) {
       const link = create("a", "", item.source);

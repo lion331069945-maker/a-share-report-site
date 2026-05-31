@@ -398,7 +398,13 @@ main {
   background: #fff8ed;
 }
 
-.market-news-card span {
+.market-news-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.market-news-meta span {
   display: inline-flex;
   align-items: center;
   min-height: 22px;
@@ -424,8 +430,13 @@ main {
   line-height: 1.6;
 }
 
+.market-news-reason {
+  color: var(--ink);
+}
+
 .market-news-table td:nth-child(2),
-.market-news-table td:nth-child(3) {
+.market-news-table td:nth-child(3),
+.market-news-table td:nth-child(4) {
   min-width: 220px;
 }
 
