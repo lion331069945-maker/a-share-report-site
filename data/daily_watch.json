@@ -1,122 +1,69 @@
 {
-  "date": "2026-06-01",
+  "date": "2026-06-02",
   "session": "竞价观察",
-  "updatedAt": "2026-06-01 14:21:07 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20260601)；口径为 09:25-09:30 期间最终封住涨停的竞价封板票，后续炸板仍保留并标注状态；fund 为封单金额，封单量按 fund/涨停价估算。",
-  "limitUpCount": 5,
-  "totalSealFund": 1389261624.0,
-  "maxLadder": 4,
+  "updatedAt": "2026-06-02 14:04:48 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20260602)；口径为 09:25-09:30 期间最终封住涨停的竞价封板票，后续炸板仍保留并标注状态；fund 为封单金额，封单量按 fund/涨停价估算。",
+  "limitUpCount": 2,
+  "totalSealFund": 1021963519.0,
+  "maxLadder": 3,
   "hotSectors": [
     {
       "name": "消费电子",
-      "count": 3,
-      "sealFund": 1308377623.0
+      "count": 1,
+      "sealFund": 817261778.0
     },
     {
-      "name": "电力",
+      "name": "煤炭开采",
       "count": 1,
-      "sealFund": 391777.0
-    },
-    {
-      "name": "基础建设",
-      "count": 1,
-      "sealFund": 80492224.0
+      "sealFund": 204701741.0
     }
   ],
   "forecast": [
     {
-      "title": "结构性活跃",
-      "text": "竞价封板5只，更多是结构性机会。重点看消费电子(3)、电力(1)、基础建设(1)能否带动同方向后排，而不是简单追一字板本身。"
+      "title": "竞价偏谨慎",
+      "text": "竞价封板只有2只，盘前情绪不算强。若指数不能快速放量，早盘更适合等分歧后的承接。"
     },
     {
       "title": "主线观察",
-      "text": "板块上优先看消费电子(3)、电力(1)、基础建设(1)。如果开盘 15 分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+      "text": "板块上优先看消费电子(1)、煤炭开采(1)。如果开盘 15 分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
     },
     {
       "title": "风险信号",
-      "text": "最高4连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
+      "text": "最高3连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
     }
   ],
   "stocks": [
     {
-      "code": "000539.SZ",
-      "name": "粤电力Ａ",
-      "sector": "电力",
-      "ladder": 4,
-      "price": 9.77,
-      "sealFund": 391777.0,
-      "sealVolume": 40100.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "14:20:15",
-      "reopenCount": 88,
-      "status": "竞价封住，后续开板88次",
-      "pct": 10.02,
-      "capturedAt": "14:21:07",
-      "note": "4连板竞价封住，是短线高度和情绪强弱的核心观察点。"
-    },
-    {
       "code": "603890.SH",
       "name": "春秋电子",
       "sector": "消费电子",
-      "ladder": 2,
-      "price": 27.29,
-      "sealFund": 731262457.0,
-      "sealVolume": 26795986.0,
+      "ladder": 3,
+      "price": 30.02,
+      "sealFund": 817261778.0,
+      "sealVolume": 27223910.0,
       "firstLimitTime": "09:25:02",
       "lastLimitTime": "09:25:02",
       "reopenCount": 0,
       "status": "竞价封住",
       "pct": 10.0,
-      "capturedAt": "14:21:07",
-      "note": "封单金额靠前，代表消费电子方向开盘资金态度较强。"
+      "capturedAt": "14:04:48",
+      "note": "3连板竞价封住，是短线高度和情绪强弱的核心观察点。"
     },
     {
-      "code": "002426.SZ",
-      "name": "胜利精密",
-      "sector": "消费电子",
-      "ladder": 1,
-      "price": 3.66,
-      "sealFund": 406908822.0,
-      "sealVolume": 111177274.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "09:25:00",
+      "code": "600403.SH",
+      "name": "大有能源",
+      "sector": "煤炭开采",
+      "ladder": 2,
+      "price": 6.12,
+      "sealFund": 204701741.0,
+      "sealVolume": 33447997.0,
+      "firstLimitTime": "09:30:00",
+      "lastLimitTime": "09:30:00",
       "reopenCount": 0,
       "status": "竞价封住",
-      "pct": 9.91,
-      "capturedAt": "14:21:07",
-      "note": "封单金额靠前，代表消费电子方向开盘资金态度较强。"
-    },
-    {
-      "code": "300956.SZ",
-      "name": "英力股份",
-      "sector": "消费电子",
-      "ladder": 1,
-      "price": 16.94,
-      "sealFund": 170206344.0,
-      "sealVolume": 10047600.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "09:25:00",
-      "reopenCount": 0,
-      "status": "竞价封住",
-      "pct": 19.97,
-      "capturedAt": "14:21:07",
-      "note": "消费电子方向竞价封板，观察同板块是否扩散。"
-    },
-    {
-      "code": "300197.SZ",
-      "name": "节能铁汉",
-      "sector": "基础建设",
-      "ladder": 1,
-      "price": 1.93,
-      "sealFund": 80492224.0,
-      "sealVolume": 41705816.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "09:37:36",
-      "reopenCount": 1,
-      "status": "竞价封住，后续开板1次",
-      "pct": 19.88,
-      "capturedAt": "14:21:07",
-      "note": "基础建设方向竞价封板，观察同板块是否扩散。"
+      "pct": 10.07,
+      "capturedAt": "14:04:48",
+      "note": "煤炭开采方向竞价封板，观察同板块是否扩散。"
     }
   ]
 }
