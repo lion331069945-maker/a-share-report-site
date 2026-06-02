@@ -191,7 +191,7 @@ function renderMarketNews(report) {
   if (!source || !spotlight || !body) return;
 
   const rows = normalizeMarketNews(report);
-  source.textContent = `${report.date} 市场级新闻雷达，只保留全市场热议并能改变主线想象力、风险偏好或资金风格的事件`;
+  source.textContent = `${report.date} 市场与科技新闻雷达，覆盖盘面主线、全球科技、AI、芯片、机器人和产业政策`;
   spotlight.innerHTML = "";
   body.innerHTML = "";
 
