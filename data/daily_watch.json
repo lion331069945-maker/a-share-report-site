@@ -1,111 +1,114 @@
 {
   "date": "2026-06-03",
   "session": "竞价观察",
-  "updatedAt": "2026-06-03 14:19:04 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20260603)；口径为 09:25-09:30 期间最终封住涨停的竞价封板票，后续炸板仍保留并标注状态；fund 为封单金额，封单量按 fund/涨停价估算。",
+  "updatedAt": "2026-06-03 17:35:00 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20260603)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
   "limitUpCount": 4,
-  "totalSealFund": 1271974388.0,
+  "totalSealFund": 9018.24,
   "maxLadder": 3,
   "hotSectors": [
     {
-      "name": "塑料",
+      "name": "AI硬件/CPO/半导体",
       "count": 1,
-      "sealFund": 101398442.0
+      "sealFund": 1.47
     },
     {
-      "name": "金属新材",
+      "name": "资源品/金属材料/高股息",
       "count": 1,
-      "sealFund": 518957383.0
+      "sealFund": 3.86
     },
     {
-      "name": "元件",
-      "count": 1,
-      "sealFund": 382785982.0
-    },
-    {
-      "name": "炼化及贸",
-      "count": 1,
-      "sealFund": 268832581.0
+      "name": "化工材料/新能源材料",
+      "count": 2,
+      "sealFund": 9012.91
     }
   ],
   "forecast": [
     {
-      "title": "结构性活跃",
-      "text": "竞价封板4只，更多是结构性机会。重点看塑料(1)、金属新材(1)、元件(1)能否带动同方向后排，而不是简单追一字板本身。"
+      "title": "竞价强度结构化",
+      "text": "09:30 前封住涨停的样本为4只，最高3连板，说明竞价阶段有明确强度但并非全面亢奋。"
     },
     {
       "title": "主线观察",
-      "text": "板块上优先看塑料(1)、金属新材(1)、元件(1)。如果开盘 15 分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+      "text": "重点看AI硬件、材料和电力方向开盘后的换手承接；若前排快速炸板且无同方向补涨，说明资金仍偏轮动。"
     },
     {
       "title": "风险信号",
-      "text": "最高3连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
+      "text": "今天收盘指数强于多数个股，竞价强度不能直接外推成普涨，应优先观察板块中军和高标是否同步走强。"
     }
   ],
   "stocks": [
     {
-      "code": "603330.SH",
-      "name": "天洋新材",
-      "sector": "塑料",
-      "ladder": 3,
-      "price": 8.55,
-      "sealFund": 101398442.0,
-      "sealVolume": 11859467.0,
-      "firstLimitTime": "09:25:02",
-      "lastLimitTime": "09:25:02",
-      "reopenCount": 0,
-      "status": "竞价封住",
-      "pct": 10.04,
-      "capturedAt": "14:19:04",
-      "note": "3连板竞价封住，是短线高度和情绪强弱的核心观察点。"
+      "code": "301366.SZ",
+      "name": "一博科技",
+      "theme": "AI硬件/CPO/半导体",
+      "reason": "光模块、光通信、半导体和AI硬件继续承接英伟达AI PC、GTC台北和算力基础设施叙事，是今天指数弹性的主要来源。",
+      "position": "首板扩散",
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:32:18",
+      "consecutive": 1,
+      "reopenCount": 1,
+      "pct": 20.01,
+      "price": 54.16,
+      "amount": "5.25?",
+      "amountRaw": 524760128,
+      "sealFund": "1.47?",
+      "turnover": 8.29,
+      "category": "元件"
     },
     {
       "code": "600255.SH",
       "name": "鑫科材料",
-      "sector": "金属新材",
-      "ladder": 2,
-      "price": 4.39,
-      "sealFund": 518957383.0,
-      "sealVolume": 118213527.0,
+      "theme": "资源品/金属材料/高股息",
+      "reason": "煤炭和金属材料延续高股息、防御和资源价格弹性，适合作为强科技行情中的攻防平衡观察。",
+      "position": "连板前排",
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "09:25:00",
+      "consecutive": 2,
       "reopenCount": 0,
-      "status": "竞价封住",
       "pct": 10.03,
-      "capturedAt": "14:19:04",
-      "note": "封单金额靠前，代表金属新材方向开盘资金态度较强。"
-    },
-    {
-      "code": "301366.SZ",
-      "name": "一博科技",
-      "sector": "元件",
-      "ladder": 1,
-      "price": 54.16,
-      "sealFund": 382785982.0,
-      "sealVolume": 7067688.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "09:32:18",
-      "reopenCount": 1,
-      "status": "竞价封住，后续开板1次",
-      "pct": 20.01,
-      "capturedAt": "14:19:04",
-      "note": "封单金额靠前，代表元件方向开盘资金态度较强。"
+      "price": 4.39,
+      "amount": "2.48?",
+      "amountRaw": 247819332,
+      "sealFund": "3.86?",
+      "turnover": 3.13,
+      "category": "金属新材"
     },
     {
       "code": "600688.SH",
       "name": "上海石化",
-      "sector": "炼化及贸",
-      "ladder": 1,
-      "price": 3.07,
-      "sealFund": 268832581.0,
-      "sealVolume": 87567616.0,
+      "theme": "化工材料/新能源材料",
+      "reason": "化工、塑料、电子材料和新能源材料扩散，更多体现低位补涨和产业链材料端轮动。",
+      "position": "首板扩散",
       "firstLimitTime": "09:25:01",
       "lastLimitTime": "09:25:01",
+      "consecutive": 1,
       "reopenCount": 0,
-      "status": "竞价封住",
       "pct": 10.04,
-      "capturedAt": "14:19:04",
-      "note": "炼化及贸方向竞价封板，观察同板块是否扩散。"
+      "price": 3.07,
+      "amount": "1.39?",
+      "amountRaw": 139401590,
+      "sealFund": "1.91?",
+      "turnover": 0.62,
+      "category": "炼化及贸"
+    },
+    {
+      "code": "603330.SH",
+      "name": "天洋新材",
+      "theme": "化工材料/新能源材料",
+      "reason": "化工、塑料、电子材料和新能源材料扩散，更多体现低位补涨和产业链材料端轮动。",
+      "position": "高度核心",
+      "firstLimitTime": "09:25:02",
+      "lastLimitTime": "09:25:02",
+      "consecutive": 3,
+      "reopenCount": 0,
+      "pct": 10.04,
+      "price": 8.55,
+      "amount": "1.01?",
+      "amountRaw": 101203110,
+      "sealFund": "9011?",
+      "turnover": 2.91,
+      "category": "塑料"
     }
   ]
 }
