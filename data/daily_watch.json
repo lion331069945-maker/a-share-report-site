@@ -1,67 +1,111 @@
 {
-  "date": "2026-06-02",
+  "date": "2026-06-03",
   "session": "竞价观察",
-  "updatedAt": "2026-06-02 16:45:00 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20260602)，按首次封板时间 <= 09:30:00 过滤竞价封板样本。",
-  "limitUpCount": 2,
-  "totalSealFund": 802000000,
+  "updatedAt": "2026-06-03 14:19:04 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20260603)；口径为 09:25-09:30 期间最终封住涨停的竞价封板票，后续炸板仍保留并标注状态；fund 为封单金额，封单量按 fund/涨停价估算。",
+  "limitUpCount": 4,
+  "totalSealFund": 1271974388.0,
   "maxLadder": 3,
   "hotSectors": [
     {
-      "name": "消费电子",
-      "count": 1
+      "name": "塑料",
+      "count": 1,
+      "sealFund": 101398442.0
     },
     {
-      "name": "煤炭开采",
-      "count": 1
+      "name": "金属新材",
+      "count": 1,
+      "sealFund": 518957383.0
+    },
+    {
+      "name": "元件",
+      "count": 1,
+      "sealFund": 382785982.0
+    },
+    {
+      "name": "炼化及贸",
+      "count": 1,
+      "sealFund": 268832581.0
     }
   ],
   "forecast": [
     {
-      "title": "竞价强度偏谨慎",
-      "text": "竞价封板样本2只，春秋电子3连板一字是AI硬件方向的核心锚点，但样本数量不多，说明开盘不是全面强势。"
+      "title": "结构性活跃",
+      "text": "竞价封板4只，更多是结构性机会。重点看塑料(1)、金属新材(1)、元件(1)能否带动同方向后排，而不是简单追一字板本身。"
     },
     {
       "title": "主线观察",
-      "text": "优先观察春秋电子能否带动消费电子、AI PC、CPO/光通信扩散；若通信设备和PCB后排跟随，科技线延续性更强。"
+      "text": "板块上优先看塑料(1)、金属新材(1)、元件(1)。如果开盘 15 分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
     },
     {
       "title": "风险信号",
-      "text": "如果春秋电子开板或CPO首板次日无承接，说明英伟达链仍是事件轮动；煤炭、电力则可能重新接回防御资金。"
+      "text": "最高3连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
     }
   ],
   "stocks": [
     {
-      "code": "603890.SH",
-      "name": "春秋电子",
-      "sector": "消费电子",
+      "code": "603330.SH",
+      "name": "天洋新材",
+      "sector": "塑料",
       "ladder": 3,
-      "price": 30.02,
-      "sealFund": "6.18亿",
-      "sealVolume": 0,
+      "price": 8.55,
+      "sealFund": 101398442.0,
+      "sealVolume": 11859467.0,
       "firstLimitTime": "09:25:02",
       "lastLimitTime": "09:25:02",
       "reopenCount": 0,
       "status": "竞价封住",
-      "pct": 10,
-      "capturedAt": "16:45:00",
-      "note": "春秋电子3连板，是CPO/光通信/AI硬件方向的高度锚点；重点观察次日能否继续打开空间。"
+      "pct": 10.04,
+      "capturedAt": "14:19:04",
+      "note": "3连板竞价封住，是短线高度和情绪强弱的核心观察点。"
     },
     {
-      "code": "600403.SH",
-      "name": "大有能源",
-      "sector": "煤炭开采",
+      "code": "600255.SH",
+      "name": "鑫科材料",
+      "sector": "金属新材",
       "ladder": 2,
-      "price": 6.12,
-      "sealFund": "1.84亿",
-      "sealVolume": 0,
-      "firstLimitTime": "09:30:00",
-      "lastLimitTime": "09:30:00",
+      "price": 4.39,
+      "sealFund": 518957383.0,
+      "sealVolume": 118213527.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封住",
-      "pct": 10.07,
-      "capturedAt": "16:45:00",
-      "note": "煤炭资源延续弱势盘面的高股息防御逻辑，关注换手连板持续性。"
+      "pct": 10.03,
+      "capturedAt": "14:19:04",
+      "note": "封单金额靠前，代表金属新材方向开盘资金态度较强。"
+    },
+    {
+      "code": "301366.SZ",
+      "name": "一博科技",
+      "sector": "元件",
+      "ladder": 1,
+      "price": 54.16,
+      "sealFund": 382785982.0,
+      "sealVolume": 7067688.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:32:18",
+      "reopenCount": 1,
+      "status": "竞价封住，后续开板1次",
+      "pct": 20.01,
+      "capturedAt": "14:19:04",
+      "note": "封单金额靠前，代表元件方向开盘资金态度较强。"
+    },
+    {
+      "code": "600688.SH",
+      "name": "上海石化",
+      "sector": "炼化及贸",
+      "ladder": 1,
+      "price": 3.07,
+      "sealFund": 268832581.0,
+      "sealVolume": 87567616.0,
+      "firstLimitTime": "09:25:01",
+      "lastLimitTime": "09:25:01",
+      "reopenCount": 0,
+      "status": "竞价封住",
+      "pct": 10.04,
+      "capturedAt": "14:19:04",
+      "note": "炼化及贸方向竞价封板，观察同板块是否扩散。"
     }
   ]
 }
