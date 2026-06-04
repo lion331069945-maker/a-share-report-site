@@ -1,118 +1,99 @@
 {
-  "date": "2026-06-03",
+  "date": "2026-06-04",
   "session": "竞价观察",
-  "updatedAt": "2026-06-03 17:07:55 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20260603)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
-  "limitUpCount": 4,
-  "totalSealFund": 814186073.0,
-  "maxLadder": 3,
+  "updatedAt": "2026-06-04 14:10:08 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20260604)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
+  "limitUpCount": 3,
+  "totalSealFund": 405801279.0,
+  "maxLadder": 4,
   "hotSectors": [
-    {
-      "name": "化工材料/新能源材料",
-      "count": 2,
-      "sealFund": 281520163.0
-    },
     {
       "name": "资源品/金属材料/高股息",
       "count": 1,
-      "sealFund": 385971113.0
+      "sealFund": 136354790.0
     },
     {
-      "name": "AI硬件/CPO/半导体",
+      "name": "化工材料/新能源材料",
       "count": 1,
-      "sealFund": 146694797.0
+      "sealFund": 182725534.0
+    },
+    {
+      "name": "机器人/高端制造/汽车链",
+      "count": 1,
+      "sealFund": 86720955.0
     }
   ],
   "forecast": [
     {
       "title": "结构性活跃",
-      "text": "竞价封板4只，更多是结构性机会。重点看化工材料/新能源材料(2)、资源品/金属材料/高股息(1)、AI硬件/CPO/半导体(1)能否带动同方向后排。"
+      "text": "竞价封板3只，更多是结构性机会。重点看资源品/金属材料/高股息(1)、化工材料/新能源材料(1)、机器人/高端制造/汽车链(1)能否带动同方向后排。"
     },
     {
       "title": "主线观察",
-      "text": "板块上优先看化工材料/新能源材料(2)、资源品/金属材料/高股息(1)、AI硬件/CPO/半导体(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+      "text": "板块上优先看资源品/金属材料/高股息(1)、化工材料/新能源材料(1)、机器人/高端制造/汽车链(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
     },
     {
       "title": "风险信号",
-      "text": "最高3连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
+      "text": "最高4连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
     }
   ],
   "stocks": [
     {
-      "code": "603330.SH",
-      "name": "天洋新材",
-      "sector": "塑料",
-      "theme": "化工材料/新能源材料",
-      "ladder": 3,
-      "price": 8.55,
-      "sealFund": 90106842.0,
-      "sealVolume": 10538812.0,
-      "firstLimitTime": "09:25:02",
-      "lastLimitTime": "09:25:02",
-      "reopenCount": 0,
-      "status": "竞价封板",
-      "pct": 10.04,
-      "amount": 101203110.0,
-      "turnover": 2.91,
-      "note": "3连板竞价封住，是短线高度和情绪强弱的核心观察点。",
-      "capturedAt": "17:07:55"
-    },
-    {
-      "code": "600255.SH",
-      "name": "鑫科材料",
-      "sector": "金属新材",
+      "code": "600403.SH",
+      "name": "大有能源",
+      "sector": "煤炭开采",
       "theme": "资源品/金属材料/高股息",
-      "ladder": 2,
-      "price": 4.39,
-      "sealFund": 385971113.0,
-      "sealVolume": 87920527.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "09:25:00",
+      "ladder": 4,
+      "price": 7.4,
+      "sealFund": 136354790.0,
+      "sealVolume": 18426323.0,
+      "firstLimitTime": "09:25:01",
+      "lastLimitTime": "09:25:01",
       "reopenCount": 0,
       "status": "竞价封板",
-      "pct": 10.03,
-      "amount": 247819332.0,
-      "turnover": 3.13,
-      "note": "封单金额靠前，代表资源品/金属材料/高股息方向开盘资金态度较强。",
-      "capturedAt": "17:07:55"
+      "pct": 9.96,
+      "amount": 190751850.0,
+      "turnover": 1.08,
+      "capturedAt": "14:10:08",
+      "note": "4连板竞价封住，是短线高度和情绪强弱的核心观察点。"
     },
     {
       "code": "600688.SH",
       "name": "上海石化",
       "sector": "炼化及贸",
       "theme": "化工材料/新能源材料",
-      "ladder": 1,
-      "price": 3.07,
-      "sealFund": 191413321.0,
-      "sealVolume": 62349616.0,
-      "firstLimitTime": "09:25:01",
-      "lastLimitTime": "09:25:01",
-      "reopenCount": 0,
-      "status": "竞价封板",
-      "pct": 10.04,
-      "amount": 139401590.0,
-      "turnover": 0.62,
-      "note": "化工材料/新能源材料方向竞价封板，观察同板块是否扩散。",
-      "capturedAt": "17:07:55"
-    },
-    {
-      "code": "301366.SZ",
-      "name": "一博科技",
-      "sector": "元件",
-      "theme": "AI硬件/CPO/半导体",
-      "ladder": 1,
-      "price": 54.16,
-      "sealFund": 146694797.0,
-      "sealVolume": 2708545.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "09:32:18",
+      "ladder": 2,
+      "price": 3.38,
+      "sealFund": 182725534.0,
+      "sealVolume": 54060809.0,
+      "firstLimitTime": "09:25:04",
+      "lastLimitTime": "09:31:49",
       "reopenCount": 1,
       "status": "竞价封板，后续开板1次",
-      "pct": 20.01,
-      "amount": 524760128.0,
-      "turnover": 8.29,
-      "note": "AI硬件/CPO/半导体方向竞价封板，观察同板块是否扩散。",
-      "capturedAt": "17:07:55"
+      "pct": 10.1,
+      "amount": 583842128.0,
+      "turnover": 2.36,
+      "capturedAt": "14:10:08",
+      "note": "化工材料/新能源材料方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "300897.SZ",
+      "name": "山科智能",
+      "sector": "通用设备",
+      "theme": "机器人/高端制造/汽车链",
+      "ladder": 1,
+      "price": 22.38,
+      "sealFund": 86720955.0,
+      "sealVolume": 3874931.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "13:22:51",
+      "reopenCount": 1,
+      "status": "竞价封板，后续开板1次",
+      "pct": 20.0,
+      "amount": 273181696.0,
+      "turnover": 10.02,
+      "capturedAt": "14:10:08",
+      "note": "机器人/高端制造/汽车链方向竞价封板，观察同板块是否扩散。"
     }
   ]
 }
