@@ -167,10 +167,48 @@ def fetch_kline(quote, target_date):
                         "pct": safe_float(pct),
                     }
                 )
-            if points and points[-1]["date"] == target_date:
+            if len(points) >= 35 and points[-1]["date"] == target_date:
                 return points
         except Exception as exc:
             last_error = exc
+
+    # Eastmoney's fallback host can return sparse daily bars. Sina's daily K endpoint
+    # is used as a full-sequence fallback so screeners do not silently collapse to 0.
+    symbol = ("sh" if quote["market"] == "1" else "sz") + quote["code"]
+    url = (
+        "https://quotes.sina.cn/cn/api/json_v2.php/CN_MarketDataService.getKLineData?"
+        + urllib.parse.urlencode({"symbol": symbol, "scale": "240", "ma": "no", "datalen": "280"})
+    )
+    req = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": "Mozilla/5.0",
+            "Referer": "https://finance.sina.com.cn/",
+            "Accept": "application/json,text/plain,*/*",
+        },
+    )
+    with urllib.request.urlopen(req, timeout=20, context=ssl.create_default_context()) as resp:
+        rows = json.loads(resp.read().decode("utf-8"))
+    points = []
+    previous_close = None
+    for row in rows:
+        close = safe_float(row.get("close"))
+        pct = ((close / previous_close - 1) * 100) if previous_close else 0
+        points.append(
+            {
+                "date": row.get("day"),
+                "open": safe_float(row.get("open")),
+                "close": close,
+                "high": safe_float(row.get("high")),
+                "low": safe_float(row.get("low")),
+                "volume": safe_float(row.get("volume")),
+                "amount": quote.get("amount", 0) if row.get("day") == target_date else 0,
+                "pct": pct,
+            }
+        )
+        previous_close = close
+    if len(points) >= 35 and points[-1]["date"] == target_date:
+        return points
     raise RuntimeError(f"{quote['code']} kline failed: {last_error}")
 
 
@@ -277,16 +315,36 @@ def evaluate(quote, target_date):
     return new_high, ma_row
 
 
-def update_report(report_date=None, max_workers=24):
+def build_candidate_quotes(quotes, max_quotes):
+    high_candidates = sorted(
+        [quote for quote in quotes if quote["pct"] >= -2 and quote["amount"] >= 50_000_000],
+        key=lambda quote: (quote["pct"], quote["amount"]),
+        reverse=True,
+    )[: max_quotes // 2]
+    ma_candidates = sorted(
+        [
+            quote
+            for quote in quotes
+            if is_main_board(quote["code"]) and quote["amount"] >= 100_000_000 and quote["pct"] <= MAX_DAILY_PCT
+        ],
+        key=lambda quote: quote["amount"],
+        reverse=True,
+    )[: max_quotes]
+    by_code = {quote["code"]: quote for quote in high_candidates + ma_candidates}
+    return list(by_code.values())
+
+
+def update_report(report_date=None, max_workers=24, max_quotes=2200):
     data = load_reports()
     report = find_report(data, report_date)
     target = report["date"]
     quotes = fetch_quotes()
+    candidates = build_candidate_quotes(quotes, max_quotes=max_quotes)
     new_high_rows = []
     ma_rows = []
     checked = 0
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = {executor.submit(evaluate, quote, target): quote for quote in quotes}
+        futures = {executor.submit(evaluate, quote, target): quote for quote in candidates}
         for future in as_completed(futures):
             checked += 1
             try:
@@ -298,7 +356,7 @@ def update_report(report_date=None, max_workers=24):
             if ma_row:
                 ma_rows.append(ma_row)
             if checked % 500 == 0:
-                print(f"Checked {checked}/{len(quotes)}, new highs {len(new_high_rows)}, MA {len(ma_rows)}")
+                print(f"Checked {checked}/{len(candidates)}, new highs {len(new_high_rows)}, MA {len(ma_rows)}")
 
     high_order = {"收盘创近一年新高": 0, "盘中创近一年新高": 1, "收盘创近半年新高": 2, "盘中创近半年新高": 3}
     new_high_rows.sort(key=lambda item: (high_order.get(item["highType"], 9), item["sector"], item["code"]))
@@ -314,12 +372,12 @@ def update_report(report_date=None, max_workers=24):
     new_high_rows = new_high_rows[:180]
     ma_rows = ma_rows[:180]
     report["newHighScope"] = (
-        f"东方财富全A股票池{len(quotes)}只，使用前复权日K按收盘价/盘中最高价计算近1月、近3月、近半年、近一年阶段新高；"
+        f"东方财富全A股票池{len(quotes)}只，预筛成交额和当日强弱后取活跃样本{len(candidates)}只，使用前复权日K按收盘价/盘中最高价计算近1月、近3月、近半年、近一年阶段新高；"
         f"本次命中{len(new_high_rows)}只展示样本。"
     )
     report["newHighStocks"] = new_high_rows
     report["maConvergenceScope"] = (
-        f"筛选口径：东方财富全A股票池中主板股票，使用前复权日K计算5/10/15/20日均线；"
+        f"筛选口径：东方财富全A股票池中主板活跃样本，使用前复权日K计算5/10/15/20日均线；"
         f"四条均线最高值与最低值落在{MA_RANGE_LIMIT_YUAN:.0f}元价格区间内即可进入筛选，同时剔除当日涨幅超过{MAX_DAILY_PCT:.0f}%的股票；"
         f"本次命中{len(ma_rows)}只展示样本。"
     )
@@ -333,8 +391,9 @@ def main():
     parser = argparse.ArgumentParser(description="Update new-high and MA-convergence screeners in reports.json")
     parser.add_argument("--report-date", help="Report date such as 2026-06-03. Defaults to latest report.")
     parser.add_argument("--max-workers", type=int, default=24)
+    parser.add_argument("--max-quotes", type=int, default=2200)
     args = parser.parse_args()
-    new_highs, ma_rows = update_report(args.report_date, max_workers=args.max_workers)
+    new_highs, ma_rows = update_report(args.report_date, max_workers=args.max_workers, max_quotes=args.max_quotes)
     print(f"Saved new high rows: {len(new_highs)}")
     print(f"Saved MA convergence rows: {len(ma_rows)}")
 

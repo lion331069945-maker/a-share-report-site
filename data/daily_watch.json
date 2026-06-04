@@ -1,26 +1,26 @@
 {
   "date": "2026-06-04",
   "session": "竞价观察",
-  "updatedAt": "2026-06-04 14:10:08 +08:00",
+  "updatedAt": "2026-06-04 16:36:19 +08:00",
   "source": "东方财富涨停池 getTopicZTPool(date=20260604)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
   "limitUpCount": 3,
-  "totalSealFund": 405801279.0,
+  "totalSealFund": 311669696.0,
   "maxLadder": 4,
   "hotSectors": [
     {
       "name": "资源品/金属材料/高股息",
       "count": 1,
-      "sealFund": 136354790.0
+      "sealFund": 109739950.0
     },
     {
       "name": "化工材料/新能源材料",
       "count": 1,
-      "sealFund": 182725534.0
+      "sealFund": 164092530.0
     },
     {
       "name": "机器人/高端制造/汽车链",
       "count": 1,
-      "sealFund": 86720955.0
+      "sealFund": 37837216.0
     }
   ],
   "forecast": [
@@ -45,16 +45,16 @@
       "theme": "资源品/金属材料/高股息",
       "ladder": 4,
       "price": 7.4,
-      "sealFund": 136354790.0,
-      "sealVolume": 18426323.0,
+      "sealFund": 109739950.0,
+      "sealVolume": 14829723.0,
       "firstLimitTime": "09:25:01",
       "lastLimitTime": "09:25:01",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 9.96,
-      "amount": 190751850.0,
-      "turnover": 1.08,
-      "capturedAt": "14:10:08",
+      "amount": 195943690.0,
+      "turnover": 1.11,
+      "capturedAt": "16:36:19",
       "note": "4连板竞价封住，是短线高度和情绪强弱的核心观察点。"
     },
     {
@@ -64,16 +64,16 @@
       "theme": "化工材料/新能源材料",
       "ladder": 2,
       "price": 3.38,
-      "sealFund": 182725534.0,
-      "sealVolume": 54060809.0,
+      "sealFund": 164092530.0,
+      "sealVolume": 48548086.0,
       "firstLimitTime": "09:25:04",
       "lastLimitTime": "09:31:49",
       "reopenCount": 1,
       "status": "竞价封板，后续开板1次",
       "pct": 10.1,
-      "amount": 583842128.0,
-      "turnover": 2.36,
-      "capturedAt": "14:10:08",
+      "amount": 593907504.0,
+      "turnover": 2.4,
+      "capturedAt": "16:36:19",
       "note": "化工材料/新能源材料方向竞价封板，观察同板块是否扩散。"
     },
     {
@@ -83,16 +83,16 @@
       "theme": "机器人/高端制造/汽车链",
       "ladder": 1,
       "price": 22.38,
-      "sealFund": 86720955.0,
-      "sealVolume": 3874931.0,
+      "sealFund": 37837216.0,
+      "sealVolume": 1690671.0,
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "13:22:51",
       "reopenCount": 1,
       "status": "竞价封板，后续开板1次",
       "pct": 20.0,
-      "amount": 273181696.0,
-      "turnover": 10.02,
-      "capturedAt": "14:10:08",
+      "amount": 277911936.0,
+      "turnover": 10.19,
+      "capturedAt": "16:36:19",
       "note": "机器人/高端制造/汽车链方向竞价封板，观察同板块是否扩散。"
     }
   ]
