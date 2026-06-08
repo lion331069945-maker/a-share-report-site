@@ -1,16 +1,16 @@
 {
   "date": "2026-06-08",
   "session": "竞价观察",
-  "updatedAt": "2026-06-08 14:09:12 +08:00",
+  "updatedAt": "2026-06-08 20:32:44 +08:00",
   "source": "东方财富涨停池 getTopicZTPool(date=20260608)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
   "limitUpCount": 1,
-  "totalSealFund": 207204505.0,
+  "totalSealFund": 169728430.0,
   "maxLadder": 1,
   "hotSectors": [
     {
       "name": "其他轮动",
       "count": 1,
-      "sealFund": 207204505.0
+      "sealFund": 169728430.0
     }
   ],
   "forecast": [
@@ -35,16 +35,16 @@
       "theme": "其他轮动",
       "ladder": 1,
       "price": 6.63,
-      "sealFund": 207204505.0,
-      "sealVolume": 31252565.0,
+      "sealFund": 169728430.0,
+      "sealVolume": 25600065.0,
       "firstLimitTime": "09:25:05",
       "lastLimitTime": "09:25:05",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 9.95,
-      "amount": 57342439.0,
-      "turnover": 2.25,
-      "capturedAt": "14:09:12",
+      "amount": 59332102.0,
+      "turnover": 2.33,
+      "capturedAt": "20:32:44",
       "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
     }
   ]
