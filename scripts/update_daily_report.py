@@ -23,6 +23,46 @@ CHART_SECIDS = {
     "optical_module": "90.BK1136",
     "fiber_optic": "90.BK1660",
 }
+
+SERENITY_DEMAND_THEME_SCORE = {
+    "AI硬件/CPO/半导体": 22,
+    "化工材料/电子化学品": 20,
+    "机器人/高端制造/汽车链": 18,
+    "电力能源/算力用电": 16,
+    "电力设备/新能源设备": 15,
+    "资源品/金属材料": 14,
+    "AI应用/数据要素/服务": 10,
+}
+
+SERENITY_UPSTREAM_KEYWORDS = (
+    "半导体",
+    "光学光电",
+    "通信设备",
+    "元件",
+    "电子化学",
+    "金属新材",
+    "小金属",
+    "电池",
+    "电网设备",
+    "其他电源",
+    "专用设备",
+    "自动化设",
+    "航空装备",
+    "航天装备",
+    "轨交设备",
+)
+
+SERENITY_WEAK_KEYWORDS = (
+    "地产",
+    "房地产",
+    "装修建材",
+    "一般零售",
+    "服装家纺",
+    "饰品",
+    "白酒",
+    "休闲食品",
+)
+
 THEME_BY_INDUSTRY = {
     "元件": "AI硬件/CPO/半导体",
     "光学光电": "AI硬件/CPO/半导体",
@@ -438,6 +478,134 @@ def build_warnings(stocks, charts):
     return warnings[:3]
 
 
+def clamp_score(value):
+    return max(0, min(100, int(round(value))))
+
+
+def serenity_grade(score):
+    if score >= 78:
+        return "A"
+    if score >= 64:
+        return "B"
+    if score >= 50:
+        return "C"
+    return "D"
+
+
+def score_white_hair_candidate(stock, theme_rank):
+    stock_text = "".join(
+        str(stock.get(key) or "")
+        for key in ("name", "code", "theme", "position", "category")
+    )
+    category_text = "".join(str(stock.get(key) or "") for key in ("name", "code", "category"))
+    score = 40
+    reasons = []
+    risks = []
+
+    demand_score = SERENITY_DEMAND_THEME_SCORE.get(stock["theme"], 0)
+    if demand_score:
+        score += demand_score
+        reasons.append(f"{stock['theme']}贴近AI/机器人/电力/材料需求链")
+
+    upstream_hits = [keyword for keyword in SERENITY_UPSTREAM_KEYWORDS if keyword in category_text]
+    if upstream_hits:
+        add_score = min(18, 6 * len(upstream_hits))
+        score += add_score
+        reasons.append(f"上游/瓶颈关键词：{'、'.join(upstream_hits[:3])}")
+
+    rank = theme_rank.get(stock["theme"])
+    if rank and rank <= 3:
+        score += 8
+        reasons.append(f"所属主线强度排名第{rank}")
+    elif rank and rank <= 6:
+        score += 4
+        reasons.append(f"所属主线仍在涨停扩散区")
+
+    first_time = stock.get("firstLimitTime") or ""
+    if first_time and first_time <= "09:35:00":
+        score += 6
+        reasons.append("早盘完成封板，资金确认较快")
+    elif first_time and first_time > "13:30:00":
+        score -= 8
+        risks.append("尾盘封板，次日承接验证要求更高")
+
+    reopen_count = int(stock.get("reopenCount") or 0)
+    if reopen_count == 0:
+        score += 6
+        reasons.append("封板未开，筹码稳定性较好")
+    else:
+        score -= min(14, reopen_count * 4)
+        risks.append(f"封板后开板{reopen_count}次")
+
+    amount_raw = float(stock.get("amountRaw") or 0)
+    if amount_raw >= 1_000_000_000:
+        score += 7
+        reasons.append("成交额过10亿，具备容量票观察价值")
+    elif amount_raw >= 500_000_000:
+        score += 5
+        reasons.append("成交额过5亿，流动性可观察")
+    elif amount_raw >= 200_000_000:
+        score += 3
+        reasons.append("成交额过2亿，低位启动有基本流动性")
+    else:
+        score -= 4
+        risks.append("成交额偏小，容量不足")
+
+    turnover = float(stock.get("turnover") or 0)
+    if 2 <= turnover <= 12:
+        score += 4
+        reasons.append("换手处于可承接区间")
+    elif turnover > 18:
+        score -= 6
+        risks.append("换手偏高，分歧较重")
+
+    if any(keyword in stock_text for keyword in SERENITY_WEAK_KEYWORDS) and not upstream_hits:
+        score -= 10
+        risks.append("偏传统轮动，缺少Serenity式供应链瓶颈特征")
+
+    if stock["theme"] == "其他轮动" and not upstream_hits:
+        score -= 8
+        risks.append("题材归因不清，供应链映射不足")
+
+    score = clamp_score(score)
+    grade = serenity_grade(score)
+    return {
+        "code": stock["code"],
+        "name": stock["name"],
+        "theme": stock["theme"],
+        "category": stock["category"],
+        "score": score,
+        "grade": grade,
+        "firstLimitTime": stock.get("firstLimitTime") or "",
+        "amount": stock.get("amount") or "",
+        "amountRaw": amount_raw,
+        "turnover": stock.get("turnover"),
+        "reopenCount": reopen_count,
+        "serenityReason": "；".join(reasons[:4]) or "首板样本，但供应链优势仍需人工复核",
+        "risk": "；".join(risks[:3]) or "暂无明显结构性扣分，仍需补充基本面和公告核验",
+    }
+
+
+def build_white_hair_picks(stocks, themes):
+    theme_rank = {theme["name"]: index + 1 for index, theme in enumerate(themes)}
+    first_boards = [stock for stock in stocks if int(stock.get("consecutive") or 0) == 1]
+    scored = [score_white_hair_candidate(stock, theme_rank) for stock in first_boards]
+    picks = [item for item in scored if item["grade"] == "A"]
+    picks.sort(key=lambda item: (-item["score"], item["firstLimitTime"], -item["amountRaw"]))
+    return {
+        "title": "白毛严选",
+        "source": "仅从当天首板中筛选；按 Serenity 方法论的供应链瓶颈、上游稀缺、AI/机器人/电力/材料需求、主线强度、封板质量和风险扣分生成 A 评价。",
+        "methodology": [
+            "优先：AI硬件/CPO/半导体、电子化学品、机器人/高端制造、电力/算力用电、上游材料。",
+            "加分：上游瓶颈关键词、强主线排名靠前、早盘封板、未开板、成交额与换手可承接。",
+            "扣分：题材归因不清、尾盘封板、多次开板、成交额过小、纯传统轮动且缺少供应链映射。",
+        ],
+        "totalFirstBoard": len(first_boards),
+        "aCount": len(picks),
+        "items": picks[:12],
+    }
+
+
 def build_market_news(stocks, themes, by_theme, charts):
     total = len(stocks)
     max_height = max((stock["consecutive"] for stock in stocks), default=1)
@@ -491,6 +659,12 @@ def update_charts(target_date, date_compact):
         latest = next((point for point in reversed(points) if point["date"] == target_date), None)
         if not latest:
             raise RuntimeError(f"{series['id']} missing {target_date}")
+        cached_latest = next((point for point in reversed(series.get("points", [])) if point.get("date") == target_date), None)
+        if cached_latest and abs(float(latest.get("pct") or 0)) > 15 and abs(float(cached_latest.get("pct") or 0)) <= 15:
+            latest = cached_latest
+            series["cachedReason"] = "行情接口返回异常涨跌幅，保留本地已核验缓存点"
+        else:
+            series.pop("cachedReason", None)
         merged = {point["date"]: point for point in series.get("points", [])}
         merged[target_date] = latest
         series["points"] = [merged[key] for key in sorted(merged)]
@@ -549,6 +723,7 @@ def update_report(target_date, charts_data=None):
         "leaders": build_leaders(stocks, themes, by_theme),
         "stats": [{"category": item["name"], "count": item["count"]} for item in themes],
         "stocks": stocks,
+        "whiteHairPicks": build_white_hair_picks(stocks, themes),
         "newHighScope": "收盘报告已生成，创新高模块待 scripts/update_screeners.py 补算。",
         "newHighStocks": [],
         "maConvergenceScope": "收盘报告已生成，均线粘合模块待 scripts/update_screeners.py 补算。",

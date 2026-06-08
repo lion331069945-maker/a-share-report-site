@@ -5,6 +5,7 @@ const state = {
   techPullbackStocks: [],
   maConvergenceStocks: [],
   watchPoolStocks: [],
+  whiteHairPicks: null,
   marketCharts: null,
   dailyWatch: null,
   activeChart: 0,
@@ -967,6 +968,95 @@ function renderWatchPool() {
     const td = document.createElement("td");
     td.colSpan = 9;
     td.textContent = "没有匹配的观察标的。";
+    tr.append(td);
+    body.append(tr);
+  }
+}
+
+function normalizeWhiteHairPicks(report) {
+  const source = report.whiteHairPicks || {};
+  if (Array.isArray(source)) {
+    return {
+      title: "白毛严选",
+      source: "从当天首板中按 Serenity 方法论筛出的 A 评价观察池。",
+      methodology: [],
+      totalFirstBoard: report.stocks?.filter((stock) => asNumber(stock.consecutive) === 1).length || 0,
+      aCount: source.length,
+      items: source,
+    };
+  }
+  return {
+    title: source.title || "白毛严选",
+    source: source.source || "从当天首板中按 Serenity 方法论筛出的 A 评价观察池。",
+    methodology: Array.isArray(source.methodology) ? source.methodology : [],
+    totalFirstBoard: asNumber(source.totalFirstBoard),
+    aCount: asNumber(source.aCount, (source.items || []).length),
+    items: source.items || [],
+  };
+}
+
+function whiteHairCard(root, label, value, note, tone = "") {
+  const card = create("article", `white-hair-card ${tone}`.trim());
+  card.append(create("span", "", label));
+  card.append(create("strong", "", value));
+  if (note) card.append(create("p", "", note));
+  root.append(card);
+}
+
+function renderWhiteHairPicks(report) {
+  const source = el("#white-hair-source");
+  const summary = el("#white-hair-summary");
+  const body = el("#white-hair-body");
+  if (!source || !summary || !body) return;
+
+  const picks = normalizeWhiteHairPicks(report);
+  source.textContent = `${report.date} ${picks.source}`;
+  summary.innerHTML = "";
+  body.innerHTML = "";
+
+  whiteHairCard(summary, "首板样本", `${picks.totalFirstBoard}只`, "只从当天首板里筛", "");
+  whiteHairCard(summary, "A评价", `${picks.aCount}只`, "供应链/主线/封板质量共振", picks.aCount ? "good" : "warn");
+  whiteHairCard(
+    summary,
+    "评价体系",
+    "Serenity",
+    picks.methodology[0] || "偏重上游瓶颈、AI/机器人/电力/材料需求和风险扣分",
+  );
+
+  picks.items.forEach((item) => {
+    const tr = document.createElement("tr");
+    [
+      item.score,
+      item.grade || "A",
+      item.code || "",
+      item.name || "",
+      item.theme || item.category || "",
+      item.category || "",
+      item.firstLimitTime || "--",
+      item.amount || "--",
+      item.serenityReason || item.reason || "",
+      item.risk || "仍需人工核验公告、财务与次日承接",
+    ].forEach((value, index) => {
+      const td = document.createElement("td");
+      if (index === 0) {
+        td.append(create("span", "white-hair-score", value));
+      } else if (index === 1) {
+        td.append(create("span", "serenity-grade", value));
+      } else if (index === 3) {
+        td.append(create("span", "stock-name", value));
+      } else {
+        td.textContent = value;
+      }
+      tr.append(td);
+    });
+    body.append(tr);
+  });
+
+  if (!body.children.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 10;
+    td.textContent = "当天首板里没有达到 Serenity A 评价的标的。";
     tr.append(td);
     body.append(tr);
   }
@@ -1969,6 +2059,7 @@ async function init() {
   state.techPullbackStocks = report.techPullbackStocks || [];
   state.maConvergenceStocks = report.maConvergenceStocks || [];
   state.watchPoolStocks = buildWatchPool(report);
+  state.whiteHairPicks = normalizeWhiteHairPicks(report);
 
   setHero(report, data.updatedAt);
   renderSummary(report);
@@ -1977,6 +2068,7 @@ async function init() {
   renderRiskWarnings(report);
   setupWatchPoolFilters(state.watchPoolStocks);
   renderWatchPool();
+  renderWhiteHairPicks(report);
   renderThemes(report);
   renderLadder(report);
   renderLeaders(report);

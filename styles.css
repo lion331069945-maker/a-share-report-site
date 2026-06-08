@@ -655,9 +655,20 @@ main {
   margin-top: 18px;
 }
 
+.white-hair-section {
+  margin-top: 18px;
+}
+
 .watch-pool-summary {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.white-hair-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
   margin-bottom: 14px;
 }
@@ -694,12 +705,57 @@ main {
   line-height: 1;
 }
 
+.white-hair-card {
+  min-height: 96px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.white-hair-card.good {
+  border-color: #99d5bf;
+  background: #f1fbf6;
+}
+
+.white-hair-card.warn {
+  border-color: #f1c588;
+  background: #fff8ed;
+}
+
+.white-hair-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.white-hair-card strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--accent-strong);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.white-hair-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .watch-pool-table {
   min-width: 1280px;
 }
 
+.white-hair-table {
+  min-width: 1260px;
+}
+
 .watch-score,
-.watch-level {
+.watch-level,
+.white-hair-score,
+.serenity-grade {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -722,6 +778,13 @@ main {
 .watch-level.warn {
   background: #fff7ed;
   color: var(--warn);
+}
+
+.white-hair-score,
+.serenity-grade {
+  background: #f1fbf6;
+  color: var(--accent-strong);
+  font-weight: 800;
 }
 
 .daily-watch-cards {
@@ -1230,6 +1293,7 @@ select {
   .sentiment-detail-grid,
   .risk-warning-cards,
   .watch-pool-summary,
+  .white-hair-summary,
   .daily-watch-cards,
   .daily-watch-forecast {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1277,6 +1341,7 @@ select {
   .sentiment-detail-grid,
   .risk-warning-cards,
   .watch-pool-summary,
+  .white-hair-summary,
   .strategy-snapshot,
   .daily-watch-cards,
   .daily-watch-forecast {
