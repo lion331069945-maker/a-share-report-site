@@ -1034,7 +1034,7 @@ function renderWhiteHairPicks(report) {
       item.category || "",
       item.firstLimitTime || "--",
       item.amount || "--",
-      item.serenityReason || item.reason || "",
+      item.serenityAReason || item.serenityReason || item.reason || "",
       item.risk || "仍需人工核验公告、财务与次日承接",
     ].forEach((value, index) => {
       const td = document.createElement("td");

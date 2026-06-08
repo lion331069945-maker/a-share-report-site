@@ -492,6 +492,30 @@ def serenity_grade(score):
     return "D"
 
 
+def serenity_bottleneck_reason(stock, upstream_hits):
+    category = stock.get("category") or ""
+    theme = stock.get("theme") or ""
+    if category in ("金属新材", "小金属", "冶钢原料"):
+        return "上游材料/稀缺资源卡位，符合 Serenity 偏好的原料瓶颈映射；若具备稀缺产能、客户认证或定价权，才可进一步确认供应链垄断属性。"
+    if category in ("电子化学", "半导体", "元件", "光学光电", "通信设备", "其他电子", "军工电子"):
+        return "处在AI硬件、半导体或光通信上游环节，符合 Serenity 寻找“下游扩产必须支付的瓶颈层”的方法；重点核验是否有少数供应、认证壁垒或关键客户。"
+    if category in ("专用设备", "自动化设", "通用设备", "电机Ⅱ", "轨交设备", "航空装备", "航天装备"):
+        return "属于机器人/高端制造设备链，贴近 Serenity 的 physical AI 与自动化基础设施框架；A 评价来自上游设备卡位、主线强度和封板质量共振。"
+    if category in ("电力", "电网设备", "其他电源", "光伏设备"):
+        return "映射算力用电和电力基础设施瓶颈，符合 Serenity 把AI扩产传导到电力/电网约束的框架；需核验订单和产能约束。"
+    if "AI" in theme or upstream_hits:
+        return "具备AI/硬件/上游关键词，按 Serenity 框架可作为供应链瓶颈候选；是否达到垄断或少数供应仍需公告、客户和产能证据验证。"
+    return "A 评价主要来自首板强度、主线排名和封板质量；供应链垄断属性暂未从现有数据确认，需要人工复核基本面。"
+
+
+def build_serenity_a_reason(stock, upstream_hits, reasons):
+    bottleneck = serenity_bottleneck_reason(stock, upstream_hits)
+    evidence = "；".join(reasons[:3])
+    if evidence:
+        return f"{bottleneck} 盘面证据：{evidence}。"
+    return bottleneck
+
+
 def score_white_hair_candidate(stock, theme_rank):
     stock_text = "".join(
         str(stock.get(key) or "")
@@ -582,6 +606,7 @@ def score_white_hair_candidate(stock, theme_rank):
         "turnover": stock.get("turnover"),
         "reopenCount": reopen_count,
         "serenityReason": "；".join(reasons[:4]) or "首板样本，但供应链优势仍需人工复核",
+        "serenityAReason": build_serenity_a_reason(stock, upstream_hits, reasons),
         "risk": "；".join(risks[:3]) or "暂无明显结构性扣分，仍需补充基本面和公告核验",
     }
 
