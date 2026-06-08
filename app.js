@@ -159,15 +159,19 @@ function inferNewsCategory(textValue) {
 }
 
 function buildFallbackMarketNews(report) {
-  const sourceText = report.market?.dataSource || report.dataSource || "复盘数据源";
-  return (report.themes || []).slice(0, 4).map((theme, index) => ({
-    category: inferNewsCategory(`${theme.name} ${theme.catalyst}`),
-    title: `${theme.name}成为盘面关键线索`,
-    impact: theme.catalyst || "从涨停分布和资金承接情况看，该方向对当日风格切换有明显影响。",
-    relatedThemes: [theme.name],
-    source: index === 0 ? "复盘交叉核验" : "板块催化归档",
-    url: sourceText.match(/https?:\/\/[^；\s]+/)?.[0] || "",
-  }));
+  return [
+    {
+      category: "提示",
+      heat: "待补充",
+      title: `${report.date || "当日"} 真实新闻尚未维护`,
+      impact: "该板块只展示已核验新闻事件，不再用盘面主线归纳冒充新闻。",
+      whyHot: "请在更新脚本中补充英伟达、苹果、AI、芯片、机器人、产业政策等真实事件。",
+      relatedThemes: [],
+      watch: "补充新闻清单后重新生成日报。",
+      source: "本地新闻清单",
+      url: "",
+    },
+  ];
 }
 
 function normalizeMarketNews(report) {

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-08 21:09:04 +08:00",
+  "updatedAt": "2026-06-08 21:27:03 +08:00",
   "reports": [
     {
       "date": "2026-06-08",
@@ -1386,43 +1386,116 @@
       "pdf": null,
       "marketNews": [
         {
-          "category": "财经",
-          "heat": "盘面总览",
-          "title": "指数承压下，涨停资金继续做结构性抱团",
-          "impact": "上证-1.70%、创业板指-3.69%、A股平均股价-3.00%；当日涨停池共57只，最高高度6连板，情绪主要依赖结构性热点。",
-          "whyHot": "弱指数环境里，连板高度、涨停分布和前排封板质量比总成交额更能反映短线偏好。",
-          "watch": "看高标溢价与主线前排是否继续强化。",
+          "category": "科技",
+          "heat": "黄仁勋访韩",
+          "title": "英伟达与SK海力士签署多年期技术合作，推进下一代AI内存和AI基础设施",
+          "impact": "事件直接指向HBM、下一代内存、AI加速器配套和数据中心扩容，A股映射到存储芯片、半导体材料、先进封装、服务器和PCB链。",
+          "whyHot": "黄仁勋访韩期间，市场关注点从单纯GPU扩产延伸到HBM和内存供应约束；这比普通板块轮动更接近真实产业催化。",
           "relatedThemes": [
-            "机器人/高端制造/汽车链"
+            "AI硬件/CPO/半导体",
+            "存储芯片/HBM",
+            "半导体材料",
+            "AI服务器"
           ],
-          "source": "复盘交叉核验",
-          "url": ""
+          "watch": "看HBM/存储、先进封装、电子化学品和AI服务器容量票能否出现持续放量，而不是只看小票情绪冲板。",
+          "source": "NVIDIA Newsroom",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-and-sk-hynix-announce-multiyear-technology-partnership-to-advance-memory-for-ai-factories"
         },
         {
           "category": "科技",
-          "heat": "板块焦点",
-          "title": "AI硬件/CPO/半导体成为当天重点方向",
-          "impact": "AI硬件/CPO/半导体共有4只涨停，华正新材、中巨芯-U、金安国纪、华如科技处在前排，体现出该方向的扩散和承接强度。",
-          "whyHot": "半导体、光学光电、元件和通信设备继续活跃，资金围绕AI硬件、CPO、存储芯片和电子化学品寻找弹性。",
-          "watch": "看华正新材、中巨芯-U、金安国纪等能否继续打开高度并带动后排承接。",
+          "heat": "韩国数据中心",
+          "title": "黄仁勋称英伟达将在韩国新万金建立数据中心，回应现代汽车集团相关建议",
+          "impact": "这条新闻把英伟达韩国行落到具体AI基础设施投资地点，A股映射到数据中心、电力设备、液冷、服务器、IDC建设和AI算力基础设施。",
+          "whyHot": "市场不只关注黄仁勋访问本身，更关注是否形成可追踪的AI基础设施落地项目；新万金数据中心会强化韩国AI Valley和算力建设叙事。",
           "relatedThemes": [
-            "AI硬件/CPO/半导体"
+            "AI数据中心",
+            "电力能源/算力用电",
+            "液冷/电力设备",
+            "AI服务器"
           ],
-          "source": "涨停池与板块分布归纳",
-          "url": ""
+          "watch": "看电力、液冷、服务器和IDC链条是否出现容量票承接；若只有概念小票冲高，持续性要打折。",
+          "source": "韩联社",
+          "url": "https://cn.yna.co.kr/view/ACK20260608003600881"
+        },
+        {
+          "category": "科技",
+          "heat": "Physical AI",
+          "title": "英伟达与LG集团建设AI Factory，合作方向覆盖机器人、自动驾驶、数据中心和GPU云",
+          "impact": "这条新闻把黄仁勋韩国行与Physical AI落地连接起来，A股映射到机器人本体、伺服电机、机器视觉、工业自动化、数据中心设备和边缘AI。",
+          "whyHot": "LG合作不是单一芯片采购，而是AI工厂、机器人基础模型和工业场景的组合，能强化机器人/高端制造主线的产业叙事。",
+          "relatedThemes": [
+            "机器人/高端制造/汽车链",
+            "Physical AI",
+            "AI数据中心",
+            "边缘AI"
+          ],
+          "watch": "看机器人链是否由情绪首板扩散到有订单、有控制器/伺服/机器视觉壁垒的中军承接。",
+          "source": "NVIDIA Blog",
+          "url": "https://blogs.nvidia.com/blog/nvidia-and-lg-group-ai-factory/"
+        },
+        {
+          "category": "科技",
+          "heat": "AI云",
+          "title": "NVIDIA与NAVER Cloud扩大AI基础设施合作，建设面向全球需求的AI Factory",
+          "impact": "事件指向主权AI云、AI Factory和GPU云服务扩张，A股可映射到算力租赁、数据中心、液冷、电力设备、光模块和服务器供应链。",
+          "whyHot": "NAVER是韩国本土云和互联网核心公司，合作强化韩国AI云基础设施建设，并提升市场对AI算力需求外溢的关注。",
+          "relatedThemes": [
+            "AI算力/云基础设施",
+            "CPO/光通信",
+            "液冷/电力设备",
+            "服务器"
+          ],
+          "watch": "看光模块、液冷、电源、电网和服务器链条是否出现由海外AI云订单驱动的趋势承接。",
+          "source": "NVIDIA Newsroom",
+          "url": "https://nvidianews.nvidia.com/news/naver-ai-infrastructure"
+        },
+        {
+          "category": "科技",
+          "heat": "AI制造",
+          "title": "英伟达与三星AI Factory项目推进，三星半导体AI工厂规划使用超过5万块英伟达GPU",
+          "impact": "三星AI工厂把GPU需求与半导体制造数字孪生、EDA、制程优化连接起来，映射到半导体设备、EDA、先进制造软件和AI服务器。",
+          "whyHot": "这不是消费电子新闻，而是AI正在进入半导体制造流程本身，产业链会关注EDA加速、工厂仿真和先进制程效率提升。",
+          "relatedThemes": [
+            "半导体设备",
+            "EDA/工业软件",
+            "AI服务器",
+            "先进制造"
+          ],
+          "watch": "看A股半导体设备、工业软件和服务器链能否从新闻催化转成订单或业绩线索。",
+          "source": "NVIDIA Newsroom",
+          "url": "https://nvidianews.nvidia.com/news/south-korea-ai-infrastructure"
+        },
+        {
+          "category": "科技",
+          "heat": "苹果WWDC",
+          "title": "苹果WWDC26于6月8日开幕，官方预告AI进展、软件平台和开发者工具更新",
+          "impact": "Apple AI进展会影响端侧AI、消费电子、AI应用生态和苹果链预期，A股映射到消费电子、AI终端、端侧模型、AR/视觉交互和软件生态。",
+          "whyHot": "苹果如果在AI能力、Siri或开发者工具上补课，市场会重新评估端侧AI硬件升级和应用生态机会。",
+          "relatedThemes": [
+            "端侧AI",
+            "消费电子",
+            "AI应用/数据要素/服务",
+            "苹果链"
+          ],
+          "watch": "看发布会后端侧AI、苹果链和AI应用方向是否有真实产品更新支撑，避免只炒预期。",
+          "source": "Apple Newsroom",
+          "url": "https://www.apple.com/newsroom/2026/05/apple-kicks-off-worldwide-developers-conference-on-june-8/"
         },
         {
           "category": "财经",
-          "heat": "结构主线",
-          "title": "资源品/煤炭/高股息成为当天重点方向",
-          "impact": "资源品/煤炭/高股息共有1只涨停，大有能源处在前排，体现出该方向的扩散和承接强度。",
-          "whyHot": "煤炭和焦炭维持逆势防御与高股息逻辑，大有能源继续打开短线高度。",
-          "watch": "看大有能源能否继续打开高度并带动后排承接。",
+          "heat": "科技股情绪",
+          "title": "黄仁勋在首尔称AI基础设施仍处早期，并把科技股回调视为买入机会",
+          "impact": "这条消息影响风险偏好和AI基础设施估值锚，A股映射到AI硬件、数据中心、电力和机器人链的情绪修复。",
+          "whyHot": "在全球科技股调整背景下，英伟达CEO对AI基建周期的表态会影响资金是否继续给AI产业链高估值。",
           "relatedThemes": [
-            "资源品/煤炭/高股息"
+            "AI基础设施",
+            "AI硬件/CPO/半导体",
+            "电力能源/算力用电",
+            "机器人/高端制造/汽车链"
           ],
-          "source": "涨停池与板块分布归纳",
-          "url": ""
+          "watch": "看美股AI链和A股硬件链是否同步止跌；若龙头承接弱，新闻只能当情绪修复而不是趋势确认。",
+          "source": "联合早报",
+          "url": "https://www.zaobao.com.sg/finance/world/story20260608-9171714"
         }
       ]
     },
