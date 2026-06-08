@@ -1,26 +1,26 @@
 {
-  "date": "2026-06-05",
+  "date": "2026-06-08",
   "session": "竞价观察",
-  "updatedAt": "2026-06-05 17:04:36 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20260605)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
-  "limitUpCount": 3,
-  "totalSealFund": 394341724.0,
-  "maxLadder": 2,
+  "updatedAt": "2026-06-08 14:09:12 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20260608)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
+  "limitUpCount": 1,
+  "totalSealFund": 207204505.0,
+  "maxLadder": 1,
   "hotSectors": [
     {
       "name": "其他轮动",
-      "count": 3,
-      "sealFund": 394341724.0
+      "count": 1,
+      "sealFund": 207204505.0
     }
   ],
   "forecast": [
     {
-      "title": "结构性活跃",
-      "text": "竞价封板3只，更多是结构性机会。重点看其他轮动(3)能否带动同方向后排。"
+      "title": "竞价偏谨慎",
+      "text": "竞价封板只有1只，盘前情绪不算强。若指数不能快速放量，早盘更适合等分歧后的承接。"
     },
     {
       "title": "主线观察",
-      "text": "板块上优先看其他轮动(3)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+      "text": "板块上优先看其他轮动(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
     },
     {
       "title": "风险信号",
@@ -29,60 +29,22 @@
   ],
   "stocks": [
     {
-      "code": "603500.SH",
-      "name": "祥和实业",
-      "sector": "轨交设备",
-      "theme": "其他轮动",
-      "ladder": 2,
-      "price": 12.23,
-      "sealFund": 166624663.0,
-      "sealVolume": 13624257.0,
-      "firstLimitTime": "09:25:02",
-      "lastLimitTime": "09:25:02",
-      "reopenCount": 0,
-      "status": "竞价封板",
-      "pct": 9.98,
-      "amount": 65812602.0,
-      "turnover": 1.62,
-      "capturedAt": "17:04:36",
-      "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
-    },
-    {
-      "code": "603888.SH",
-      "name": "新华网",
-      "sector": "数字媒体",
+      "code": "603616.SH",
+      "name": "韩建河山",
+      "sector": "水泥",
       "theme": "其他轮动",
       "ladder": 1,
-      "price": 19.25,
-      "sealFund": 125547999.0,
-      "sealVolume": 6521974.0,
-      "firstLimitTime": "09:25:01",
-      "lastLimitTime": "09:25:01",
+      "price": 6.63,
+      "sealFund": 207204505.0,
+      "sealVolume": 31252565.0,
+      "firstLimitTime": "09:25:05",
+      "lastLimitTime": "09:25:05",
       "reopenCount": 0,
       "status": "竞价封板",
-      "pct": 10.0,
-      "amount": 193024486.0,
-      "turnover": 1.49,
-      "capturedAt": "17:04:36",
-      "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
-    },
-    {
-      "code": "002354.SZ",
-      "name": "天娱数科",
-      "sector": "广告营销",
-      "theme": "其他轮动",
-      "ladder": 1,
-      "price": 6.66,
-      "sealFund": 102169062.0,
-      "sealVolume": 15340700.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "10:34:51",
-      "reopenCount": 4,
-      "status": "竞价封板，后续开板4次",
-      "pct": 10.08,
-      "amount": 831246960.0,
-      "turnover": 7.69,
-      "capturedAt": "17:04:36",
+      "pct": 9.95,
+      "amount": 57342439.0,
+      "turnover": 2.25,
+      "capturedAt": "14:09:12",
       "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
     }
   ]
