@@ -700,6 +700,54 @@ function sourceText(stock) {
     .join(" ");
 }
 
+function compactText(value, max = 86) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (!text) return "";
+  return text.length > max ? `${text.slice(0, max - 1)}…` : text;
+}
+
+function candidateTextPool(candidate) {
+  const rows = [
+    candidate.financialBrief,
+    candidate.latestFinancialReport,
+    candidate.earningsBrief,
+    candidate.companyAction,
+    candidate.latestAction,
+    candidate.action,
+    ...(candidate.reasons || []),
+    ...(candidate.raw || []).flatMap((item) => [
+      item.financialBrief,
+      item.latestFinancialReport,
+      item.earningsBrief,
+      item.companyAction,
+      item.latestAction,
+      item.action,
+      item.reason,
+      item.catalyst,
+      item.note,
+      item.status,
+    ]),
+  ];
+  return rows.filter(Boolean).map((item) => String(item).trim()).filter(Boolean);
+}
+
+function summarizeFinancialBrief(candidate) {
+  const explicit = candidate.financialBrief || candidate.latestFinancialReport || candidate.earningsBrief;
+  if (explicit) return compactText(explicit, 96);
+  const financialKeywords = /(年报|半年报|一季报|三季报|季报|财报|业绩快报|业绩预告|营收|净利润|扣非|毛利率)/;
+  const found = candidateTextPool(candidate).find((text) => financialKeywords.test(text));
+  if (found) return compactText(found, 96);
+  return "暂未接入最新财报摘要";
+}
+
+function summarizeCompanyAction(candidate) {
+  const explicit = candidate.companyAction || candidate.latestAction || candidate.action;
+  if (explicit) return compactText(explicit, 110);
+  const actionKeywords = /(公告|增持|减持|回购|并购|收购|重组|定增|中标|签署|合作|投产|扩产|复牌|停牌|实控人|股权|订单|投资者关系|互动易)/;
+  const found = candidateTextPool(candidate).find((text) => actionKeywords.test(text));
+  return compactText(found || "暂无明确公司动作", 110);
+}
+
 function mergeWatchCandidate(map, key, patch) {
   if (!key) return;
   const current = map.get(key) || {
@@ -721,6 +769,8 @@ function mergeWatchCandidate(map, key, patch) {
   current.pct = patch.pct !== undefined ? patch.pct : current.pct;
   current.consecutive = Math.max(asNumber(current.consecutive), asNumber(patch.consecutive));
   current.reopenCount = Math.max(asNumber(current.reopenCount), asNumber(patch.reopenCount));
+  current.financialBrief = current.financialBrief || patch.financialBrief || patch.latestFinancialReport || patch.earningsBrief || "";
+  current.companyAction = current.companyAction || patch.companyAction || patch.latestAction || patch.action || "";
   (patch.tags || []).forEach((tag) => {
     if (tag && !current.tags.includes(tag)) current.tags.push(tag);
   });
@@ -934,6 +984,8 @@ function renderWatchPool() {
         row.tags.join(" "),
         row.reasons.join(" "),
         row.risks.join(" "),
+        summarizeFinancialBrief(row),
+        summarizeCompanyAction(row),
       ]
         .join(" ")
         .toLowerCase();
@@ -951,6 +1003,8 @@ function renderWatchPool() {
         row.tags.join("、"),
         row.reasons.slice(0, 2).join("；"),
         row.risks.length ? row.risks.join("；") : "暂无明显风险",
+        summarizeFinancialBrief(row),
+        summarizeCompanyAction(row),
       ].forEach((value, index) => {
         const td = document.createElement("td");
         if (index === 0) {
@@ -970,7 +1024,7 @@ function renderWatchPool() {
   if (!body.children.length) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-    td.colSpan = 9;
+    td.colSpan = 11;
     td.textContent = "没有匹配的观察标的。";
     tr.append(td);
     body.append(tr);

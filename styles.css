@@ -745,7 +745,14 @@ main {
 }
 
 .watch-pool-table {
-  min-width: 1280px;
+  min-width: 1680px;
+}
+
+.watch-pool-table td:nth-child(10),
+.watch-pool-table td:nth-child(11) {
+  min-width: 230px;
+  color: var(--muted);
+  line-height: 1.45;
 }
 
 .white-hair-table {
