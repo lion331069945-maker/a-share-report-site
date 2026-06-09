@@ -64,6 +64,74 @@ SERENITY_WEAK_KEYWORDS = (
 )
 
 CURATED_MARKET_NEWS_BY_DATE = {
+    "2026-06-09": [
+        {
+            "category": "政策",
+            "heat": "机器人政策",
+            "title": "工信部、国务院国资委启动2026年度人形机器人与具身智能实景实训专项行动",
+            "impact": "专项行动把人形机器人从样机展示推向真实生产生活场景验证，A股映射到机器人本体、伺服电机、减速器、传感器、机器视觉、工业软件和应用服务商。",
+            "whyHot": "政策明确要打造实景实训空间、组建创新应用联合体、攻关实用化作业技能，能把机器人主题从概念催化推向场景落地和订单验证。",
+            "relatedThemes": ["机器人/高端制造/汽车链", "具身智能", "工业自动化", "机器视觉"],
+            "watch": "看机器人链是否从情绪板扩散到有真实应用场景、整机交付和核心零部件壁垒的容量票。",
+            "source": "人民网",
+            "url": "https://finance.people.com.cn/n1/2026/0609/c1004-40736724.html",
+        },
+        {
+            "category": "政策",
+            "heat": "AI数据",
+            "title": "国家数据局发布行业高质量数据集建设方案，国家层面首次系统部署数据赋能AI",
+            "impact": "方案聚焦科学研究、工业制造、智慧能源、交通运输、金融服务等重点领域，以及低空经济、具身智能、智能驾驶等创新领域，A股映射到数据要素、数据标注、AI应用、算力和行业智能化。",
+            "whyHot": "高质量数据集是模型训练和行业AI落地的核心燃料，政策首次系统部署会提升数据资源、数据基础设施和AI应用公司的关注度。",
+            "relatedThemes": ["AI应用/数据要素/服务", "数据标注", "行业大模型", "智能驾驶/低空经济"],
+            "watch": "看数据要素和AI应用是否有政策驱动的持续性，重点区分有行业数据、客户场景和商业闭环的公司。",
+            "source": "国家数据局/央视新闻",
+            "url": "https://www.nda.gov.cn/sjj/swdt/mtsy/0608/20260608214755016924597_pc.html",
+        },
+        {
+            "category": "科技",
+            "heat": "苹果WWDC",
+            "title": "WWDC26：Apple发布新一代Apple Intelligence、Siri AI和一系列软件升级",
+            "impact": "Apple AI和Siri升级会影响端侧AI、苹果链、消费电子、AI应用和开发者生态预期，A股映射到端侧AI芯片、声学/光学、消费电子零部件和AI应用服务。",
+            "whyHot": "苹果生态如果重新强化AI入口，市场会重新定价端侧AI硬件换机、开发者工具和本地模型部署机会。",
+            "relatedThemes": ["端侧AI", "消费电子", "苹果链", "AI应用/数据要素/服务"],
+            "watch": "看苹果链和端侧AI是否出现真实订单或产品升级线索；若只有发布会情绪，持续性要等产业链反馈确认。",
+            "source": "Apple Newsroom",
+            "url": "https://www.apple.com.cn/newsroom/2026/06/apple-unveils-next-generation-of-apple-intelligence-siri-ai-and-more/",
+        },
+        {
+            "category": "科技",
+            "heat": "HBM/内存",
+            "title": "英伟达与SK海力士签署多年期技术合作，推进下一代AI内存和AI基础设施",
+            "impact": "事件直接指向HBM、下一代内存、AI加速器配套和数据中心扩容，A股映射到存储芯片、半导体材料、先进封装、PCB、服务器和测试设备。",
+            "whyHot": "AI基础设施的真实瓶颈正在从GPU扩散到HBM、内存和先进封装，符合市场今天半导体、PCB和材料链走强的新闻催化。",
+            "relatedThemes": ["AI硬件/CPO/半导体", "存储芯片/HBM", "半导体材料", "PCB/先进封装"],
+            "watch": "看HBM/存储、先进封装、电子化学品和AI服务器容量票能否持续放量，而不是只停留在小票情绪冲板。",
+            "source": "NVIDIA Newsroom",
+            "url": "https://nvidianews.nvidia.com/news/nvidia-and-sk-hynix-announce-multiyear-technology-partnership-to-advance-memory-for-ai-factories",
+        },
+        {
+            "category": "科技",
+            "heat": "Physical AI",
+            "title": "英伟达与LG集团建设AI Factory，合作覆盖机器人、自动驾驶、数据中心和GPU云",
+            "impact": "这条新闻把黄仁勋韩国行与Physical AI落地连接起来，A股映射到机器人本体、伺服电机、机器视觉、工业自动化、数据中心设备和边缘AI。",
+            "whyHot": "LG合作不是单一芯片采购，而是AI工厂、机器人基础模型和工业场景组合，能强化机器人/高端制造主线的产业叙事。",
+            "relatedThemes": ["机器人/高端制造/汽车链", "Physical AI", "AI数据中心", "边缘AI"],
+            "watch": "看机器人链是否由政策和海外产业催化共振，扩散到有订单、有控制器/伺服/机器视觉壁垒的中军承接。",
+            "source": "NVIDIA Blog",
+            "url": "https://blogs.nvidia.com/blog/nvidia-and-lg-group-ai-factory/",
+        },
+        {
+            "category": "财经",
+            "heat": "A股盘面",
+            "title": "A股科技股大涨，半导体、PCB和AI硬件方向成为6月9日盘面核心",
+            "impact": "盘面从前一日弱指数转为科技股修复，上证重回4000点，创业板和科创方向更强，A股映射到半导体、PCB、AI硬件、机器人和数据要素的联动修复。",
+            "whyHot": "今日市场不是单条新闻驱动，而是海外AI链、国内数据政策、机器人专项行动和半导体产业预期共同推动风险偏好修复。",
+            "relatedThemes": ["AI硬件/CPO/半导体", "PCB/先进封装", "机器人/高端制造/汽车链", "AI应用/数据要素/服务"],
+            "watch": "看科技股强修复后能否转成连续主线，重点观察容量票、首板晋级率和次日分歧承接。",
+            "source": "每日经济新闻",
+            "url": "https://www.nbd.com.cn/articles/2026-06-09/4421119.html",
+        },
+    ],
     "2026-06-08": [
         {
             "category": "科技",
@@ -310,6 +378,160 @@ def fetch_kline(secid, date_compact, limit=190):
     raise RuntimeError(f"kline failed {secid}: {last_error}")
 
 
+def fetch_sina_kline(symbol, limit=190):
+    url = "https://quotes.sina.cn/cn/api/json_v2.php/CN_MarketData.getKLineData"
+    params = {"symbol": symbol, "scale": "240", "ma": "no", "datalen": str(limit)}
+    rows = fetch_json(url, params=params, referer="https://finance.sina.com.cn/", retries=4, timeout=20)
+    points = []
+    previous_close = None
+    for row in rows or []:
+        close = float(row.get("close") or 0)
+        change = close - previous_close if previous_close else 0
+        pct = (change / previous_close * 100) if previous_close else 0
+        points.append(
+            {
+                "date": row.get("day"),
+                "open": round(float(row.get("open") or 0), 3),
+                "close": round(close, 3),
+                "high": round(float(row.get("high") or 0), 3),
+                "low": round(float(row.get("low") or 0), 3),
+                "volume": float(row.get("volume") or 0),
+                "pct": round(pct, 2),
+                "change": round(change, 3),
+            }
+        )
+        previous_close = close
+    if not points:
+        raise RuntimeError(f"sina kline failed {symbol}: empty rows")
+    return points
+
+
+def pct_limit_for_series(series_id):
+    return {
+        "shanghai": 8,
+        "chinext": 12,
+        "securities": 12,
+        "avg_price": 8,
+    }.get(series_id, 20)
+
+
+def fetch_stable_eastmoney_kline(series_id, secid, date_compact, limit=190):
+    best = None
+    best_abs_pct = float("inf")
+    threshold = pct_limit_for_series(series_id)
+    for attempt in range(8):
+        points = fetch_kline(secid, date_compact, limit=limit)
+        latest = next((point for point in reversed(points) if point["date"] == f"{date_compact[:4]}-{date_compact[4:6]}-{date_compact[6:8]}"), None)
+        if not latest:
+            continue
+        abs_pct = abs(float(latest.get("pct") or 0))
+        if abs_pct < best_abs_pct:
+            best = points
+            best_abs_pct = abs_pct
+        if abs_pct <= threshold:
+            return points
+        time.sleep(0.3 * (attempt + 1))
+    if best and best_abs_pct <= threshold:
+        return best
+    raise RuntimeError(f"{series_id} kline pct abnormal after retries: {best_abs_pct:.2f}%")
+
+
+def fetch_eastmoney_quote_point(secid, target_date):
+    params = {
+        "secid": secid,
+        "fields": "f43,f44,f45,f46,f47,f48,f57,f58,f59,f60,f169,f170,f171",
+        "_": int(time.time() * 1000),
+    }
+    hosts = (
+        "https://push2.eastmoney.com/api/qt/stock/get",
+        "https://push2his.eastmoney.com/api/qt/stock/get",
+        "https://push2test.eastmoney.com/api/qt/stock/get",
+    )
+    last_error = None
+    for attempt in range(8):
+        for host in hosts:
+            try:
+                payload = fetch_json(host, params=params, retries=2, timeout=12)
+                data = payload.get("data") or {}
+                scale = 10 ** int(data.get("f59") or 2)
+                pct = round(float(data.get("f170") or 0) / 100, 2)
+                if abs(pct) > pct_limit_for_series("avg_price"):
+                    continue
+                return {
+                    "date": target_date,
+                    "open": round(float(data.get("f46") or 0) / scale, 2),
+                    "close": round(float(data.get("f43") or 0) / scale, 2),
+                    "high": round(float(data.get("f44") or 0) / scale, 2),
+                    "low": round(float(data.get("f45") or 0) / scale, 2),
+                    "volume": float(data.get("f47") or 0),
+                    "pct": pct,
+                    "change": round(float(data.get("f169") or 0) / scale, 2),
+                }
+            except Exception as exc:
+                last_error = exc
+        time.sleep(0.3 * (attempt + 1))
+    if secid == "47.800005":
+        return fetch_all_a_average_point(target_date)
+    raise RuntimeError(f"quote failed {secid}: {last_error}")
+
+
+def safe_number(value):
+    try:
+        if value in (None, "", "-"):
+            return 0.0
+        return float(value)
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def fetch_all_a_average_point(target_date):
+    rows = []
+    for page in range(1, 90):
+        params = {
+            "pn": page,
+            "pz": 100,
+            "po": 1,
+            "np": 1,
+            "ut": "bd1d9ddb04089700cf9c27f6f7426281",
+            "fltt": 2,
+            "invt": 2,
+            "fid": "f3",
+            "fs": "m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23",
+            "fields": "f2,f3,f5,f12,f14,f15,f16,f17",
+            "_": int(time.time() * 1000),
+        }
+        payload = fetch_json("https://push2delay.eastmoney.com/api/qt/clist/get", params=params, retries=4, timeout=20)
+        diff = (payload.get("data") or {}).get("diff") or []
+        rows.extend(diff)
+        if len(diff) < 100:
+            break
+    valid = [
+        row
+        for row in rows
+        if safe_number(row.get("f2")) > 0
+        and safe_number(row.get("f17")) > 0
+        and safe_number(row.get("f15")) > 0
+        and safe_number(row.get("f16")) > 0
+        and abs(safe_number(row.get("f3"))) <= 30
+    ]
+    if len(valid) < 1500:
+        raise RuntimeError(f"all-A average fallback has too few rows: {len(valid)}")
+    close = sum(safe_number(row.get("f2")) for row in valid) / len(valid)
+    pct = sum(safe_number(row.get("f3")) for row in valid) / len(valid)
+    previous_close = close / (1 + pct / 100) if pct > -99 else close
+    return {
+        "date": target_date,
+        "open": round(sum(safe_number(row.get("f17")) for row in valid) / len(valid), 2),
+        "close": round(close, 2),
+        "high": round(sum(safe_number(row.get("f15")) for row in valid) / len(valid), 2),
+        "low": round(sum(safe_number(row.get("f16")) for row in valid) / len(valid), 2),
+        "volume": sum(safe_number(row.get("f5")) for row in valid),
+        "pct": round(pct, 2),
+        "change": round(close - previous_close, 2),
+        "cachedReason": "官方平均股价quote临时不可用，使用全A有效样本均值估算",
+    }
+
+
 def format_time(value):
     raw = str(int(value or 0)).zfill(6)
     return f"{raw[0:2]}:{raw[2:4]}:{raw[4:6]}" if raw != "000000" else ""
@@ -454,8 +676,15 @@ def build_summary(target_date, date_compact, meta, stocks, themes, by_theme, cha
         f"{target_date}收盘，东方财富涨停池 qdate={date_compact}、tc={meta.get('tc')}；最高高度为{board_text(max_height)}，{join_names(high_board or stocks, 3)}处在连板前列。",
     ]
     if charts.get("shanghai") and charts.get("chinext") and charts.get("avg_price"):
+        index_pcts = [charts[key].get("pct", 0) for key in ("shanghai", "chinext", "avg_price")]
+        if all(value > 0 for value in index_pcts):
+            index_context = "指数修复下资金风险偏好回升，科技成长与题材弹性更容易扩散"
+        elif all(value < 0 for value in index_pcts):
+            index_context = "指数承压下资金更偏结构性抱团"
+        else:
+            index_context = "指数分化下资金更重视主线强弱和前排承接"
         summary.append(
-            f"指数端，上证{format_pct(charts['shanghai'].get('pct'))}，创业板指{format_pct(charts['chinext'].get('pct'))}，A股平均股价{format_pct(charts['avg_price'].get('pct'))}，指数承压下资金更偏结构性抱团。"
+            f"指数端，上证{format_pct(charts['shanghai'].get('pct'))}，创业板指{format_pct(charts['chinext'].get('pct'))}，A股平均股价{format_pct(charts['avg_price'].get('pct'))}，{index_context}。"
         )
     if top_theme:
         theme_text = f"{top_theme['name']}{top_theme['count']}只居前"
@@ -735,7 +964,12 @@ def build_market_news(target_date):
 def update_charts(target_date, date_compact):
     charts = json.loads(CHARTS.read_text(encoding="utf-8"))
     for series in charts["series"]:
-        points = fetch_kline(CHART_SECIDS[series["id"]], date_compact, limit=190)
+        if series.get("source") == "sina" and series.get("symbol"):
+            points = fetch_sina_kline(series["symbol"], limit=190)
+        elif series["id"] == "avg_price":
+            points = list(series.get("points", [])) + [fetch_eastmoney_quote_point(CHART_SECIDS[series["id"]], target_date)]
+        else:
+            points = fetch_stable_eastmoney_kline(series["id"], CHART_SECIDS[series["id"]], date_compact, limit=190)
         latest = next((point for point in reversed(points) if point["date"] == target_date), None)
         if not latest:
             raise RuntimeError(f"{series['id']} missing {target_date}")

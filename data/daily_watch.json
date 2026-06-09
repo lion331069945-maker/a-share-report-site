@@ -1,26 +1,31 @@
 {
-  "date": "2026-06-08",
+  "date": "2026-06-09",
   "session": "竞价观察",
-  "updatedAt": "2026-06-08 20:32:44 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20260608)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
-  "limitUpCount": 1,
-  "totalSealFund": 169728430.0,
-  "maxLadder": 1,
+  "updatedAt": "2026-06-09 17:06:00 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20260609)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
+  "limitUpCount": 5,
+  "totalSealFund": 1235216353.0,
+  "maxLadder": 2,
   "hotSectors": [
     {
+      "name": "化工材料/新能源材料",
+      "count": 3,
+      "sealFund": 1143729717.0
+    },
+    {
       "name": "其他轮动",
-      "count": 1,
-      "sealFund": 169728430.0
+      "count": 2,
+      "sealFund": 91486636.0
     }
   ],
   "forecast": [
     {
-      "title": "竞价偏谨慎",
-      "text": "竞价封板只有1只，盘前情绪不算强。若指数不能快速放量，早盘更适合等分歧后的承接。"
+      "title": "结构性活跃",
+      "text": "竞价封板5只，更多是结构性机会。重点看化工材料/新能源材料(3)、其他轮动(2)能否带动同方向后排。"
     },
     {
       "title": "主线观察",
-      "text": "板块上优先看其他轮动(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+      "text": "板块上优先看化工材料/新能源材料(3)、其他轮动(2)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
     },
     {
       "title": "风险信号",
@@ -33,18 +38,94 @@
       "name": "韩建河山",
       "sector": "水泥",
       "theme": "其他轮动",
-      "ladder": 1,
-      "price": 6.63,
-      "sealFund": 169728430.0,
-      "sealVolume": 25600065.0,
-      "firstLimitTime": "09:25:05",
-      "lastLimitTime": "09:25:05",
+      "ladder": 2,
+      "price": 7.29,
+      "sealFund": 90800595.0,
+      "sealVolume": 12455500.0,
+      "firstLimitTime": "09:25:01",
+      "lastLimitTime": "09:25:01",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 9.95,
-      "amount": 59332102.0,
-      "turnover": 2.33,
-      "capturedAt": "20:32:44",
+      "amount": 69388553.0,
+      "turnover": 2.48,
+      "capturedAt": "17:06:00",
+      "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "605589.SH",
+      "name": "圣泉集团",
+      "sector": "塑料",
+      "theme": "化工材料/新能源材料",
+      "ladder": 1,
+      "price": 54.64,
+      "sealFund": 718775321.0,
+      "sealVolume": 13154746.0,
+      "firstLimitTime": "09:25:02",
+      "lastLimitTime": "09:25:02",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 10.01,
+      "amount": 411955760.0,
+      "turnover": 0.89,
+      "capturedAt": "17:06:00",
+      "note": "封单金额靠前，代表化工材料/新能源材料方向开盘资金态度较强。"
+    },
+    {
+      "code": "603065.SH",
+      "name": "宿迁联盛",
+      "sector": "化学制品",
+      "theme": "化工材料/新能源材料",
+      "ladder": 1,
+      "price": 10.4,
+      "sealFund": 274419600.0,
+      "sealVolume": 26386500.0,
+      "firstLimitTime": "09:25:02",
+      "lastLimitTime": "09:25:02",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 10.05,
+      "amount": 56860960.0,
+      "turnover": 1.3,
+      "capturedAt": "17:06:00",
+      "note": "化工材料/新能源材料方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "002669.SZ",
+      "name": "康达新材",
+      "sector": "化学制品",
+      "theme": "化工材料/新能源材料",
+      "ladder": 1,
+      "price": 17.39,
+      "sealFund": 150534796.0,
+      "sealVolume": 8656400.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:25:00",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 9.99,
+      "amount": 337765968.0,
+      "turnover": 6.42,
+      "capturedAt": "17:06:00",
+      "note": "化工材料/新能源材料方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "605081.SH",
+      "name": "退市太和",
+      "sector": "环境治理",
+      "theme": "其他轮动",
+      "ladder": 1,
+      "price": 0.44,
+      "sealFund": 686041.0,
+      "sealVolume": 1559184.0,
+      "firstLimitTime": "09:25:03",
+      "lastLimitTime": "11:12:57",
+      "reopenCount": 6,
+      "status": "竞价封板，后续开板6次",
+      "pct": 10.0,
+      "amount": 6024809.0,
+      "turnover": 12.2,
+      "capturedAt": "17:06:00",
       "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
     }
   ]
