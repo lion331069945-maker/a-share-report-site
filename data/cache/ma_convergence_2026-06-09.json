@@ -1,0 +1,35 @@
+{
+  "date": "2026-06-09",
+  "quoteCount": 157,
+  "quoteSource": "当日报告主板样本池",
+  "cacheVersion": 4,
+  "maPeriods": [
+    5,
+    10,
+    15,
+    20
+  ],
+  "maRangeLimitYuan": 5.0,
+  "maxDailyPct": 10.0,
+  "mainBoardOnly": true,
+  "rows": [
+    {
+      "code": "603150",
+      "name": "万朗磁塑",
+      "type": "均线区间内偏强",
+      "sector": "塑料",
+      "pct": 10.0,
+      "recentGainPct": 4.38,
+      "maSpreadPct": 1.69,
+      "maRangeYuan": 1.15,
+      "volumeRatio": 1.2,
+      "amount": "2.46亿",
+      "close": 74.58,
+      "ma5": 68.284,
+      "ma10": 68.055,
+      "ma15": 68.334,
+      "ma20": 69.205,
+      "note": "收盘74.58，当日涨幅10.00%；均线区间宽度1.15元，最大乖离1.69%，MA5 68.28、MA10 68.05、MA15 68.33、MA20 69.20；成交量为5日均量1.20倍，近10日涨幅4.38%。"
+    }
+  ]
+}
