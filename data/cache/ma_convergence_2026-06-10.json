@@ -1,0 +1,16 @@
+{
+  "date": "2026-06-10",
+  "quoteCount": 65,
+  "quoteSource": "当日报告主板样本池",
+  "cacheVersion": 4,
+  "maPeriods": [
+    5,
+    10,
+    15,
+    20
+  ],
+  "maRangeLimitYuan": 5.0,
+  "maxDailyPct": 10.0,
+  "mainBoardOnly": true,
+  "rows": []
+}
