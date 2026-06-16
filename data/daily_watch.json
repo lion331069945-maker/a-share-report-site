@@ -1,42 +1,42 @@
 {
   "date": "2026-06-16",
   "session": "竞价观察",
-  "updatedAt": "2026-06-16 14:45:06 +08:00",
+  "updatedAt": "2026-06-16 16:46:11 +08:00",
   "source": "东方财富涨停池 getTopicZTPool(date=20260616)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
   "limitUpCount": 8,
-  "totalSealFund": 2786974884.0,
+  "totalSealFund": 2233359086.0,
   "maxLadder": 3,
   "hotSectors": [
     {
       "name": "AI硬件/CPO/半导体",
       "count": 3,
-      "sealFund": 1019887007.0
+      "sealFund": 887300041.0
     },
     {
       "name": "其他轮动",
       "count": 2,
-      "sealFund": 363989748.0
+      "sealFund": 227495660.0
     },
     {
       "name": "化工材料/新能源材料",
       "count": 1,
-      "sealFund": 928800769.0
+      "sealFund": 706223339.0
     },
     {
       "name": "机器人/高端制造/汽车链",
       "count": 1,
-      "sealFund": 329457296.0
+      "sealFund": 312780405.0
     },
     {
       "name": "消费零售/家电服饰",
       "count": 1,
-      "sealFund": 144840064.0
+      "sealFund": 99559641.0
     }
   ],
   "forecast": [
     {
       "title": "竞价强度偏强",
-      "text": "竞价封板达到8只，封单总额约27.87亿元，说明开盘资金风险偏好较高。"
+      "text": "竞价封板达到8只，封单总额约22.33亿元，说明开盘资金风险偏好较高。"
     },
     {
       "title": "主线观察",
@@ -55,15 +55,15 @@
       "theme": "其他轮动",
       "ladder": 3,
       "price": 78.41,
-      "sealFund": 67957790.0,
-      "sealVolume": 866698.0,
+      "sealFund": 41274867.0,
+      "sealVolume": 526398.0,
       "firstLimitTime": "09:25:03",
       "lastLimitTime": "10:51:32",
       "reopenCount": 5,
       "status": "竞价封板，后续开板5次",
       "pct": 10.0,
-      "amount": 963689456.0,
-      "turnover": 4.57,
+      "amount": 995186752.0,
+      "turnover": 4.72,
       "capturedAt": "14:45:06",
       "note": "3连板竞价封住，是短线高度和情绪强弱的核心观察点。"
     },
@@ -74,15 +74,15 @@
       "theme": "化工材料/新能源材料",
       "ladder": 2,
       "price": 15.65,
-      "sealFund": 928800769.0,
-      "sealVolume": 59348292.0,
+      "sealFund": 706223339.0,
+      "sealVolume": 45126092.0,
       "firstLimitTime": "09:25:02",
       "lastLimitTime": "09:25:02",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 9.98,
-      "amount": 166403445.0,
-      "turnover": 0.61,
+      "amount": 169201665.0,
+      "turnover": 0.62,
       "capturedAt": "14:45:06",
       "note": "封单金额靠前，代表化工材料/新能源材料方向开盘资金态度较强。"
     },
@@ -93,15 +93,15 @@
       "theme": "AI硬件/CPO/半导体",
       "ladder": 2,
       "price": 34.72,
-      "sealFund": 617402844.0,
-      "sealVolume": 17782340.0,
+      "sealFund": 529435905.0,
+      "sealVolume": 15248730.0,
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 10.01,
-      "amount": 136378771.0,
-      "turnover": 0.47,
+      "amount": 143295342.0,
+      "turnover": 0.5,
       "capturedAt": "14:45:06",
       "note": "封单金额靠前，代表AI硬件/CPO/半导体方向开盘资金态度较强。"
     },
@@ -112,15 +112,15 @@
       "theme": "机器人/高端制造/汽车链",
       "ladder": 2,
       "price": 19.87,
-      "sealFund": 329457296.0,
-      "sealVolume": 16580639.0,
+      "sealFund": 312780405.0,
+      "sealVolume": 15741339.0,
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 10.02,
-      "amount": 90236843.0,
-      "turnover": 1.18,
+      "amount": 91433017.0,
+      "turnover": 1.2,
       "capturedAt": "14:45:06",
       "note": "封单金额靠前，代表机器人/高端制造/汽车链方向开盘资金态度较强。"
     },
@@ -131,17 +131,17 @@
       "theme": "AI硬件/CPO/半导体",
       "ladder": 2,
       "price": 35.85,
-      "sealFund": 320569015.0,
-      "sealVolume": 8941953.0,
+      "sealFund": 291150361.0,
+      "sealVolume": 8121349.0,
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 10.0,
-      "amount": 166281693.0,
-      "turnover": 1.09,
+      "amount": 167783951.0,
+      "turnover": 1.1,
       "capturedAt": "14:45:06",
-      "note": "封单金额靠前，代表AI硬件/CPO/半导体方向开盘资金态度较强。"
+      "note": "AI硬件/CPO/半导体方向竞价封板，观察同板块是否扩散。"
     },
     {
       "code": "002160.SZ",
@@ -150,14 +150,14 @@
       "theme": "其他轮动",
       "ladder": 1,
       "price": 4.59,
-      "sealFund": 296031958.0,
-      "sealVolume": 64494980.0,
+      "sealFund": 186220793.0,
+      "sealVolume": 40570979.0,
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 10.07,
-      "amount": 20281466.0,
+      "amount": 20567427.0,
       "turnover": 0.43,
       "capturedAt": "14:45:06",
       "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
@@ -169,15 +169,15 @@
       "theme": "消费零售/家电服饰",
       "ladder": 1,
       "price": 21.44,
-      "sealFund": 144840064.0,
-      "sealVolume": 6755600.0,
+      "sealFund": 99559641.0,
+      "sealVolume": 4643640.0,
       "firstLimitTime": "09:30:00",
       "lastLimitTime": "09:30:00",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 10.01,
-      "amount": 395402608.0,
-      "turnover": 6.47,
+      "amount": 401235568.0,
+      "turnover": 6.57,
       "capturedAt": "14:45:06",
       "note": "消费零售/家电服饰方向竞价封板，观察同板块是否扩散。"
     },
@@ -188,15 +188,15 @@
       "theme": "AI硬件/CPO/半导体",
       "ladder": 1,
       "price": 8.29,
-      "sealFund": 81915148.0,
-      "sealVolume": 9881200.0,
+      "sealFund": 66713775.0,
+      "sealVolume": 8047500.0,
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 9.95,
-      "amount": 137687781.0,
-      "turnover": 2.69,
+      "amount": 139138531.0,
+      "turnover": 2.71,
       "capturedAt": "14:45:06",
       "note": "AI硬件/CPO/半导体方向竞价封板，观察同板块是否扩散。"
     }
