@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-16 16:46:12 +08:00",
+  "updatedAt": "2026-06-17 16:33:53 +08:00",
   "source": "新浪财经日K接口+实时行情接口；东方财富板块/自定义指数日K接口；证券板块采用证券公司指数 sz399975，A股平均股价采用东方财富 47.800005，半导体/光模块/光纤分别采用 BK0917/BK1136/BK1660；行情源短暂不可用时保留最近一次成功曲线并标记缓存",
   "series": [
     {
@@ -8,11 +8,11 @@
       "source": "sina",
       "symbol": "sh000001",
       "color": "#b91c1c",
-      "latestDate": "2026-06-16",
-      "latestClose": 4091.892,
-      "latestPct": -0.11,
-      "latestChange": -4.58,
-      "rangePct": 7.67,
+      "latestDate": "2026-06-17",
+      "latestClose": 4108.076,
+      "latestPct": 0.4,
+      "latestChange": 16.184,
+      "rangePct": 8.1,
       "points": [
         {
           "date": "2025-08-27",
@@ -1933,9 +1933,19 @@
           "volume": 61566829600.0,
           "pct": -0.11,
           "change": -4.58
+        },
+        {
+          "date": "2026-06-17",
+          "open": 4074.291,
+          "close": 4108.076,
+          "high": 4109.958,
+          "low": 4073.732,
+          "volume": 60807741300.0,
+          "pct": 0.4,
+          "change": 16.184
         }
       ],
-      "latestTime": "2026-06-16 16:46:10 +08:00"
+      "latestTime": "2026-06-17 16:33:00 +08:00"
     },
     {
       "id": "chinext",
@@ -1943,11 +1953,11 @@
       "source": "sina",
       "symbol": "sz399006",
       "color": "#2563eb",
-      "latestDate": "2026-06-16",
-      "latestClose": 4102.942,
-      "latestPct": 1.72,
-      "latestChange": 69.407,
-      "rangePct": 50.67,
+      "latestDate": "2026-06-17",
+      "latestClose": 4167.048,
+      "latestPct": 1.56,
+      "latestChange": 64.106,
+      "rangePct": 53.02,
       "points": [
         {
           "date": "2025-08-27",
@@ -3868,9 +3878,19 @@
           "volume": 22590511467.0,
           "pct": 1.72,
           "change": 69.407
+        },
+        {
+          "date": "2026-06-17",
+          "open": 4061.297,
+          "close": 4167.048,
+          "high": 4168.165,
+          "low": 4058.614,
+          "volume": 22186156810.0,
+          "pct": 1.56,
+          "change": 64.106
         }
       ],
-      "latestTime": "2026-06-16 16:46:10 +08:00"
+      "latestTime": "2026-06-17 16:33:00 +08:00"
     },
     {
       "id": "securities",
@@ -3878,11 +3898,11 @@
       "source": "sina",
       "symbol": "sz399975",
       "color": "#0f766e",
-      "latestDate": "2026-06-16",
-      "latestClose": 759.367,
-      "latestPct": 1.08,
-      "latestChange": 8.138,
-      "rangePct": -17.12,
+      "latestDate": "2026-06-17",
+      "latestClose": 758.348,
+      "latestPct": -0.13,
+      "latestChange": -1.019,
+      "rangePct": -17.23,
       "points": [
         {
           "date": "2025-08-27",
@@ -5803,9 +5823,19 @@
           "volume": 3881927110.0,
           "pct": 1.08,
           "change": 8.138
+        },
+        {
+          "date": "2026-06-17",
+          "open": 758.042,
+          "close": 758.348,
+          "high": 765.503,
+          "low": 754.439,
+          "volume": 2965235598.0,
+          "pct": -0.13,
+          "change": -1.019
         }
       ],
-      "latestTime": "2026-06-16 16:46:11 +08:00"
+      "latestTime": "2026-06-17 16:33:00 +08:00"
     },
     {
       "id": "avg_price",
@@ -5813,11 +5843,11 @@
       "source": "eastmoney",
       "secid": "47.800005",
       "color": "#7c3aed",
-      "latestDate": "2026-06-16",
-      "latestClose": 31.71,
-      "latestPct": 1.63,
-      "latestChange": 0.51,
-      "rangePct": 4.14,
+      "latestDate": "2026-06-17",
+      "latestClose": 32.58,
+      "latestPct": -0.48,
+      "latestChange": -0.16,
+      "rangePct": 7.0,
       "points": [
         {
           "date": "2026-02-27",
@@ -6219,9 +6249,20 @@
           "volume": 1378154578.0,
           "pct": 1.63,
           "change": 0.51
+        },
+        {
+          "date": "2026-06-17",
+          "open": 31.89,
+          "close": 32.58,
+          "high": 33.26,
+          "low": 31.33,
+          "volume": 1353393115.0,
+          "pct": -0.48,
+          "change": -0.16,
+          "cachedReason": "官方平均股价quote临时不可用，使用全A有效样本均值估算"
         }
       ],
-      "latestTime": "2026-06-16 16:46:11 +08:00"
+      "latestTime": "2026-06-17 16:33:52 +08:00"
     },
     {
       "id": "semiconductor",
@@ -6229,11 +6270,11 @@
       "source": "eastmoney",
       "secid": "90.BK0917",
       "color": "#ea580c",
-      "latestDate": "2026-06-16",
-      "latestClose": 3261.36,
-      "latestPct": 2.44,
-      "latestChange": 77.66,
-      "rangePct": 22.63,
+      "latestDate": "2026-06-17",
+      "latestClose": 3343.15,
+      "latestPct": 2.51,
+      "latestChange": 81.79,
+      "rangePct": 25.7,
       "points": [
         {
           "date": "2026-02-27",
@@ -6634,9 +6675,19 @@
           "volume": 180889935.0,
           "pct": 2.44,
           "change": 77.66
+        },
+        {
+          "date": "2026-06-17",
+          "open": 3220.03,
+          "close": 3343.15,
+          "high": 3343.15,
+          "low": 3220.03,
+          "volume": 194899720.0,
+          "pct": 2.51,
+          "change": 81.79
         }
       ],
-      "latestTime": "2026-06-16 16:46:11 +08:00"
+      "latestTime": "2026-06-17 16:33:52 +08:00"
     },
     {
       "id": "optical_module",
@@ -6644,11 +6695,11 @@
       "source": "eastmoney",
       "secid": "90.BK1136",
       "color": "#0891b2",
-      "latestDate": "2026-06-16",
-      "latestClose": 4712.88,
-      "latestPct": 3.77,
-      "latestChange": 171.32,
-      "rangePct": 56.43,
+      "latestDate": "2026-06-17",
+      "latestClose": 4816.77,
+      "latestPct": 2.2,
+      "latestChange": 103.89,
+      "rangePct": 59.88,
       "points": [
         {
           "date": "2026-02-27",
@@ -7049,9 +7100,19 @@
           "volume": 50541535.0,
           "pct": 3.77,
           "change": 171.32
+        },
+        {
+          "date": "2026-06-17",
+          "open": 4647.16,
+          "close": 4816.77,
+          "high": 4833.18,
+          "low": 4647.16,
+          "volume": 48552797.0,
+          "pct": 2.2,
+          "change": 103.89
         }
       ],
-      "latestTime": "2026-06-16 16:46:12 +08:00"
+      "latestTime": "2026-06-17 16:33:52 +08:00"
     },
     {
       "id": "fiber_optic",
@@ -7059,11 +7120,11 @@
       "source": "eastmoney",
       "secid": "90.BK1660",
       "color": "#16a34a",
-      "latestDate": "2026-06-16",
-      "latestClose": 1452.56,
-      "latestPct": 4.91,
-      "latestChange": 67.94,
-      "rangePct": 35.61,
+      "latestDate": "2026-06-17",
+      "latestClose": 1460.13,
+      "latestPct": 0.52,
+      "latestChange": 7.57,
+      "rangePct": 36.32,
       "points": [
         {
           "date": "2026-04-10",
@@ -7364,9 +7425,19 @@
           "volume": 72037180.0,
           "pct": 4.91,
           "change": 67.94
+        },
+        {
+          "date": "2026-06-17",
+          "open": 1429.41,
+          "close": 1460.13,
+          "high": 1462.74,
+          "low": 1429.41,
+          "volume": 68713366.0,
+          "pct": 0.52,
+          "change": 7.57
         }
       ],
-      "latestTime": "2026-06-16 16:46:12 +08:00"
+      "latestTime": "2026-06-17 16:33:53 +08:00"
     }
   ]
 }
