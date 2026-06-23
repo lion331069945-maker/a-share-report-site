@@ -2100,17 +2100,24 @@ function renderStrategy() {
 }
 
 async function init() {
-  const [reportResponse, chartResponse, dailyWatchResponse] = await Promise.all([
+  const [reportResponse, latestReportResponse, chartResponse, dailyWatchResponse] = await Promise.all([
     fetch("./data/reports.json", { cache: "no-store" }),
+    fetch("./data/latest_report.json", { cache: "no-store" }).catch(() => null),
     fetch("./data/market_charts.json", { cache: "no-store" }),
     fetch("./data/daily_watch.json", { cache: "no-store" }).catch(() => null),
   ]);
   const data = await reportResponse.json();
+  const latestData = latestReportResponse?.ok ? await latestReportResponse.json() : null;
+  const latestReport = latestData?.report || null;
+  const mergedReports = latestReport
+    ? [latestReport, ...(data.reports || []).filter((item) => !(item.date === latestReport.date && item.session === latestReport.session))]
+    : data.reports;
+  const updatedAt = latestData?.updatedAt || data.updatedAt;
   state.marketCharts = await chartResponse.json();
   if (dailyWatchResponse?.ok) {
     state.dailyWatch = await dailyWatchResponse.json();
   }
-  const report = data.reports[0];
+  const report = mergedReports[0];
   state.report = report;
   state.stocks = report.stocks;
   state.newHighStocks = report.newHighStocks || report.newHighs || [];
@@ -2119,7 +2126,7 @@ async function init() {
   state.watchPoolStocks = buildWatchPool(report);
   state.whiteHairPicks = normalizeWhiteHairPicks(report);
 
-  setHero(report, data.updatedAt);
+  setHero(report, updatedAt);
   renderSummary(report);
   renderSentimentDashboard(report);
   renderThemeStrength(report);
@@ -2138,7 +2145,7 @@ async function init() {
   renderMaConvergence();
   setupFilters(report.stocks);
   renderStocks();
-  renderArchive(data.reports);
+  renderArchive(mergedReports);
   renderMarketCharts();
   renderDailyWatch();
   renderStrategy();
