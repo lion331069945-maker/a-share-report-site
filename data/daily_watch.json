@@ -1,21 +1,21 @@
 {
   "date": "2026-06-24",
   "session": "竞价观察",
-  "updatedAt": "2026-06-24 13:13:27 +08:00",
+  "updatedAt": "2026-06-24 17:13:58 +08:00",
   "source": "东方财富涨停池 getTopicZTPool(date=20260624)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
   "limitUpCount": 2,
-  "totalSealFund": 1030447578.0,
+  "totalSealFund": 628619034.0,
   "maxLadder": 4,
   "hotSectors": [
     {
       "name": "其他轮动",
       "count": 1,
-      "sealFund": 779493526.0
+      "sealFund": 456132341.0
     },
     {
       "name": "AI硬件/CPO/半导体",
       "count": 1,
-      "sealFund": 250954052.0
+      "sealFund": 172486693.0
     }
   ],
   "forecast": [
@@ -40,16 +40,16 @@
       "theme": "其他轮动",
       "ladder": 4,
       "price": 23.83,
-      "sealFund": 779493526.0,
-      "sealVolume": 32710597.0,
+      "sealFund": 456132341.0,
+      "sealVolume": 19141097.0,
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 10.02,
-      "amount": 51375168.0,
-      "turnover": 0.74,
-      "capturedAt": "13:13:27",
+      "amount": 55292820.0,
+      "turnover": 0.79,
+      "capturedAt": "17:13:58",
       "note": "4连板竞价封住，是短线高度和情绪强弱的核心观察点。"
     },
     {
@@ -59,16 +59,16 @@
       "theme": "AI硬件/CPO/半导体",
       "ladder": 2,
       "price": 11.02,
-      "sealFund": 250954052.0,
-      "sealVolume": 22772600.0,
+      "sealFund": 172486693.0,
+      "sealVolume": 15652150.0,
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 9.98,
-      "amount": 149149088.0,
-      "turnover": 2.89,
-      "capturedAt": "13:13:27",
+      "amount": 163346705.0,
+      "turnover": 3.16,
+      "capturedAt": "17:13:58",
       "note": "AI硬件/CPO/半导体方向竞价封板，观察同板块是否扩散。"
     }
   ]
