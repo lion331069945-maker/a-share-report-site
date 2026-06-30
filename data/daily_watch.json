@@ -1,21 +1,21 @@
 {
   "date": "2026-06-30",
   "session": "竞价观察",
-  "updatedAt": "2026-06-30 13:19:18 +08:00",
+  "updatedAt": "2026-06-30 17:18:07 +08:00",
   "source": "东方财富涨停池 getTopicZTPool(date=20260630)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
   "limitUpCount": 2,
-  "totalSealFund": 1729742392.0,
+  "totalSealFund": 1033615486.0,
   "maxLadder": 1,
   "hotSectors": [
     {
       "name": "AI硬件/CPO/半导体",
       "count": 1,
-      "sealFund": 1398758339.0
+      "sealFund": 779032373.0
     },
     {
       "name": "其他轮动",
       "count": 1,
-      "sealFund": 330984053.0
+      "sealFund": 254583113.0
     }
   ],
   "forecast": [
@@ -40,15 +40,15 @@
       "theme": "AI硬件/CPO/半导体",
       "ladder": 1,
       "price": 35.48,
-      "sealFund": 1398758339.0,
-      "sealVolume": 39423854.0,
+      "sealFund": 779032373.0,
+      "sealVolume": 21956944.0,
       "firstLimitTime": "09:30:00",
       "lastLimitTime": "09:30:00",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 10.02,
-      "amount": 1256076576.0,
-      "turnover": 2.6,
+      "amount": 1385866320.0,
+      "turnover": 2.87,
       "capturedAt": "13:19:18",
       "note": "封单金额靠前，代表AI硬件/CPO/半导体方向开盘资金态度较强。"
     },
@@ -59,17 +59,17 @@
       "theme": "其他轮动",
       "ladder": 1,
       "price": 23.1,
-      "sealFund": 330984053.0,
-      "sealVolume": 14328314.0,
+      "sealFund": 254583113.0,
+      "sealVolume": 11020914.0,
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 10.0,
-      "amount": 166747027.0,
-      "turnover": 1.08,
+      "amount": 172589017.0,
+      "turnover": 1.12,
       "capturedAt": "13:19:18",
-      "note": "封单金额靠前，代表其他轮动方向开盘资金态度较强。"
+      "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
     }
   ]
 }
