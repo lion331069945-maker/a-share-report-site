@@ -1,141 +1,136 @@
 {
-  "date": "2026-07-21",
+  "date": "2026-07-22",
   "session": "竞价观察",
-  "updatedAt": "2026-07-21 12:34:26 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20260721)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
+  "updatedAt": "2026-07-22 12:36:36 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20260722)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
   "limitUpCount": 5,
-  "totalSealFund": 1289981755.0,
-  "maxLadder": 4,
+  "totalSealFund": 1553004407.0,
+  "maxLadder": 3,
   "hotSectors": [
     {
       "name": "其他轮动",
-      "count": 2,
-      "sealFund": 572479528.0
-    },
-    {
-      "name": "电力能源/算力用电",
-      "count": 1,
-      "sealFund": 21026005.0
+      "count": 3,
+      "sealFund": 1052969573.0
     },
     {
       "name": "AI应用/数据要素/服务",
       "count": 1,
-      "sealFund": 302131898.0
+      "sealFund": 321150654.0
     },
     {
-      "name": "资源品/金属材料/高股息",
+      "name": "化工材料/新能源材料",
       "count": 1,
-      "sealFund": 394344324.0
+      "sealFund": 178884180.0
     }
   ],
   "forecast": [
     {
       "title": "结构性活跃",
-      "text": "竞价封板5只，更多是结构性机会。重点看其他轮动(2)、电力能源/算力用电(1)、AI应用/数据要素/服务(1)能否带动同方向后排。"
+      "text": "竞价封板5只，更多是结构性机会。重点看其他轮动(3)、AI应用/数据要素/服务(1)、化工材料/新能源材料(1)能否带动同方向后排。"
     },
     {
       "title": "主线观察",
-      "text": "板块上优先看其他轮动(2)、电力能源/算力用电(1)、AI应用/数据要素/服务(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+      "text": "板块上优先看其他轮动(3)、AI应用/数据要素/服务(1)、化工材料/新能源材料(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
     },
     {
       "title": "风险信号",
-      "text": "最高4连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
+      "text": "最高3连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
     }
   ],
   "stocks": [
-    {
-      "code": "001258.SZ",
-      "name": "立新能源",
-      "sector": "电力",
-      "theme": "电力能源/算力用电",
-      "ladder": 4,
-      "price": 10.01,
-      "sealFund": 21026005.0,
-      "sealVolume": 2100500.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "11:14:48",
-      "reopenCount": 16,
-      "status": "竞价封板，后续开板16次",
-      "pct": 10.0,
-      "amount": 1517471920.0,
-      "turnover": 16.37,
-      "capturedAt": "12:34:26",
-      "note": "4连板竞价封住，是短线高度和情绪强弱的核心观察点。"
-    },
     {
       "code": "000815.SZ",
       "name": "美利云",
       "sector": "IT服务Ⅱ",
       "theme": "AI应用/数据要素/服务",
-      "ladder": 2,
-      "price": 14.66,
-      "sealFund": 302131898.0,
-      "sealVolume": 20609270.0,
-      "firstLimitTime": "09:30:00",
-      "lastLimitTime": "09:30:00",
-      "reopenCount": 0,
-      "status": "竞价封板",
-      "pct": 9.98,
-      "amount": 432972864.0,
-      "turnover": 4.25,
-      "capturedAt": "12:34:26",
-      "note": "封单金额靠前，代表AI应用/数据要素/服务方向开盘资金态度较强。"
+      "ladder": 3,
+      "price": 16.13,
+      "sealFund": 321150654.0,
+      "sealVolume": 19910146.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:36:09",
+      "reopenCount": 3,
+      "status": "竞价封板，后续开板3次",
+      "pct": 10.03,
+      "amount": 1379184048.0,
+      "turnover": 12.36,
+      "capturedAt": "12:36:36",
+      "note": "3连板竞价封住，是短线高度和情绪强弱的核心观察点。"
     },
     {
       "code": "603221.SH",
       "name": "爱丽家居",
       "sector": "家居用品",
       "theme": "其他轮动",
-      "ladder": 1,
-      "price": 10.52,
-      "sealFund": 471958760.0,
-      "sealVolume": 44863000.0,
-      "firstLimitTime": "09:25:01",
-      "lastLimitTime": "09:25:01",
-      "reopenCount": 0,
-      "status": "竞价封板",
-      "pct": 10.04,
-      "amount": 2570036.0,
-      "turnover": 0.1,
-      "capturedAt": "12:34:26",
-      "note": "封单金额靠前，代表其他轮动方向开盘资金态度较强。"
-    },
-    {
-      "code": "002167.SZ",
-      "name": "东方锆业",
-      "sector": "小金属",
-      "theme": "资源品/金属材料/高股息",
-      "ladder": 1,
-      "price": 16.85,
-      "sealFund": 394344324.0,
-      "sealVolume": 23403224.0,
-      "firstLimitTime": "09:30:00",
-      "lastLimitTime": "11:00:54",
-      "reopenCount": 1,
-      "status": "竞价封板，后续开板1次",
-      "pct": 9.99,
-      "amount": 2362322624.0,
-      "turnover": 19.32,
-      "capturedAt": "12:34:26",
-      "note": "封单金额靠前，代表资源品/金属材料/高股息方向开盘资金态度较强。"
-    },
-    {
-      "code": "002879.SZ",
-      "name": "长缆科技",
-      "sector": "电网设备",
-      "theme": "其他轮动",
-      "ladder": 1,
-      "price": 13.56,
-      "sealFund": 100520768.0,
-      "sealVolume": 7413036.0,
-      "firstLimitTime": "09:30:00",
-      "lastLimitTime": "09:30:00",
+      "ladder": 2,
+      "price": 11.57,
+      "sealFund": 401352887.0,
+      "sealVolume": 34689100.0,
+      "firstLimitTime": "09:25:02",
+      "lastLimitTime": "09:25:02",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 9.98,
-      "amount": 37213716.0,
-      "turnover": 2.0,
-      "capturedAt": "12:34:26",
+      "amount": 1318980.0,
+      "turnover": 0.05,
+      "capturedAt": "12:36:36",
+      "note": "封单金额靠前，代表其他轮动方向开盘资金态度较强。"
+    },
+    {
+      "code": "603407.SH",
+      "name": "长裕集团",
+      "sector": "化学原料",
+      "theme": "化工材料/新能源材料",
+      "ladder": 2,
+      "price": 64.34,
+      "sealFund": 178884180.0,
+      "sealVolume": 2780295.0,
+      "firstLimitTime": "09:25:02",
+      "lastLimitTime": "09:25:02",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 10.0,
+      "amount": 112119206.0,
+      "turnover": 4.85,
+      "capturedAt": "12:36:36",
+      "note": "化工材料/新能源材料方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "301234.SZ",
+      "name": "五洲医疗",
+      "sector": "医疗器械",
+      "theme": "其他轮动",
+      "ladder": 1,
+      "price": 40.8,
+      "sealFund": 567515760.0,
+      "sealVolume": 13909700.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:25:00",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 20.0,
+      "amount": 20326560.0,
+      "turnover": 1.24,
+      "capturedAt": "12:36:36",
+      "note": "封单金额靠前，代表其他轮动方向开盘资金态度较强。"
+    },
+    {
+      "code": "002575.SZ",
+      "name": "群兴玩具",
+      "sector": "综合Ⅱ",
+      "theme": "其他轮动",
+      "ladder": 1,
+      "price": 4.83,
+      "sealFund": 84100926.0,
+      "sealVolume": 17412200.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:25:00",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 10.02,
+      "amount": 60176004.0,
+      "turnover": 2.13,
+      "capturedAt": "12:36:36",
       "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
     }
   ]
