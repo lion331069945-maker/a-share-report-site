@@ -1,45 +1,30 @@
 {
-  "date": "2026-07-23",
+  "date": "2026-07-24",
   "session": "竞价观察",
-  "updatedAt": "2026-07-23 12:36:02 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20260723)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
-  "limitUpCount": 6,
-  "totalSealFund": 2988954821.0,
-  "maxLadder": 3,
+  "updatedAt": "2026-07-24 12:34:51 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20260724)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
+  "limitUpCount": 4,
+  "totalSealFund": 1327474552.0,
+  "maxLadder": 4,
   "hotSectors": [
     {
       "name": "其他轮动",
-      "count": 3,
-      "sealFund": 1075738392.0
-    },
-    {
-      "name": "电力能源/算力用电",
-      "count": 1,
-      "sealFund": 107236488.0
-    },
-    {
-      "name": "机器人/高端制造/汽车链",
-      "count": 1,
-      "sealFund": 1753880609.0
-    },
-    {
-      "name": "AI硬件/CPO/半导体",
-      "count": 1,
-      "sealFund": 52099332.0
+      "count": 4,
+      "sealFund": 1327474552.0
     }
   ],
   "forecast": [
     {
       "title": "结构性活跃",
-      "text": "竞价封板6只，更多是结构性机会。重点看其他轮动(3)、电力能源/算力用电(1)、机器人/高端制造/汽车链(1)能否带动同方向后排。"
+      "text": "竞价封板4只，更多是结构性机会。重点看其他轮动(4)能否带动同方向后排。"
     },
     {
       "title": "主线观察",
-      "text": "板块上优先看其他轮动(3)、电力能源/算力用电(1)、机器人/高端制造/汽车链(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+      "text": "板块上优先看其他轮动(4)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
     },
     {
       "title": "风险信号",
-      "text": "最高3连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
+      "text": "最高4连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
     }
   ],
   "stocks": [
@@ -48,114 +33,76 @@
       "name": "爱丽家居",
       "sector": "家居用品",
       "theme": "其他轮动",
-      "ladder": 3,
-      "price": 12.73,
-      "sealFund": 394299020.0,
-      "sealVolume": 30974000.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "09:25:00",
+      "ladder": 4,
+      "price": 14.0,
+      "sealFund": 484548400.0,
+      "sealVolume": 34610600.0,
+      "firstLimitTime": "09:25:01",
+      "lastLimitTime": "09:25:01",
       "reopenCount": 0,
       "status": "竞价封板",
-      "pct": 10.03,
-      "amount": 2095358.0,
-      "turnover": 0.07,
-      "capturedAt": "12:36:02",
-      "note": "3连板竞价封住，是短线高度和情绪强弱的核心观察点。"
+      "pct": 9.98,
+      "amount": 11830000.0,
+      "turnover": 0.35,
+      "capturedAt": "12:34:51",
+      "note": "4连板竞价封住，是短线高度和情绪强弱的核心观察点。"
+    },
+    {
+      "code": "002879.SZ",
+      "name": "长缆科技",
+      "sector": "电网设备",
+      "theme": "其他轮动",
+      "ladder": 4,
+      "price": 18.05,
+      "sealFund": 121001785.0,
+      "sealVolume": 6703700.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:34:45",
+      "reopenCount": 2,
+      "status": "竞价封板，后续开板2次",
+      "pct": 9.99,
+      "amount": 349433200.0,
+      "turnover": 14.12,
+      "capturedAt": "12:34:51",
+      "note": "4连板竞价封住，是短线高度和情绪强弱的核心观察点。"
     },
     {
       "code": "301234.SZ",
       "name": "五洲医疗",
       "sector": "医疗器械",
       "theme": "其他轮动",
-      "ladder": 2,
-      "price": 48.96,
-      "sealFund": 608151744.0,
-      "sealVolume": 12421400.0,
+      "ladder": 3,
+      "price": 58.75,
+      "sealFund": 489136050.0,
+      "sealVolume": 8325720.0,
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 20.0,
-      "amount": 19011168.0,
-      "turnover": 0.97,
-      "capturedAt": "12:36:02",
-      "note": "封单金额靠前，代表其他轮动方向开盘资金态度较强。"
+      "amount": 49730700.0,
+      "turnover": 2.11,
+      "capturedAt": "12:34:51",
+      "note": "3连板竞价封住，是短线高度和情绪强弱的核心观察点。"
     },
     {
-      "code": "000595.SZ",
-      "name": "新能股份",
-      "sector": "电力",
-      "theme": "电力能源/算力用电",
-      "ladder": 2,
-      "price": 5.52,
-      "sealFund": 107236488.0,
-      "sealVolume": 19426900.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "09:25:00",
-      "reopenCount": 0,
-      "status": "竞价封板",
-      "pct": 9.96,
-      "amount": 25720440.0,
-      "turnover": 0.41,
-      "capturedAt": "12:36:02",
-      "note": "电力能源/算力用电方向竞价封板，观察同板块是否扩散。"
-    },
-    {
-      "code": "002353.SZ",
-      "name": "杰瑞股份",
-      "sector": "专用设备",
-      "theme": "机器人/高端制造/汽车链",
-      "ladder": 1,
-      "price": 135.11,
-      "sealFund": 1753880609.0,
-      "sealVolume": 12981131.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "09:25:00",
-      "reopenCount": 0,
-      "status": "竞价封板",
-      "pct": 10.0,
-      "amount": 329623680.0,
-      "turnover": 0.35,
-      "capturedAt": "12:36:02",
-      "note": "封单金额靠前，代表机器人/高端制造/汽车链方向开盘资金态度较强。"
-    },
-    {
-      "code": "605299.SH",
-      "name": "舒华体育",
-      "sector": "文娱用品",
+      "code": "000533.SZ",
+      "name": "顺钠股份",
+      "sector": "电网设备",
       "theme": "其他轮动",
-      "ladder": 1,
-      "price": 12.12,
-      "sealFund": 73287628.0,
-      "sealVolume": 6046834.0,
-      "firstLimitTime": "09:30:00",
-      "lastLimitTime": "09:30:00",
-      "reopenCount": 0,
-      "status": "竞价封板",
-      "pct": 9.98,
-      "amount": 113683170.0,
-      "turnover": 2.3,
-      "capturedAt": "12:36:02",
-      "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
-    },
-    {
-      "code": "002199.SZ",
-      "name": "东晶电子",
-      "sector": "元件",
-      "theme": "AI硬件/CPO/半导体",
-      "ladder": 1,
-      "price": 10.73,
-      "sealFund": 52099332.0,
-      "sealVolume": 4855483.0,
+      "ladder": 2,
+      "price": 9.55,
+      "sealFund": 232788317.0,
+      "sealVolume": 24375740.0,
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封板",
-      "pct": 10.05,
-      "amount": 60383257.0,
-      "turnover": 2.44,
-      "capturedAt": "12:36:02",
-      "note": "AI硬件/CPO/半导体方向竞价封板，观察同板块是否扩散。"
+      "pct": 10.02,
+      "amount": 69583783.0,
+      "turnover": 1.06,
+      "capturedAt": "12:34:51",
+      "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
     }
   ]
 }
