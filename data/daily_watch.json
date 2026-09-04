@@ -1,99 +1,99 @@
 {
-  "date": "2026-09-03",
+  "date": "2026-09-04",
   "session": "竞价观察",
-  "updatedAt": "2026-09-03 13:50:16 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20260903)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
+  "updatedAt": "2026-09-04 13:56:25 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20260904)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
   "limitUpCount": 3,
-  "totalSealFund": 493350189.0,
-  "maxLadder": 4,
+  "totalSealFund": 999393314.0,
+  "maxLadder": 2,
   "hotSectors": [
     {
-      "name": "化工材料/新能源材料",
+      "name": "电力能源/算力用电",
       "count": 1,
-      "sealFund": 120251582.0
-    },
-    {
-      "name": "其他轮动",
-      "count": 1,
-      "sealFund": 236743759.0
+      "sealFund": 116064291.0
     },
     {
       "name": "AI应用/数据要素/服务",
       "count": 1,
-      "sealFund": 136354848.0
+      "sealFund": 108387056.0
+    },
+    {
+      "name": "AI硬件/CPO/半导体",
+      "count": 1,
+      "sealFund": 774941967.0
     }
   ],
   "forecast": [
     {
       "title": "结构性活跃",
-      "text": "竞价封板3只，更多是结构性机会。重点看化工材料/新能源材料(1)、其他轮动(1)、AI应用/数据要素/服务(1)能否带动同方向后排。"
+      "text": "竞价封板3只，更多是结构性机会。重点看电力能源/算力用电(1)、AI应用/数据要素/服务(1)、AI硬件/CPO/半导体(1)能否带动同方向后排。"
     },
     {
       "title": "主线观察",
-      "text": "板块上优先看化工材料/新能源材料(1)、其他轮动(1)、AI应用/数据要素/服务(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+      "text": "板块上优先看电力能源/算力用电(1)、AI应用/数据要素/服务(1)、AI硬件/CPO/半导体(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
     },
     {
       "title": "风险信号",
-      "text": "最高4连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
+      "text": "短线高度暂不明显 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
     }
   ],
   "stocks": [
     {
-      "code": "002909.SZ",
-      "name": "集泰股份",
-      "sector": "化学制品",
-      "theme": "化工材料/新能源材料",
-      "ladder": 4,
-      "price": 8.01,
-      "sealFund": 120251582.0,
-      "sealVolume": 15012682.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "10:01:54",
-      "reopenCount": 1,
-      "status": "竞价封板，后续开板1次",
-      "pct": 10.03,
-      "amount": 360498464.0,
-      "turnover": 11.83,
-      "capturedAt": "13:50:16",
-      "note": "4连板竞价封住，是短线高度和情绪强弱的核心观察点。"
-    },
-    {
-      "code": "002059.SZ",
-      "name": "云南旅游",
-      "sector": "旅游及景",
-      "theme": "其他轮动",
+      "code": "605580.SH",
+      "name": "恒盛能源",
+      "sector": "电力",
+      "theme": "电力能源/算力用电",
       "ladder": 2,
-      "price": 5.78,
-      "sealFund": 236743759.0,
-      "sealVolume": 40959128.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "09:25:00",
+      "price": 22.47,
+      "sealFund": 116064291.0,
+      "sealVolume": 5165300.0,
+      "firstLimitTime": "09:25:01",
+      "lastLimitTime": "09:25:01",
       "reopenCount": 0,
       "status": "竞价封板",
-      "pct": 10.1,
-      "amount": 137134384.0,
-      "turnover": 2.4,
-      "capturedAt": "13:50:16",
-      "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
+      "pct": 9.99,
+      "amount": 71416401.0,
+      "turnover": 1.14,
+      "capturedAt": "13:56:25",
+      "note": "电力能源/算力用电方向竞价封板，观察同板块是否扩散。"
     },
     {
       "code": "605398.SH",
       "name": "新炬网络",
       "sector": "IT服务Ⅱ",
       "theme": "AI应用/数据要素/服务",
-      "ladder": 1,
-      "price": 24.24,
-      "sealFund": 136354848.0,
-      "sealVolume": 5625200.0,
-      "firstLimitTime": "09:25:02",
-      "lastLimitTime": "09:25:02",
+      "ladder": 2,
+      "price": 26.66,
+      "sealFund": 108387056.0,
+      "sealVolume": 4065531.0,
+      "firstLimitTime": "09:25:01",
+      "lastLimitTime": "09:25:01",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 9.98,
-      "amount": 42068544.0,
-      "turnover": 1.07,
-      "capturedAt": "13:50:16",
+      "amount": 101669750.0,
+      "turnover": 2.34,
+      "capturedAt": "13:56:25",
       "note": "AI应用/数据要素/服务方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "003040.SZ",
+      "name": "楚天龙",
+      "sector": "通信设备",
+      "theme": "AI硬件/CPO/半导体",
+      "ladder": 1,
+      "price": 21.12,
+      "sealFund": 774941967.0,
+      "sealVolume": 36692328.0,
+      "firstLimitTime": "09:30:00",
+      "lastLimitTime": "09:30:00",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 10.0,
+      "amount": 954913968.0,
+      "turnover": 9.91,
+      "capturedAt": "13:56:25",
+      "note": "封单金额靠前，代表AI硬件/CPO/半导体方向开盘资金态度较强。"
     }
   ]
 }
