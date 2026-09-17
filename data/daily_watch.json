@@ -1,88 +1,93 @@
 {
-  "date": "2026-09-16",
+  "date": "2026-09-17",
   "session": "竞价观察",
-  "updatedAt": "2026-09-16 14:04:06 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20260916)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
+  "updatedAt": "2026-09-17 14:10:41 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20260917)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
   "limitUpCount": 3,
-  "totalSealFund": 452788827.0,
-  "maxLadder": 2,
+  "totalSealFund": 643504156.0,
+  "maxLadder": 3,
   "hotSectors": [
     {
       "name": "其他轮动",
-      "count": 3,
-      "sealFund": 452788827.0
+      "count": 2,
+      "sealFund": 428410872.0
+    },
+    {
+      "name": "AI硬件/CPO/半导体",
+      "count": 1,
+      "sealFund": 215093284.0
     }
   ],
   "forecast": [
     {
       "title": "结构性活跃",
-      "text": "竞价封板3只，更多是结构性机会。重点看其他轮动(3)能否带动同方向后排。"
+      "text": "竞价封板3只，更多是结构性机会。重点看其他轮动(2)、AI硬件/CPO/半导体(1)能否带动同方向后排。"
     },
     {
       "title": "主线观察",
-      "text": "板块上优先看其他轮动(3)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+      "text": "板块上优先看其他轮动(2)、AI硬件/CPO/半导体(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
     },
     {
       "title": "风险信号",
-      "text": "短线高度暂不明显 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
+      "text": "最高3连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
     }
   ],
   "stocks": [
     {
-      "code": "001216.SZ",
-      "name": "华瓷股份",
-      "sector": "家居用品",
+      "code": "003026.SZ",
+      "name": "中晶科技",
+      "sector": "半导体",
+      "theme": "AI硬件/CPO/半导体",
+      "ladder": 3,
+      "price": 37.0,
+      "sealFund": 215093284.0,
+      "sealVolume": 5813332.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:59:39",
+      "reopenCount": 2,
+      "status": "竞价封板，后续开板2次",
+      "pct": 9.99,
+      "amount": 554472736.0,
+      "turnover": 10.42,
+      "capturedAt": "14:10:41",
+      "note": "3连板竞价封住，是短线高度和情绪强弱的核心观察点。"
+    },
+    {
+      "code": "603230.SH",
+      "name": "内蒙新华",
+      "sector": "出版",
       "theme": "其他轮动",
       "ladder": 2,
-      "price": 18.07,
-      "sealFund": 159156638.0,
-      "sealVolume": 8807783.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "09:25:00",
+      "price": 12.25,
+      "sealFund": 147783987.0,
+      "sealVolume": 12063999.0,
+      "firstLimitTime": "09:25:03",
+      "lastLimitTime": "09:25:03",
       "reopenCount": 0,
       "status": "竞价封板",
-      "pct": 9.98,
-      "amount": 73910221.0,
+      "pct": 9.96,
+      "amount": 72093712.0,
       "turnover": 1.66,
-      "capturedAt": "14:04:06",
+      "capturedAt": "14:10:41",
       "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
     },
     {
-      "code": "003001.SZ",
-      "name": "中岩大地",
-      "sector": "专业工程",
+      "code": "301390.SZ",
+      "name": "经纬股份",
+      "sector": "工程咨询",
       "theme": "其他轮动",
       "ladder": 1,
-      "price": 18.47,
-      "sealFund": 158751183.0,
-      "sealVolume": 8595083.0,
-      "firstLimitTime": "09:30:00",
-      "lastLimitTime": "09:30:00",
-      "reopenCount": 0,
-      "status": "竞价封板",
-      "pct": 10.01,
-      "amount": 115571616.0,
-      "turnover": 5.47,
-      "capturedAt": "14:04:06",
-      "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
-    },
-    {
-      "code": "002442.SZ",
-      "name": "龙星科技",
-      "sector": "橡胶",
-      "theme": "其他轮动",
-      "ladder": 1,
-      "price": 5.68,
-      "sealFund": 134881006.0,
-      "sealVolume": 23746656.0,
+      "price": 45.0,
+      "sealFund": 280626885.0,
+      "sealVolume": 6236153.0,
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封板",
-      "pct": 10.08,
-      "amount": 43644234.0,
-      "turnover": 1.56,
-      "capturedAt": "14:04:06",
+      "pct": 20.0,
+      "amount": 25751115.0,
+      "turnover": 1.17,
+      "capturedAt": "14:10:41",
       "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
     }
   ]
