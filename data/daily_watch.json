@@ -1,94 +1,118 @@
 {
-  "date": "2026-09-17",
+  "date": "2026-09-18",
   "session": "竞价观察",
-  "updatedAt": "2026-09-17 14:10:41 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20260917)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
-  "limitUpCount": 3,
-  "totalSealFund": 643504156.0,
-  "maxLadder": 3,
+  "updatedAt": "2026-09-18 13:57:31 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20260918)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
+  "limitUpCount": 4,
+  "totalSealFund": 381339331.0,
+  "maxLadder": 2,
   "hotSectors": [
     {
       "name": "其他轮动",
       "count": 2,
-      "sealFund": 428410872.0
+      "sealFund": 193406881.0
     },
     {
-      "name": "AI硬件/CPO/半导体",
+      "name": "化工材料/新能源材料",
       "count": 1,
-      "sealFund": 215093284.0
+      "sealFund": 74973600.0
+    },
+    {
+      "name": "电力能源/算力用电",
+      "count": 1,
+      "sealFund": 112958850.0
     }
   ],
   "forecast": [
     {
       "title": "结构性活跃",
-      "text": "竞价封板3只，更多是结构性机会。重点看其他轮动(2)、AI硬件/CPO/半导体(1)能否带动同方向后排。"
+      "text": "竞价封板4只，更多是结构性机会。重点看其他轮动(2)、化工材料/新能源材料(1)、电力能源/算力用电(1)能否带动同方向后排。"
     },
     {
       "title": "主线观察",
-      "text": "板块上优先看其他轮动(2)、AI硬件/CPO/半导体(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+      "text": "板块上优先看其他轮动(2)、化工材料/新能源材料(1)、电力能源/算力用电(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
     },
     {
       "title": "风险信号",
-      "text": "最高3连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
+      "text": "短线高度暂不明显 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
     }
   ],
   "stocks": [
-    {
-      "code": "003026.SZ",
-      "name": "中晶科技",
-      "sector": "半导体",
-      "theme": "AI硬件/CPO/半导体",
-      "ladder": 3,
-      "price": 37.0,
-      "sealFund": 215093284.0,
-      "sealVolume": 5813332.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "09:59:39",
-      "reopenCount": 2,
-      "status": "竞价封板，后续开板2次",
-      "pct": 9.99,
-      "amount": 554472736.0,
-      "turnover": 10.42,
-      "capturedAt": "14:10:41",
-      "note": "3连板竞价封住，是短线高度和情绪强弱的核心观察点。"
-    },
-    {
-      "code": "603230.SH",
-      "name": "内蒙新华",
-      "sector": "出版",
-      "theme": "其他轮动",
-      "ladder": 2,
-      "price": 12.25,
-      "sealFund": 147783987.0,
-      "sealVolume": 12063999.0,
-      "firstLimitTime": "09:25:03",
-      "lastLimitTime": "09:25:03",
-      "reopenCount": 0,
-      "status": "竞价封板",
-      "pct": 9.96,
-      "amount": 72093712.0,
-      "turnover": 1.66,
-      "capturedAt": "14:10:41",
-      "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
-    },
     {
       "code": "301390.SZ",
       "name": "经纬股份",
       "sector": "工程咨询",
       "theme": "其他轮动",
-      "ladder": 1,
-      "price": 45.0,
-      "sealFund": 280626885.0,
-      "sealVolume": 6236153.0,
+      "ladder": 2,
+      "price": 54.0,
+      "sealFund": 116699400.0,
+      "sealVolume": 2161100.0,
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封板",
       "pct": 20.0,
-      "amount": 25751115.0,
-      "turnover": 1.17,
-      "capturedAt": "14:10:41",
+      "amount": 221881788.0,
+      "turnover": 8.38,
+      "capturedAt": "13:57:31",
       "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "600448.SH",
+      "name": "华纺股份",
+      "sector": "纺织制造",
+      "theme": "其他轮动",
+      "ladder": 2,
+      "price": 3.54,
+      "sealFund": 76707481.0,
+      "sealVolume": 21668780.0,
+      "firstLimitTime": "09:25:01",
+      "lastLimitTime": "09:25:01",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 9.94,
+      "amount": 164996313.0,
+      "turnover": 7.4,
+      "capturedAt": "13:57:31",
+      "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "002453.SZ",
+      "name": "华软科技",
+      "sector": "化学制品",
+      "theme": "化工材料/新能源材料",
+      "ladder": 2,
+      "price": 5.34,
+      "sealFund": 74973600.0,
+      "sealVolume": 14040000.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "10:41:15",
+      "reopenCount": 1,
+      "status": "竞价封板，后续开板1次",
+      "pct": 10.1,
+      "amount": 438972640.0,
+      "turnover": 13.21,
+      "capturedAt": "13:57:31",
+      "note": "化工材料/新能源材料方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "001376.SZ",
+      "name": "百通能源",
+      "sector": "电力",
+      "theme": "电力能源/算力用电",
+      "ladder": 1,
+      "price": 12.66,
+      "sealFund": 112958850.0,
+      "sealVolume": 8922500.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:25:00",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 9.99,
+      "amount": 144155622.0,
+      "turnover": 5.3,
+      "capturedAt": "13:57:31",
+      "note": "电力能源/算力用电方向竞价封板，观察同板块是否扩散。"
     }
   ]
 }
