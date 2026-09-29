@@ -1,35 +1,45 @@
 {
-  "date": "2026-09-28",
+  "date": "2026-09-29",
   "session": "竞价观察",
-  "updatedAt": "2026-09-28 14:56:28 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20260928)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
-  "limitUpCount": 3,
-  "totalSealFund": 2838207164.0,
-  "maxLadder": 5,
+  "updatedAt": "2026-09-29 14:56:26 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20260929)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
+  "limitUpCount": 7,
+  "totalSealFund": 3104714900.0,
+  "maxLadder": 6,
   "hotSectors": [
     {
       "name": "其他轮动",
       "count": 2,
-      "sealFund": 2786814496.0
+      "sealFund": 2379016057.0
     },
     {
       "name": "机器人/高端制造/汽车链",
+      "count": 2,
+      "sealFund": 307023002.0
+    },
+    {
+      "name": "地产基建/城市更新",
+      "count": 2,
+      "sealFund": 325286210.0
+    },
+    {
+      "name": "化工材料/新能源材料",
       "count": 1,
-      "sealFund": 51392668.0
+      "sealFund": 93389631.0
     }
   ],
   "forecast": [
     {
       "title": "结构性活跃",
-      "text": "竞价封板3只，更多是结构性机会。重点看其他轮动(2)、机器人/高端制造/汽车链(1)能否带动同方向后排。"
+      "text": "竞价封板7只，更多是结构性机会。重点看其他轮动(2)、机器人/高端制造/汽车链(2)、地产基建/城市更新(2)能否带动同方向后排。"
     },
     {
       "title": "主线观察",
-      "text": "板块上优先看其他轮动(2)、机器人/高端制造/汽车链(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+      "text": "板块上优先看其他轮动(2)、机器人/高端制造/汽车链(2)、地产基建/城市更新(2)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
     },
     {
       "title": "风险信号",
-      "text": "最高5连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
+      "text": "最高6连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
     }
   ],
   "stocks": [
@@ -38,57 +48,133 @@
       "name": "新华传媒",
       "sector": "出版",
       "theme": "其他轮动",
-      "ladder": 5,
-      "price": 8.55,
-      "sealFund": 2505353968.0,
-      "sealVolume": 293023856.0,
-      "firstLimitTime": "09:25:01",
-      "lastLimitTime": "09:25:01",
+      "ladder": 6,
+      "price": 9.41,
+      "sealFund": 1983572791.0,
+      "sealVolume": 210794133.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封板",
-      "pct": 10.04,
-      "amount": 42504966.0,
-      "turnover": 0.48,
-      "capturedAt": "14:56:28",
-      "note": "5连板竞价封住，是短线高度和情绪强弱的核心观察点。"
+      "pct": 10.06,
+      "amount": 146027833.0,
+      "turnover": 1.49,
+      "capturedAt": "14:56:26",
+      "note": "6连板竞价封住，是短线高度和情绪强弱的核心观察点。"
     },
     {
       "code": "603949.SH",
       "name": "雪龙集团",
       "sector": "汽车零部",
       "theme": "机器人/高端制造/汽车链",
-      "ladder": 3,
-      "price": 18.59,
-      "sealFund": 51392668.0,
-      "sealVolume": 2764533.0,
-      "firstLimitTime": "09:30:00",
-      "lastLimitTime": "09:38:45",
-      "reopenCount": 1,
-      "status": "竞价封板，后续开板1次",
-      "pct": 10.0,
-      "amount": 298704960.0,
-      "turnover": 7.78,
-      "capturedAt": "14:56:28",
-      "note": "3连板竞价封住，是短线高度和情绪强弱的核心观察点。"
+      "ladder": 4,
+      "price": 20.45,
+      "sealFund": 153150009.0,
+      "sealVolume": 7488998.0,
+      "firstLimitTime": "09:25:01",
+      "lastLimitTime": "09:25:01",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 10.01,
+      "amount": 71605716.0,
+      "turnover": 1.67,
+      "capturedAt": "14:56:26",
+      "note": "4连板竞价封住，是短线高度和情绪强弱的核心观察点。"
     },
     {
-      "code": "001330.SZ",
-      "name": "博纳影业",
-      "sector": "影视院线",
-      "theme": "其他轮动",
-      "ladder": 1,
-      "price": 6.36,
-      "sealFund": 281460528.0,
-      "sealVolume": 44254800.0,
+      "code": "000678.SZ",
+      "name": "襄阳轴承",
+      "sector": "汽车零部",
+      "theme": "机器人/高端制造/汽车链",
+      "ladder": 3,
+      "price": 11.72,
+      "sealFund": 153872993.0,
+      "sealVolume": 13129095.0,
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封板",
-      "pct": 10.03,
-      "amount": 258307584.0,
-      "turnover": 3.49,
-      "capturedAt": "14:56:28",
-      "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
+      "pct": 10.05,
+      "amount": 108480379.0,
+      "turnover": 2.01,
+      "capturedAt": "14:56:26",
+      "note": "3连板竞价封住，是短线高度和情绪强弱的核心观察点。"
+    },
+    {
+      "code": "600241.SH",
+      "name": "时代万恒",
+      "sector": "电池",
+      "theme": "化工材料/新能源材料",
+      "ladder": 2,
+      "price": 8.84,
+      "sealFund": 93389631.0,
+      "sealVolume": 10564438.0,
+      "firstLimitTime": "09:25:02",
+      "lastLimitTime": "09:25:02",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 9.95,
+      "amount": 151289758.0,
+      "turnover": 5.82,
+      "capturedAt": "14:56:26",
+      "note": "化工材料/新能源材料方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "000011.SZ",
+      "name": "深物业A",
+      "sector": "房地产开",
+      "theme": "地产基建/城市更新",
+      "ladder": 2,
+      "price": 11.13,
+      "sealFund": 83860020.0,
+      "sealVolume": 7534593.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:39:42",
+      "reopenCount": 1,
+      "status": "竞价封板，后续开板1次",
+      "pct": 9.98,
+      "amount": 466065232.0,
+      "turnover": 7.98,
+      "capturedAt": "14:56:26",
+      "note": "地产基建/城市更新方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "601238.SH",
+      "name": "广汽集团",
+      "sector": "乘用车",
+      "theme": "其他轮动",
+      "ladder": 1,
+      "price": 5.6,
+      "sealFund": 395443266.0,
+      "sealVolume": 70614869.0,
+      "firstLimitTime": "09:25:01",
+      "lastLimitTime": "09:25:01",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 10.02,
+      "amount": 45054414.0,
+      "turnover": 0.11,
+      "capturedAt": "14:56:26",
+      "note": "封单金额靠前，代表其他轮动方向开盘资金态度较强。"
+    },
+    {
+      "code": "605303.SH",
+      "name": "园林股份",
+      "sector": "基础建设",
+      "theme": "地产基建/城市更新",
+      "ladder": 1,
+      "price": 26.05,
+      "sealFund": 241426190.0,
+      "sealVolume": 9267800.0,
+      "firstLimitTime": "09:25:02",
+      "lastLimitTime": "09:25:02",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 10.01,
+      "amount": 6606280.0,
+      "turnover": 0.16,
+      "capturedAt": "14:56:26",
+      "note": "地产基建/城市更新方向竞价封板，观察同板块是否扩散。"
     }
   ]
 }
