@@ -1,17 +1,142 @@
 {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "session": "竞价观察",
-  "updatedAt": "2026-10-07 15:16:54 +08:00",
-  "source": "东方财富涨停池暂未返回当日数据，接口 qdate=20260930",
-  "limitUpCount": 0,
-  "totalSealFund": 0,
-  "maxLadder": 0,
-  "hotSectors": [],
-  "forecast": [
+  "updatedAt": "2026-10-08 15:27:32 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20261008)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
+  "limitUpCount": 5,
+  "totalSealFund": 450626092.0,
+  "maxLadder": 8,
+  "hotSectors": [
     {
-      "title": "数据未更新",
-      "text": "早盘数据源尚未切到当天，未使用旧日期数据冒充。"
+      "name": "其他轮动",
+      "count": 2,
+      "sealFund": 57731121.0
+    },
+    {
+      "name": "消费零售/家电服饰",
+      "count": 1,
+      "sealFund": 240453537.0
+    },
+    {
+      "name": "化工材料/新能源材料",
+      "count": 1,
+      "sealFund": 142263550.0
+    },
+    {
+      "name": "地产基建/城市更新",
+      "count": 1,
+      "sealFund": 10177884.0
     }
   ],
-  "stocks": []
+  "forecast": [
+    {
+      "title": "结构性活跃",
+      "text": "竞价封板5只，更多是结构性机会。重点看其他轮动(2)、消费零售/家电服饰(1)、化工材料/新能源材料(1)能否带动同方向后排。"
+    },
+    {
+      "title": "主线观察",
+      "text": "板块上优先看其他轮动(2)、消费零售/家电服饰(1)、化工材料/新能源材料(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+    },
+    {
+      "title": "风险信号",
+      "text": "最高8连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
+    }
+  ],
+  "stocks": [
+    {
+      "code": "600825.SH",
+      "name": "新华传媒",
+      "sector": "出版",
+      "theme": "其他轮动",
+      "ladder": 8,
+      "price": 11.39,
+      "sealFund": 56055885.0,
+      "sealVolume": 4921500.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:25:00",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 10.05,
+      "amount": 64324547.0,
+      "turnover": 0.54,
+      "capturedAt": "15:27:32",
+      "note": "8连板竞价封住，是短线高度和情绪强弱的核心观察点。"
+    },
+    {
+      "code": "002242.SZ",
+      "name": "九阳股份",
+      "sector": "小家电",
+      "theme": "消费零售/家电服饰",
+      "ladder": 4,
+      "price": 13.75,
+      "sealFund": 240453537.0,
+      "sealVolume": 17487530.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:25:00",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 10.0,
+      "amount": 151183588.0,
+      "turnover": 1.44,
+      "capturedAt": "15:27:32",
+      "note": "4连板竞价封住，是短线高度和情绪强弱的核心观察点。"
+    },
+    {
+      "code": "002058.SZ",
+      "name": "紫竹高科",
+      "sector": "电池",
+      "theme": "化工材料/新能源材料",
+      "ladder": 3,
+      "price": 22.22,
+      "sealFund": 142263550.0,
+      "sealVolume": 6402500.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:30:42",
+      "reopenCount": 1,
+      "status": "竞价封板，后续开板1次",
+      "pct": 10.0,
+      "amount": 104419028.0,
+      "turnover": 3.3,
+      "capturedAt": "15:27:32",
+      "note": "3连板竞价封住，是短线高度和情绪强弱的核心观察点。"
+    },
+    {
+      "code": "605303.SH",
+      "name": "园林股份",
+      "sector": "基础建设",
+      "theme": "地产基建/城市更新",
+      "ladder": 3,
+      "price": 31.53,
+      "sealFund": 10177884.0,
+      "sealVolume": 322800.0,
+      "firstLimitTime": "09:25:02",
+      "lastLimitTime": "09:25:02",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 10.01,
+      "amount": 10140048.0,
+      "turnover": 0.2,
+      "capturedAt": "15:27:32",
+      "note": "3连板竞价封住，是短线高度和情绪强弱的核心观察点。"
+    },
+    {
+      "code": "600812.SH",
+      "name": "华北制药",
+      "sector": "化学制药",
+      "theme": "其他轮动",
+      "ladder": 1,
+      "price": 5.48,
+      "sealFund": 1675236.0,
+      "sealVolume": 305700.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:48:39",
+      "reopenCount": 2,
+      "status": "竞价封板，后续开板2次",
+      "pct": 10.04,
+      "amount": 494359008.0,
+      "turnover": 5.27,
+      "capturedAt": "15:27:32",
+      "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
+    }
+  ]
 }
