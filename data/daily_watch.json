@@ -1,40 +1,50 @@
 {
-  "date": "2026-10-29",
+  "date": "2026-10-30",
   "session": "竞价观察",
-  "updatedAt": "2026-10-29 15:07:46 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20261029)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
-  "limitUpCount": 5,
-  "totalSealFund": 691273236.0,
-  "maxLadder": 4,
+  "updatedAt": "2026-10-30 15:08:20 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20261030)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
+  "limitUpCount": 6,
+  "totalSealFund": 270075131.0,
+  "maxLadder": 5,
   "hotSectors": [
     {
-      "name": "消费零售/家电服饰",
+      "name": "其他轮动",
       "count": 2,
-      "sealFund": 179885865.0
+      "sealFund": 138283011.0
+    },
+    {
+      "name": "消费零售/家电服饰",
+      "count": 1,
+      "sealFund": 57075239.0
     },
     {
       "name": "机器人/高端制造/汽车链",
-      "count": 2,
-      "sealFund": 105643233.0
+      "count": 1,
+      "sealFund": 13420485.0
     },
     {
-      "name": "其他轮动",
+      "name": "AI硬件/CPO/半导体",
       "count": 1,
-      "sealFund": 405744138.0
+      "sealFund": 16072750.0
+    },
+    {
+      "name": "地产基建/城市更新",
+      "count": 1,
+      "sealFund": 45223646.0
     }
   ],
   "forecast": [
     {
       "title": "结构性活跃",
-      "text": "竞价封板5只，更多是结构性机会。重点看消费零售/家电服饰(2)、机器人/高端制造/汽车链(2)、其他轮动(1)能否带动同方向后排。"
+      "text": "竞价封板6只，更多是结构性机会。重点看其他轮动(2)、消费零售/家电服饰(1)、机器人/高端制造/汽车链(1)能否带动同方向后排。"
     },
     {
       "title": "主线观察",
-      "text": "板块上优先看消费零售/家电服饰(2)、机器人/高端制造/汽车链(2)、其他轮动(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+      "text": "板块上优先看其他轮动(2)、消费零售/家电服饰(1)、机器人/高端制造/汽车链(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
     },
     {
       "title": "风险信号",
-      "text": "最高4连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
+      "text": "最高5连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
     }
   ],
   "stocks": [
@@ -43,95 +53,114 @@
       "name": "青岛食品",
       "sector": "休闲食品",
       "theme": "消费零售/家电服饰",
-      "ladder": 4,
-      "price": 18.13,
-      "sealFund": 165299295.0,
-      "sealVolume": 9117446.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "09:25:00",
-      "reopenCount": 0,
-      "status": "竞价封板",
-      "pct": 10.01,
-      "amount": 54276760.0,
-      "turnover": 1.57,
-      "capturedAt": "15:07:46",
-      "note": "4连板竞价封住，是短线高度和情绪强弱的核心观察点。"
-    },
-    {
-      "code": "002708.SZ",
-      "name": "光洋股份",
-      "sector": "汽车零部",
-      "theme": "机器人/高端制造/汽车链",
-      "ladder": 4,
-      "price": 20.83,
-      "sealFund": 8538217.0,
-      "sealVolume": 409900.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "15:00:00",
-      "reopenCount": 17,
-      "status": "竞价封板，后续开板17次",
+      "ladder": 5,
+      "price": 19.94,
+      "sealFund": 57075239.0,
+      "sealVolume": 2862349.0,
+      "firstLimitTime": "09:30:00",
+      "lastLimitTime": "13:00:00",
+      "reopenCount": 3,
+      "status": "竞价封板，后续开板3次",
       "pct": 9.98,
-      "amount": 2887379408.0,
-      "turnover": 27.9,
-      "capturedAt": "15:07:46",
-      "note": "4连板竞价封住，是短线高度和情绪强弱的核心观察点。"
+      "amount": 944077296.0,
+      "turnover": 24.9,
+      "capturedAt": "15:08:20",
+      "note": "5连板竞价封住，是短线高度和情绪强弱的核心观察点。"
     },
     {
-      "code": "601956.SH",
-      "name": "东贝集团",
-      "sector": "家电零部",
-      "theme": "消费零售/家电服饰",
+      "code": "603131.SH",
+      "name": "上海沪工",
+      "sector": "通用设备",
+      "theme": "机器人/高端制造/汽车链",
       "ladder": 3,
-      "price": 6.7,
-      "sealFund": 14586570.0,
-      "sealVolume": 2177100.0,
+      "price": 17.55,
+      "sealFund": 13420485.0,
+      "sealVolume": 764700.0,
       "firstLimitTime": "09:25:02",
       "lastLimitTime": "09:25:02",
       "reopenCount": 0,
       "status": "竞价封板",
-      "pct": 10.02,
-      "amount": 105518669.0,
-      "turnover": 2.53,
-      "capturedAt": "15:07:46",
+      "pct": 10.03,
+      "amount": 189684437.0,
+      "turnover": 3.21,
+      "capturedAt": "15:08:20",
       "note": "3连板竞价封住，是短线高度和情绪强弱的核心观察点。"
     },
     {
-      "code": "002862.SZ",
-      "name": "实丰文化",
-      "sector": "文娱用品",
+      "code": "600261.SH",
+      "name": "阳光照明",
+      "sector": "照明设备",
       "theme": "其他轮动",
       "ladder": 2,
-      "price": 16.92,
-      "sealFund": 405744138.0,
-      "sealVolume": 23980150.0,
-      "firstLimitTime": "09:25:00",
-      "lastLimitTime": "09:25:00",
+      "price": 4.09,
+      "sealFund": 34090150.0,
+      "sealVolume": 8335000.0,
+      "firstLimitTime": "09:25:02",
+      "lastLimitTime": "09:25:02",
       "reopenCount": 0,
       "status": "竞价封板",
-      "pct": 10.01,
-      "amount": 36290862.0,
-      "turnover": 1.67,
-      "capturedAt": "15:07:46",
-      "note": "封单金额靠前，代表其他轮动方向开盘资金态度较强。"
+      "pct": 9.95,
+      "amount": 137021270.0,
+      "turnover": 2.51,
+      "capturedAt": "15:08:20",
+      "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
     },
     {
-      "code": "002526.SZ",
-      "name": "山东矿机",
-      "sector": "专用设备",
-      "theme": "机器人/高端制造/汽车链",
+      "code": "603703.SH",
+      "name": "盛洋科技",
+      "sector": "光学光电",
+      "theme": "AI硬件/CPO/半导体",
       "ladder": 2,
-      "price": 3.28,
-      "sealFund": 97105016.0,
-      "sealVolume": 29605188.0,
+      "price": 11.95,
+      "sealFund": 16072750.0,
+      "sealVolume": 1345000.0,
       "firstLimitTime": "09:25:00",
       "lastLimitTime": "09:25:00",
       "reopenCount": 0,
       "status": "竞价封板",
-      "pct": 10.07,
-      "amount": 146112222.0,
-      "turnover": 2.51,
-      "capturedAt": "15:07:46",
-      "note": "机器人/高端制造/汽车链方向竞价封板，观察同板块是否扩散。"
+      "pct": 10.04,
+      "amount": 91126637.0,
+      "turnover": 1.84,
+      "capturedAt": "15:08:20",
+      "note": "AI硬件/CPO/半导体方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "002365.SZ",
+      "name": "永安药业",
+      "sector": "化学制药",
+      "theme": "其他轮动",
+      "ladder": 1,
+      "price": 12.23,
+      "sealFund": 104192861.0,
+      "sealVolume": 8519449.0,
+      "firstLimitTime": "09:30:00",
+      "lastLimitTime": "09:30:00",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 9.98,
+      "amount": 121532523.0,
+      "turnover": 4.05,
+      "capturedAt": "15:08:20",
+      "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "000897.SZ",
+      "name": "津滨发展",
+      "sector": "房地产开",
+      "theme": "地产基建/城市更新",
+      "ladder": 1,
+      "price": 1.84,
+      "sealFund": 45223646.0,
+      "sealVolume": 24578068.0,
+      "firstLimitTime": "09:30:00",
+      "lastLimitTime": "09:30:00",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 10.18,
+      "amount": 79671038.0,
+      "turnover": 2.68,
+      "capturedAt": "15:08:20",
+      "note": "地产基建/城市更新方向竞价封板，观察同板块是否扩散。"
     }
   ]
 }
