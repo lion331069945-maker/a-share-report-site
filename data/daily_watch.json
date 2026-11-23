@@ -1,51 +1,142 @@
 {
-  "date": "2026-11-20",
+  "date": "2026-11-23",
   "session": "竞价观察",
-  "updatedAt": "2026-11-20 16:34:58 +08:00",
-  "source": "东方财富涨停池 getTopicZTPool(date=20261120)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
-  "limitUpCount": 1,
-  "totalSealFund": 43397739.0,
-  "maxLadder": 4,
+  "updatedAt": "2026-11-23 17:07:40 +08:00",
+  "source": "东方财富涨停池 getTopicZTPool(date=20261123)；口径为 09:25-09:30 期间已封住涨停的竞价/早盘封板票，后续炸板仍保留并标注状态。",
+  "limitUpCount": 5,
+  "totalSealFund": 509985585.0,
+  "maxLadder": 5,
   "hotSectors": [
+    {
+      "name": "AI应用/数据要素/服务",
+      "count": 2,
+      "sealFund": 183264514.0
+    },
+    {
+      "name": "机器人/高端制造/汽车链",
+      "count": 1,
+      "sealFund": 168739545.0
+    },
     {
       "name": "其他轮动",
       "count": 1,
-      "sealFund": 43397739.0
+      "sealFund": 73392753.0
+    },
+    {
+      "name": "AI硬件/CPO/半导体",
+      "count": 1,
+      "sealFund": 84588773.0
     }
   ],
   "forecast": [
     {
-      "title": "竞价偏谨慎",
-      "text": "竞价封板只有1只，盘前情绪不算强。若指数不能快速放量，早盘更适合等分歧后的承接。"
+      "title": "结构性活跃",
+      "text": "竞价封板5只，更多是结构性机会。重点看AI应用/数据要素/服务(2)、机器人/高端制造/汽车链(1)、其他轮动(1)能否带动同方向后排。"
     },
     {
       "title": "主线观察",
-      "text": "板块上优先看其他轮动(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
+      "text": "板块上优先看AI应用/数据要素/服务(2)、机器人/高端制造/汽车链(1)、其他轮动(1)。若开盘15分钟内同方向出现换手板或趋势核心放量上攻，说明竞价强度有扩散价值。"
     },
     {
       "title": "风险信号",
-      "text": "最高4连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
+      "text": "最高5连板若继续大单封死，说明短线空间仍在；若高标开板回落，要防情绪退潮。 若竞价封板票开盘后封单快速衰减、前排炸板不回封，今日盘面容易从强预期转入分歧。"
     }
   ],
   "stocks": [
     {
-      "code": "603324.SH",
-      "name": "盛剑科技",
-      "sector": "环保设备",
+      "code": "002771.SZ",
+      "name": "真视通",
+      "sector": "IT服务Ⅱ",
+      "theme": "AI应用/数据要素/服务",
+      "ladder": 5,
+      "price": 17.4,
+      "sealFund": 46752912.0,
+      "sealVolume": 2686949.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "14:54:33",
+      "reopenCount": 6,
+      "status": "竞价封板，后续开板6次",
+      "pct": 9.99,
+      "amount": 1851695424.0,
+      "turnover": 60.41,
+      "capturedAt": "17:07:40",
+      "note": "5连板竞价封住，是短线高度和情绪强弱的核心观察点。"
+    },
+    {
+      "code": "603960.SH",
+      "name": "克来机电",
+      "sector": "汽车零部",
+      "theme": "机器人/高端制造/汽车链",
+      "ladder": 2,
+      "price": 15.37,
+      "sealFund": 168739545.0,
+      "sealVolume": 10978500.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:25:00",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 10.02,
+      "amount": 37138531.0,
+      "turnover": 0.92,
+      "capturedAt": "17:07:40",
+      "note": "机器人/高端制造/汽车链方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "002642.SZ",
+      "name": "荣联科技",
+      "sector": "IT服务Ⅱ",
+      "theme": "AI应用/数据要素/服务",
+      "ladder": 2,
+      "price": 7.99,
+      "sealFund": 136511602.0,
+      "sealVolume": 17085307.0,
+      "firstLimitTime": "09:30:00",
+      "lastLimitTime": "09:30:00",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 10.06,
+      "amount": 314850464.0,
+      "turnover": 5.96,
+      "capturedAt": "17:07:40",
+      "note": "AI应用/数据要素/服务方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "000593.SZ",
+      "name": "德龙汇能",
+      "sector": "燃气Ⅱ",
       "theme": "其他轮动",
-      "ladder": 4,
-      "price": 27.71,
-      "sealFund": 43397739.0,
-      "sealVolume": 1566140.0,
-      "firstLimitTime": "09:25:01",
-      "lastLimitTime": "14:07:49",
-      "reopenCount": 4,
-      "status": "竞价封板，后续开板4次",
-      "pct": 10.0,
-      "amount": 673088896.0,
-      "turnover": 17.14,
-      "capturedAt": "16:34:58",
-      "note": "4连板竞价封住，是短线高度和情绪强弱的核心观察点。"
+      "ladder": 2,
+      "price": 19.26,
+      "sealFund": 73392753.0,
+      "sealVolume": 3810631.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:25:00",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 9.99,
+      "amount": 74872653.0,
+      "turnover": 1.08,
+      "capturedAt": "17:07:40",
+      "note": "其他轮动方向竞价封板，观察同板块是否扩散。"
+    },
+    {
+      "code": "002036.SZ",
+      "name": "联创电子",
+      "sector": "光学光电",
+      "theme": "AI硬件/CPO/半导体",
+      "ladder": 1,
+      "price": 4.87,
+      "sealFund": 84588773.0,
+      "sealVolume": 17369358.0,
+      "firstLimitTime": "09:25:00",
+      "lastLimitTime": "09:25:00",
+      "reopenCount": 0,
+      "status": "竞价封板",
+      "pct": 9.93,
+      "amount": 64085996.0,
+      "turnover": 1.25,
+      "capturedAt": "17:07:40",
+      "note": "AI硬件/CPO/半导体方向竞价封板，观察同板块是否扩散。"
     }
   ]
 }
